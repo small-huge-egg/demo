@@ -1,0 +1,324 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+/*全局*/
+html,body{
+    /* height:2277px; */
+    margin:0 auto;
+    width:1280vmin;
+    /* overflow-x:hidden; */
+    width:100%; 
+}
+
+/*头部*/
+header{
+    height:55px;
+}
+.header-left{
+    float:left;
+    position: relative;
+    top:12px;
+    left:56px;
+}
+.header-left img{
+    float:left;
+    position: relative;
+    top:0px;
+    left:0px;
+}
+.header-text{
+    float:left;
+    position:relative;
+    top:4px;
+    left:10px;
+    font-Family: "SimHei";
+    font-Size: 21px;
+    color: "#393a3a";
+}
+.header-right{
+    float:right;
+    position:relative;
+    top:16px;
+}
+nav ul{
+    float:right;
+    position:relative;
+    list-style-type:none;
+    right:123px;
+}
+nav li{
+    display:inline;
+}
+nav ul li a{
+    font-Family: "MicrosoftYaHei";
+    text-decoration-line: none;
+    padding:0 22 20 22;
+    color:rgb(120,123,131);
+}
+nav ul li a:hover{
+    border-bottom:4px solid rgb(231,79,77);
+    color:#e74f4d;
+}
+.header-right-login{
+    float:right;
+    position:relative;
+    right:66px;
+    top:-21px;
+}
+.header-right-login a{
+    text-decoration: none;
+    padding-left:3px;
+    font-Family: "MicrosoftYaHei";
+	font-size: 14px;
+	color: #e74f4d;
+}
+.clear{
+    clear:both;
+}
+/*索引横幅*/
+.banner{
+    position:relative;
+    height:690px;
+}
+.banner img{
+    width: 100%;
+    height: 690px;
+}
+.banner-cover{
+    position:absolute;
+    top:0px;
+    background:#030000;
+    opacity:0.2;
+    height:690px;
+    width:100%;
+}
+.banner-bigtitle{
+    position:absolute;
+    top:230px;
+    left:117px;
+    font-family: 'MicrosoftYaHei';
+    font-size:60px;
+    color:#fff;
+}
+.banner-smtitle{
+    position:absolute;
+    top:310px;
+    left:124px;
+    font-family: 'MicrosoftYaHei';
+    font-size:21px;
+    line-height:32px;
+    color:#fffdfd;
+    opacity: 0.8;
+}
+.banner-onetitle{
+    position:absolute;
+    top:429px;
+    left:126px;
+    width:331px;
+    height:65px;
+    background:rgb(231,79,77);
+}
+.banner-onetitle p{
+    margin:11 0 0 99;
+    font-size:30px;
+    font-family: 'MicrosoftYaHei';
+    letter-spacing:3px;
+    color:#fff;
+}
+/*表单*/
+.list{
+    position:relative;
+    width:100%;
+    height:248px;
+    margin:0 auto;
+}
+.list-single{
+    position: relative;
+    float:left;
+    margin:0 auto;
+    width:25%;
+}
+.list-single img{
+    margin:45 auto;
+    display:block;
+}
+.list-single p{
+    font-family: 'SimHei';
+    font-size:14px;
+    line-height:16px;
+    color:#767777;
+    width:154px;
+    margin:0 auto;
+    text-align:center;
+}
+.list-line{
+    top:130px;
+    position:absolute;
+    float:right;
+    width: 1px;
+    height: 50px; 
+    background: rgb(195,195,196);
+}
+/*关于新世界，你不知道的还有什么*/
+.banner-one{
+    height:360px;
+    background: rgb(236,236,236);
+    width:100%;
+}
+.banner-one img{
+    display:block;
+    margin:0 auto;
+    padding-top:89px;
+}
+.banner-one p{
+    margin-top:53px;
+    font-family: 'SimHei';
+    font-size:53px;
+    text-align:center;
+    color:#323333;
+    opacity: 0.5;
+}
+/*地图*/
+.banner-search{
+    position:relative;
+    background-size:100% 100%;
+    height:340px;
+    background-image:url(../images/seventh/map.png);
+}
+.banner-search-bc{
+    position:absolute;
+    clear:both;
+    left:0;
+    top:0;
+    width:100%;
+    height:340px;
+    background-color:red;
+    content:"";
+    opacity: 0.1;
+}
+.b-s-textone{
+    position:relative;
+    padding-top:53px;
+    text-align: center;
+    font-family: 'MicrosoftYaHei';
+    font-size:21px;
+    color:#fff;
+    clear:both;
+
+}
+.b-s-textone:after{  
+        content: "";
+        position: absolute;
+        left: 50%;
+        bottom: -8;
+        width: 1.5em;
+        transform: translate(-47%);
+        border-bottom: 2px solid #fff;
+}
+.b-s-texttwo{
+    padding-top:30px;
+    text-align: center;
+    font-family: 'MicrosoftYaHei';
+    font-size:12px;
+    color:#fff;
+    clear:both;
+    opacity: 0.8;
+}
+.banner-search form{
+    position:relative;
+    margin:50px auto;
+    text-align:center;
+    border:none;
+}
+.banner-search form select{
+    width:236px;
+    height:36px;
+    margin-right:26px;
+    background-color:#fff;
+    -moz-appearance:none;
+    -webkit-appearance:none;
+    color: #aaa;
+    padding-left:10px;
+}
+.b-s-submit{
+    width:236px;
+    height:36px;
+    background:rgb(190,78,72);
+    border:none;
+    font-size:14px;
+    color:#fff;
+    font-family:'MicrosoftYaHei';
+    letter-spacing: 1.5em;
+    text-align:center;
+}
+#select option:checked{
+    background-color:rgb(190,78,72);
+}
+.banner-activity{
+    background: rgb(247,247,247);
+    margin:0px auto;
+    width:100%;
+}
+.kk{
+    width: 1118px;
+    margin: 0 auto;
+}
+.b-a-bc{
+    position:relative;
+    /* left:14%; */
+    display:inline-block;
+    margin:100 auto;
+    text-align:center;
+    padding:0 27px;
+
+}   
+.b-a-bc img{
+    border:10px solid #fff;
+    box-shadow:0px 0px  2px 1px #ccc;
+
+}
+.b-a-onetext{
+    margin:5px 0;
+    opacity: 0.9;
+}
+.beijing-towtext{
+    font-size:12px;
+    color:#767777;
+    letter-spacing: 0;
+}
+.b-a-bigtext{
+    position:absolute;
+    top:-50px;
+    left:50px;
+    letter-spacing: 1.5em;
+    font-size:20px;
+}
+.banner-newworld{
+    width:100%;
+}
+.newworld-left{
+    float:left;
+    background-image:url(../images/seventh/newworld.png);
+}
+.newworld-onetext{
+    text-align:center;
+    font-size:49px;
+    font-family: 'MicrosoftYaHei';
+    line-height:75px;
+    color:#fff;
+}
+.newworld-towtext{
+    text-align:center;
+    font-size:157px;
+    font-family: 'MicrosoftYaHei';
+    line-height:241px;
+    color:#fff;
+}
+.newworld-threetext{
+    text-align:center;
+    font-size:21px;
+    font-family: 'MicrosoftYaHei';
+    line-height:43px;
+    color:#fff;
+}
