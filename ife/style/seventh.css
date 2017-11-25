@@ -305,6 +305,8 @@ nav ul li a:hover{
     background-image:url(../images/seventh/newworld.png);
     width:66.4%;
     /* width:54% */
+    height:566px;
+    background-size:100% 100%;
 }
 .newworld-onetext{
     margin-top:134px;
@@ -315,12 +317,11 @@ nav ul li a:hover{
     color:#fff;
 }
 .newworld-towtext{
-
     text-align:center;
     font-size:157px;
     font-family: 'MicrosoftYaHei';
-    line-height:241px;
     color:#fff;
+    margin-top:-47px;
 }
 .newworld-threetext{
     text-align:center;
