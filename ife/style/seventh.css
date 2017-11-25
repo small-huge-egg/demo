@@ -255,6 +255,7 @@ nav ul li a:hover{
 #select option:checked{
     background-color:rgb(190,78,72);
 }
+/* 活动 */
 .banner-activity{
     background: rgb(247,247,247);
     margin:0px auto;
@@ -294,14 +295,19 @@ nav ul li a:hover{
     letter-spacing: 1.5em;
     font-size:20px;
 }
+/* 新世界-北京 */
 .banner-newworld{
     width:100%;
+    height:100%;
 }
 .newworld-left{
     float:left;
     background-image:url(../images/seventh/newworld.png);
+    width:66.4%;
+    /* width:54% */
 }
 .newworld-onetext{
+    margin-top:134px;
     text-align:center;
     font-size:49px;
     font-family: 'MicrosoftYaHei';
@@ -309,6 +315,7 @@ nav ul li a:hover{
     color:#fff;
 }
 .newworld-towtext{
+
     text-align:center;
     font-size:157px;
     font-family: 'MicrosoftYaHei';
@@ -321,4 +328,7 @@ nav ul li a:hover{
     font-family: 'MicrosoftYaHei';
     line-height:43px;
     color:#fff;
+}
+.newworld-right{
+    float:left;
 }
