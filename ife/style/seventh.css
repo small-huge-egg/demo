@@ -313,15 +313,15 @@ nav ul li a:hover{
     text-align:center;
     font-size:49px;
     font-family: 'MicrosoftYaHei';
-    line-height:75px;
+    line-height:49px;
     color:#fff;
 }
 .newworld-towtext{
     text-align:center;
     font-size:157px;
+    line-height:157px;
     font-family: 'MicrosoftYaHei';
     color:#fff;
-    margin-top:-47px;
 }
 .newworld-threetext{
     text-align:center;
@@ -330,6 +330,35 @@ nav ul li a:hover{
     line-height:43px;
     color:#fff;
 }
+#newworld-triangleleft{
+    margin-top:-156px;
+    vertical-align: center;
+    border-top:15px solid transparent;
+    border-right: 24px solid #fff;
+    border-bottom: 15px solid transparent;
+}
 .newworld-right{
     float:left;
+    text-align:center;
+    width:33.6%;
+}
+.newworld-fourtext{
+    margin-top:165px;
+    line-height: 58px;
+    font-size: 20px;
+    font-family: 'MicrosoftYahei';
+}
+.zeroone{
+    color:rgb(231,79,77);
+}
+.newworld-fivetext{
+    width:288px;
+    text-align: left;
+    line-height: 30px;
+    font-size: 12px;
+    font-family: 'SimSun';
+    color:rgb(170,170,170);
+}
+.ii{
+    text-align:center;
 }
