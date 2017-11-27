@@ -298,14 +298,15 @@ nav ul li a:hover{
 /* 新世界-北京 */
 .banner-newworld{
     width:100%;
-    height:100%;
+    height:566px;
 }
+/* 新世界左边 */
 .newworld-left{
     float:left;
     background-image:url(../images/seventh/newworld.png);
     width:66.4%;
     /* width:54% */
-    height:566px;
+    min-height:566px;
     background-size:100% 100%;
 }
 .newworld-onetext{
@@ -330,17 +331,20 @@ nav ul li a:hover{
     line-height:43px;
     color:#fff;
 }
-#newworld-triangleleft{
+.newworld-triangleleft{
     margin-top:-156px;
     vertical-align: center;
     border-top:15px solid transparent;
     border-right: 24px solid #fff;
     border-bottom: 15px solid transparent;
 }
+/* 新世界右边 */
 .newworld-right{
+    position:relative;
+    left:7.5%;
     float:left;
     text-align:center;
-    width:33.6%;
+    height:566px;
 }
 .newworld-fourtext{
     margin-top:165px;
@@ -352,13 +356,134 @@ nav ul li a:hover{
     color:rgb(231,79,77);
 }
 .newworld-fivetext{
-    width:288px;
-    text-align: left;
+    text-align: justify;
     line-height: 30px;
     font-size: 12px;
     font-family: 'SimSun';
     color:rgb(170,170,170);
 }
-.ii{
+.newworld-right-button{
+    margin-top:52px;
     text-align:center;
+    border:1px solid #EB858F; 
+    color:#EB858F;
+    width:107px;
+    height:35px;
+    background:#fff;
+    font-size:12px;
+}
+.newworld-right-circle1{
+    background-color: #929292;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    display: inline-block;
+    margin: 20 0;
+}
+.newworld-right-circle2{
+    background-color: #fff;
+    border: 1px #929292 solid;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    display: inline-block;
+    margin: 20 0;
+}
+.newworld-right-circle3{
+    background-color: #fff;
+    border: 1px #929292 solid;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    display: inline-block;
+    margin: 20 0;
+}
+/* 三种不同颜色面板 */
+.banner-lovelive{
+    width: 100%;
+}
+.banner-lovelive-red{
+    float: left;
+    width:33.33%;
+    min-height:525px;
+    display:inline-block;
+    background-color:  rgb(231,79,77);
+    text-align:center;
+    color:#fff;
+}
+.banner-lovelive-red p{
+    position: relative;
+    margin-top:173px;
+    font-family: 'SimHei';
+    font-size:21px;
+    line-height:30px;
+}
+.banner-lovelive-red p:after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: -22px;
+    width: 1.5em;
+    transform: translate(-47%);
+    border-bottom: 2px solid #fff;
+}
+.banner-lovelive-red input{
+    margin-top:50px;
+    width:170px;
+    min-height:44px;
+    font-family: 'SimHei';
+    font-size:21px;
+    text-align:center;
+    border:1px solid #fff;
+    color:#fff;
+    background:rgb(231,79,77);
+}
+.banner-lovelive-white{
+    float: left;
+    width:33.33%;
+    min-height:525px;
+    display:inline-block;
+    background-color:  #fff;
+    text-align:center;
+}
+.banner-lovelive-white p{
+    position: relative;
+    margin-top:173px;
+    font-family: 'SimHei';
+    font-size:21px;
+    line-height:30px;
+    color:rgb(50,51,51);
+}
+.banner-lovelive-white p:after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: -22px;
+    width: 1.5em;
+    transform: translate(-47%);
+    border-bottom: 2px solid #adadad;
+}
+.banner-lovelive-white input{
+    margin-top:50px;
+    width:170px;
+    min-height:44px;
+    font-family: 'SimHei';
+    font-size:21px;
+    text-align:center;
+    border:1px solid rgb(231,79,77);
+    color:rgb(231,79,77);
+    background:#fff;
+}
+.banner-lovelive-picture img{
+    float:left;
+    width:33.33%;
+    min-height:525px;
+    display:inline-block;
+}
+.b-l-w-triangle{
+    margin-top:-156px;
+    vertical-align: center;
+    border-top:15px solid transparent;
+    border-right: 24px solid #fff;
+    border-bottom: 15px solid transparent;
 }
