@@ -452,7 +452,7 @@ nav ul li a:hover{
     font-family: 'SimHei';
     font-size:21px;
     line-height:30px;
-    color:rgb(50,51,51);
+    color:#323333;
 }
 .banner-lovelive-white p:after {
     content: "";
@@ -461,7 +461,7 @@ nav ul li a:hover{
     bottom: -22px;
     width: 1.5em;
     transform: translate(-47%);
-    border-bottom: 2px solid #adadad;
+    border-bottom: 2px solid #aaa;
 }
 .banner-lovelive-white input{
     margin-top:50px;
@@ -475,15 +475,46 @@ nav ul li a:hover{
     background:#fff;
 }
 .banner-lovelive-picture img{
+    position: relative;
     float:left;
     width:33.33%;
-    min-height:525px;
+    height:521px;
     display:inline-block;
 }
 .b-l-w-triangle{
-    margin-top:-156px;
+    position: absolute;
+    margin: 262.5 1013px;
     vertical-align: center;
-    border-top:15px solid transparent;
-    border-right: 24px solid #fff;
+    border-top: 15px solid transparent;
+    border-left: 24px solid #fff;
     border-bottom: 15px solid transparent;
+}
+.banner-volunteer{
+    min-height:750px;
+    width:100%;
+}
+.volunteer-textone{
+    position:relative;
+    padding-top:112px;
+    text-align:center;
+    font-family: 'SimHei';
+    font-size:21px;
+    line-height: 30px;
+    color:#323333;
+}
+.volunteer-textone:after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: -10px;
+    width: 1.5em;
+    transform: translate(-47%);
+    border-bottom: 2px solid rgb(231,79,77);
+}
+.volunteer-texttwo{
+    margin:24px;
+    text-align:center;
+    font-family: 'MicrosoftYaHei';
+    font-size:12px;
+    color:#aaa;
 }
