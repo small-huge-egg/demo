@@ -489,9 +489,11 @@ nav ul li a:hover{
     border-left: 24px solid #fff;
     border-bottom: 15px solid transparent;
 }
+/* 志愿者报名 */
 .banner-volunteer{
     min-height:750px;
     width:100%;
+    margin: 0 auto;
 }
 .volunteer-textone{
     position:relative;
@@ -512,9 +514,149 @@ nav ul li a:hover{
     border-bottom: 2px solid rgb(231,79,77);
 }
 .volunteer-texttwo{
-    margin:24px;
+    margin-top:24px;
     text-align:center;
     font-family: 'MicrosoftYaHei';
     font-size:12px;
     color:#aaa;
+}
+.colunteer-clause{
+    float:left;
+    margin:106px auto;
+}
+.c-clause-title{
+    font-family: "SimHei";
+	font-size: 14px;
+	line-height: 54px;
+	color:#231815;
+	opacity: 0.8;
+}
+.c-clause-text{
+    width:288px;
+    font-family: "SimHei";
+	font-size: 12px;
+	line-height: 22px;
+	color:#231815;
+	opacity: 0.6;
+}
+.c-clause-button{
+    font-family: "SimHei";
+	font-size: 12px;
+	line-height: 19px;
+	color:#231815;
+	opacity: 0.6;
+}
+.c-clause-button img{
+    margin-left:246px;
+    margin-right:8px;
+}
+.volunteer-application{
+    float:left;
+    margin:106 0 0 73;
+}
+.applicationone-in{
+    width:311px;
+    height:41px;
+    margin:0 17 17 0;
+    background:rgb(237,238,238);
+    padding-left:17px;
+    font-family: "SimHei";
+	font-size: 12px;
+	line-height: 27px;
+	color:#787878;
+    border:none;
+}
+.applicationtwo{
+    width:644px;
+    height:121px;
+    margin:0 0 17 0;
+    background:rgb(237,238,238);
+    font-family: "SimHei";
+	font-size: 12px;
+	line-height: 27px;
+	color:#787878;
+    border:none;
+}
+.volunteer-application button{
+    width:644px;
+    height:41px;
+    margin:0 17 17 0;
+    background:rgb(237,238,238);
+    text-align:center;
+    font-family: "SimHei";
+	font-size: 14px;
+	line-height: 27px;
+	color:#323333;
+    border:none;
+}
+.volunteer{
+    margin: 0 15.54%;
+}
+/* 第一个页脚 */
+.footerone{
+    text-align: center;
+    background:rgb(50,53,62);
+    height:361px;
+}
+.footerone-title{
+    padding-top:91px;
+	font-family: "SimHei";
+	font-size: 21px;
+	color:#fff;
+}
+.footerone-text{
+    margin-top:10px;
+    font-family: "SimHei";
+    font-size: 12px;
+    line-height:18px;
+	color:#fff;
+}
+.footerone-submit{
+    margin:27 0 0 27;
+}
+.footerone-submit input{
+    width:431px;
+    height:41px;
+    padding-left:10px;
+    font-family: "MicrosoftYaHei";
+	font-size: 14px;
+	line-height: 26px;
+    color: #aaa;
+    background:#fff;
+}
+.footerone-submit button{
+    width:81px;
+    height:41px;
+    background:rgb(111,113,120);
+    margin:-5px;
+    font-family: "MicrosoftYaHei";
+	font-size: 15px;
+	line-height: 22px;
+    color:#fff;
+    text-align: center;
+    border:none;
+}
+.footerone-img img{
+    display:inline-block;
+    padding:36 26 0 0;
+}
+/* 结尾 */
+.footertwo{
+    height:58px;
+    background:rgb(48,49,57);
+    padding:0 40 0 99;
+}
+.footertwotext-text1{
+    float:left;
+    margin-top:30px;
+    font-family: 'SimSun';
+    font-size: 12px;
+    color:#fff;
+}
+.footertwotext-text2{
+    float:right;
+    margin-top:33px;
+    font-family: 'SimSun';
+    font-size: 12px;
+    color:#fff;
 }
