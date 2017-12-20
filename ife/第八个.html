@@ -1,0 +1,110 @@
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <title>第八个-响应式布局</title>
+        <style type="text/css">
+            *{
+                margin:0;
+                padding:0;
+            }
+        
+            .main{
+                width:100%;
+                box-sizing: border-box;
+            }
+            .first-row{
+                margin:10px;
+            }
+            .second-row{
+                margin:10px;
+            }
+            .third-row{
+                margin:10px;
+            }
+            .clear{
+                clear:both;
+            }
+            .col{
+                /* display:inline-block; */
+                float:left;
+                margin:10px;
+                height:50px;
+                background:#eeeeee;
+                border: 1px solid #999999;
+            }
+        @media (min-width:769px){
+            .col-mi-1{
+                width: calc(8.333% - 22px);
+            }
+            .col-mi-4{
+                width: calc(33.333% - 22px);
+            }
+            .col-mi-3{
+                width: calc(25% - 22px);
+            }
+            .col-mi-6{
+                width: calc(50% - 22px);
+            }
+            .col-mi-2{
+                width: calc(16.666% - 22px);
+            }
+            .col-mi-8{
+                width: calc(66.67% - 22px);
+            }
+            .col-mi-12{
+                width: calc(100% - 22px);
+            }
+        }
+        @media (max-width: 768px){
+            .col-xs-4{
+                width: calc(33.333% - 22px);
+            }
+            
+            .col-xs-3{
+                width: calc(25% - 22px);
+            }
+            .col-xs-6{
+                width: calc(50% - 22px);
+            }
+            
+            .col-xs-1{
+                width: calc(8.333% - 22px);
+            }
+            .col-xs-2{
+                width: calc(16.666% - 22px);
+            }
+            .col-xs-8{
+                width: calc(66.67% - 22px);
+            }
+            .col-xs-12{
+                width: calc(100% - 22px);
+            }
+        }
+        </style>
+        <body>
+            <div clas="main">
+            <div class="first-row">
+                <div class="col col-mi-4 col-xs-6">四栏</div>
+                <div class="col col-mi-4 col-xs-6">四栏</div>
+                <div class="col col-mi-4 col-xs-12">四栏</div>
+                <div class="clear"></div>
+            </div>
+            <div class="second-row">
+                <div class="col col-mi-3 col-xs-3">三栏</div>
+                <div class="col col-mi-6 col-xs-6">六栏</div>
+                <div class="col col-mi-3 col-xs-3">三栏</div>
+                <div class="clear"></div>
+            </div>
+            <div class="third-row clear">
+                <div class="col col-mi-1 col-xs-2">一栏</div>
+                <div class="col col-mi-1 col-xs-2">一栏</div>
+                <div class="col col-mi-2 col-xs-8">两栏</div>
+                <div class="col col-mi-2 col-xs-3">两栏</div>
+                <div class="col col-mi-6 col-xs-3">六栏</div>
+                <div class="clear"></div>
+            </div>
+            </div>
+        </body>
+
+    </head>
+    </html>
