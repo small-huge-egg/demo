@@ -1,0 +1,588 @@
+*{
+    margin:0;
+    padding:0;
+}
+.clear{
+    clear:both;
+}
+header{
+    height:56px;
+    width:100%;
+    background-color: rgb(33,137,191);
+}
+.header-logo{
+    float:left;
+    margin:10px 0 10px 50px;
+}
+.register{
+    float:right;
+    margin-right:94px;
+    color:#fff;
+    font-size:12px;
+    line-height: 56px;
+    font-family: 'AdobeHeitiStd-Regular';
+}
+.register img{
+    vertical-align: middle;
+}
+.search-box{
+    float:right;
+    position: relative;
+}
+.search-box input{
+    margin:14px 21px 14px 0;
+    width:313px;
+    height: 28px;
+    border-radius:  14px;
+    border:1px solid #fff;
+}
+.search-box img{
+    position: absolute;
+    float: left;
+    left:18px;
+    top:19px;
+}
+.side-bar{
+    float:left;
+    width:260px;
+    height:2220px;
+    background:#2b2e3d;
+    color:#6e8095;
+    font:12px SimHei;
+}
+.side-logo{
+    overflow:hidden; 
+}
+.side-logo img{
+    float: left;
+    margin:16px 0 0 44px;
+}
+.side-logo p{
+    float:left;
+    margin:40px 0 0 18px;
+    font-size:16px;
+    color:#f6f5f5;
+}
+.collect-fans{
+    margin:24px 0 20px 0;
+    text-align:center;
+}
+.collect-fans p{
+    position: relative;
+    display:inline-block;
+    font-size:12px;
+}
+.collect-fans span{
+    font-size:16px;
+}
+.collect-fans .fans{
+    margin-left:64px;
+}
+.collect-fans .fans:before{
+    content: "";
+    position: absolute;
+    height:29px;
+    right:57px;
+    top:3px;
+    border-left:2px solid rgb(50,54,71);
+}
+/* 侧栏目录 */
+.side-bar ul{
+    list-style-type:none;
+}
+.side-bar li{
+    padding-left:45px;
+    font: 12px/48px 'SimHei';
+}
+.side-bar ul .pesonal-forms{
+    background-color: #383d4e;
+}
+
+.side-bar li:hover{
+    background:#383d4e;
+    color:#fff;
+}
+.side-bar ul li dl img,dt{
+    display: inline-block;
+}
+.side-bar ul li dl img{
+    margin:0 0 0 24px;
+}
+.side-bar ul li dl{
+    line-height: 33px;
+    margin-top:-6px;
+}
+.side-bar ul li:hover>p, .side-bar ul li.personal-forms>p {
+    color: #fff;
+}
+.pesonal-form p {
+    color: #6e8096;
+    font: 12px/48px 'SimHei';
+}
+.third-menu {
+    padding-left: 18px;
+    background-repeat: no-repeat;
+    background-position: 40px 6px;
+}
+.third-menu img{
+    padding-right:5px;
+}
+.side-bar ul img{
+    display:inline-block;
+    margin-right:13px;
+}
+/* 主要内容 */
+.main-content{
+    float:left;
+    position: relative;
+    top:-2px;
+    width:calc(100% - 260px);
+    height:2250px;
+    background-color: #ededec;
+}
+/* 菜单头部 */
+.menu-nav{
+    height:32px;
+    background-color: #fff;
+}
+.menu-nav p{
+    line-height: 30px;
+    font-family: 'SimHei';
+    font-size:12px;
+    color:#aaa;
+    margin-left:30px;
+}
+/* 总列表 */                                         
+.content-all{
+    margin:19px 70px 0 60px;
+}
+/* 第一行列表 */
+.first-line{
+    height:86px;
+    background: #fff;
+    border: 1px solid #ccc;
+}
+.first-line form{
+    height:86px;
+    display:flex;
+    align-items: center;/* 垂直居中 */
+    flex-direction: row;
+    justify-content: space-between; 
+    color:#aaa;
+    font: 12px/26px 'SimHei';
+}
+.first-line form::before{
+    content: '';
+    display: table;
+    clear: both;
+}
+.first-line form::after{
+    content: '';
+    display: table;
+    clear: both;
+}
+.first-line form select{
+    height:26px;   
+    width:71px;  
+    margin:0 0 0 10px;
+    padding-left:5px;
+    font: 12px/26px 'SimHei';
+    color:rgb(50,51,51);
+}
+.buy-and-sell select,.ok{
+    width:121px !important;
+}
+.sell,.number-and-ok{
+    margin-top:6px;
+}
+.date{
+    margin:0 10px;
+    height: 24px;
+    font: 12px/24px 'SimHei';
+    color:rgb(50,51,51);
+}
+.number-and-ok .number{
+    margin-right:14px;
+}
+.first-line-search{
+    display:inline-block;
+    width: 51px;
+    height: 26px;
+    border: none;
+    border-radius: 3px;
+    color: #fff;
+    background-color: #388ac1;
+    cursor: pointer;
+}
+/* 第二行列表 */
+.second-line{
+    margin-top: 9px;
+    height:65px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+/* 左右滑动 */
+.line2-left,.line2-right{
+    float: left;
+    position: relative;
+    height:65px;
+    width:3%;
+    background-color: #fff;
+    box-shadow: -0.5px 0px 1px 0px rgba(0,0,0,0.5);
+}
+.line2-left img,.line2-right img{
+    position: absolute;
+    left:50%;
+    top:50%;
+    transform:translate(-50%,-50%);    
+}
+/* 时间轴列表 */
+.line2-center{
+    float:left;
+    width:12.8%;
+    background-color: #fff;
+    text-align: center;
+    box-shadow: -0.5px 0px 1px 0px rgba(0,0,0,0.5);
+}
+.line2-center p{
+    margin-top:5px;
+    font-size:12px;
+    line-height:20px;
+    color: #323333;
+}
+.line2-center span{
+    margin-left:-6px;
+    font-size:21px;
+    color: #ec6500;
+}
+.line2-center:hover {
+    border-top: 4px solid #4388c9;
+}
+.line2-center:nth-child(2) {
+    border-top: 4px solid #4388c9;
+}
+/* 查询历史 */
+.line2-history{
+    position: relative;
+    width:12.8%;
+    padding:17px 0 0 19px;
+    background-color: #fff;
+    box-sizing: border-box;
+    box-shadow: -0.4px 0px 1px 0px rgba(0,0,0,0.4);
+}
+.line2-history span{
+    position: absolute;
+    top:39%;
+    margin-left:11px;    
+    font-size:12px;
+    color:#535353;
+} 
+/* 第三行列表标题 */
+.line3-title{
+    margin:21px 0 5px 0;
+    font-size:12px; 
+}
+/* 四个总体方块 */
+.line3-okhow{
+    width: 21.6%;
+    height:71px;
+    float:left;
+    margin-left:50px;
+    position: relative;
+    justify-content: space-around;
+    background-color: #fff;
+    box-sizing: border-box;
+    box-shadow: -0.4px 0px 1px 0px rgba(0,0,0,0.4);
+}
+/* 四个总体方块的前方色块 */
+.line3-okhow:nth-child(2){
+    border-left:4px solid #43b29e;
+    padding:0 0 0 8px;
+    margin-left:0px;
+}
+.line3-okhow:nth-child(3){
+    border-left:4px solid #388ac1;
+    padding:0 0 0 8px;
+}
+.line3-okhow:nth-child(4){
+    border-left:4px solid #cf4a36;
+    padding:0 0 0 8px;
+}
+.line3-okhow:nth-child(5){
+    border-left:4px solid #e2cd46;
+    padding:0 0 0 8px;
+}
+/* 133311 */
+.line3-number{
+    font:12px/24px 'SimHei';
+    margin-top:13px;
+}
+/* 成交量 */
+.line3-oknumber{
+    font:10px/20px 'SimHei';
+    color:#aaa;
+}
+/*四个 颜色块 */
+.line3-color1{
+    width:61px;
+    height:47px;
+    float:right;
+    position:absolute;
+    top:50%;
+    left:88%;
+    transform:translate(-85%,-50%); 
+    background-color: #43b29e;
+}
+.line3-color2{
+    background-color: #388ac1;
+}
+.line3-color3{
+    background-color: #cf4a36;
+}
+.line3-color3{
+    background-color: #e2cd46;
+}
+/* 第四行列表*/
+.forth-line,.fifth-line{
+    margin-top:14px;
+    height:356px;
+}
+.line4-left,.line4-right,.line5-left,.line5-right{
+    float:left;
+    width:63%;
+    margin-right:10px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    height:356px;
+}
+.line4-right{
+    width:35.4%;
+    margin-right: 0px;
+}
+.line5-left{
+    width:35.4%;
+}
+.line5-right{
+    margin-right:0px;
+}
+.line4-title,.line5-title{
+    height:41px;
+    font:12px/40px 'SimHei';
+    color:#aaa;
+    padding-left:21px;
+    background-color: #f4f5f6;
+    border-bottom: 1px solid #ccc;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+.line4-project-form{
+    height: 246px;
+    margin:42px 20px 0 24px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+.line4-project-form ul{
+    list-style: none;
+    height: 30px;
+    margin-top:-30px;
+}
+.line4-project-form ul li{
+    width: 110px;
+    margin-right: 13px;
+    float: left;
+    text-decoration-line: none;
+    text-align: center;
+    font: 12px/28px 'Microsoft YaHei';
+    color:#535353;
+    border-radius: 3px 3px 0 0;
+    background-color: #ececef;
+}
+.line4-project-form ul li:hover{
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-bottom-color:#fff;
+    color:#aaa;
+}
+.line4-project-form ul li:nth-child(1){
+    background-color: #fff; 
+    border: 1px solid #ccc;
+    border-bottom-color: #fff;
+    margin-left:-1px;
+}
+.line4-project-form td{
+    border: 1px solid #ccc;
+    font:12px/30px 'SimHei';
+    color:#535353;
+    text-align: center;
+}
+.line4-project-form table{
+    border-collapse: collapse;
+    margin:30px auto;
+    width:543px; 
+}
+.line4-project-form td:hover{
+    background-color: #aaa;
+}
+/* 第四排右侧内容 */
+.line4-r-title{
+    font:12px/16px 'MicrosoftYaHei';
+    color:#c3c2c2;
+}
+.line4-r-pp:nth-child(2){
+    margin-top:18px;
+}
+.line4-r-formtitle{
+    font:12px/25px 'MicrosoftYaHei';
+    color:#535353;
+} 
+.line4-r-pp div{
+    display: inline-block;
+}
+.line4-r-pp{
+    border-bottom: 1px solid #ccc;
+    width:281px;
+    margin-left:52px;
+}
+.line4-r-price{
+    padding-right:40px;
+    border-right:1px solid #ccc;
+}
+.line4-deraction{
+    height:154px;
+}
+.line4-r-secrecy{
+    margin-left:52px;
+}
+.line4-r-btn{
+    width:51px;
+    height: 26px;
+    margin:5px 0 0 133px;
+    background: #388ac1;
+    color:#fff;
+    font:12px/26px 'SimHei';
+    border:none;
+}
+/* 第五行列表 */
+.line5-left form{
+    margin:10px auto;
+    text-align: center;
+}
+.line5-left form select,.line5-return{
+    height:23px;
+    width:66px;
+    font:12px/23px 'SimHei';
+    color: #535353;
+    border:1px solid #ccc;
+}
+.line5-month{
+    width:86px !important;
+}
+.line5-date{
+    width:76px !important;
+}
+.line5-return{
+    background: #fff;
+}
+/* 日历 */
+.line5-left table{
+    margin:10px auto;
+    width:311px;
+}
+.line5-left tr:first-child{
+    border-top:2px solid #a9cfec ;
+    border-bottom: 2px solid #e1e1e2;
+    padding:10px 0;
+    box-sizing: border-box;
+}
+.line5-left th{
+    padding: 0;
+    width: 40px;
+    font: 12px/40px 'SimHei';
+}
+.line5-left td{
+    width: 40px;
+    height: 40px;
+    margin:0 auto;
+    text-align: center;
+}
+.line5-left td p{
+    font: 11px/11px 'SimHei';
+}
+.line5-right table{
+    margin:18px auto;
+    text-align: center;
+    border-collapse: collapse;
+    width:90%;
+}
+.line5-right th{
+    font:13px/27px 'SimHei';
+    color:#231815;
+}
+.line5-right th, .line5-right td {
+    border: 1px solid #cbcbcb;
+    line-height: 24px;
+    font:12px/24px 'SimHei';
+    color:#323333;
+    text-align: center;
+}
+.line5-right td:nth-child(1){
+    width:66px;
+}
+.line5-right td:nth-child(2){
+    width:90px;
+}
+.line5-right td:nth-child(3){
+    width:290px;
+}
+.line5-index{
+    display: inline-block;
+    width: 168px;
+    height: 5px;
+    background-color: #ddd;
+    margin-left: 17px;
+}
+.line5-index div{
+    height:5px;
+}
+.index-color-1{
+    width:96%;
+    background-color:#ec6e51;
+}
+.index-color-2{
+    width:76%;
+    background-color:#ec6e51;
+}
+.index-color-3{
+    width:56%;
+    background-color:#ec6e51;
+}
+.index-color-4{
+    width:52%;
+    background-color:#7fcbf0;
+}
+.index-color-5{
+    width:48%;
+    background-color:#7fcbf0;
+}
+.index-color-6{
+    width:45%;
+    background-color:#7fcbf0;
+}
+.index-color-7{
+    width:42%;
+    background-color:#7fcbf0;
+}
+.index-color-8{
+    width:39%;
+    background-color:#7fcbf0;
+}
+.index-color-9{
+    width:36%;
+    background-color:#7fcbf0;
+}
+.index-color-10{
+    width:33%;
+    background-color:#7fcbf0;
+}

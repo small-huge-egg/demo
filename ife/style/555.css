@@ -1,0 +1,127 @@
+*{
+    margin:0;
+    padding:0;
+}
+figure{
+    width:33.33%;
+    height:350px;
+    position:relative;
+    float: left;
+    overflow: hidden;
+}
+figcaption{ 
+    position:absolute;
+    top:0;
+    left:0;
+    color:#fff;
+    font-family: 'Microsoft YaHei';
+}
+figure img{
+    height:350px;
+    opacity: 0.8;
+    transition:all 0.35s;
+}
+figure figcaption p,h2,span,div{
+    transition: all 0.35s;
+}
+@media screen and (max-width:600px){
+    figure{
+        width:100%;
+    }
+}
+@media screen and (min-width:601px) and (max-width:1001px){
+    figure{
+        width:50%;
+    }
+}
+@media screen and (min-width:1001px){
+    figure{
+        width:33.33%;
+    }
+}
+.test1{
+    background:#9e1052;
+}
+.test1 figcaption{
+    margin:20px;
+}
+.test1 figcaption p{
+    background:#fff;
+    color:#333;
+    margin:3px;
+    text-align: center;
+    transform: translate(-120px,0);
+}
+.test1:hover figcaption p{
+    transform: translate(0,0) ;
+}
+.test1 figcaption p:nth-child(2){
+    transition-delay: 0.05s;
+}
+.test1 figcaption p:nth-child(3){
+    transition-delay: 0.1s;
+}
+.test1 figcaption p:nth-child(4){
+    transition-delay: 0.15s;
+}
+.test1:hover img{
+    transform: translate(-50px,0);
+    opacity: 0.6;
+}
+.test2{
+    background:#112aca;
+}
+.test2 figcaption{
+    height:100%;
+    width:100%;
+}
+.test2 figcaption h2{
+    margin:15% 0 0 15%;
+}
+.test2 figcaption p{
+    margin:2% 0 0 15%;
+    transform:translate(0px,50px) rotate(0deg);
+    opacity: 0;
+}
+.test2 figcaption div{
+    position:absolute;
+    top:10%;
+    left:10%;
+    transform:translate(0px,-350px) rotate(0deg);
+    border:2px solid #fff;
+    height:80%;
+    width:80%;
+}
+.test2:hover figcaption div{
+    transform:translate(0px,0px) rotate(360deg);
+}
+.test2:hover img{
+    opacity: 0.5;
+}
+.test2:hover figcaption p{
+    transform:translate(0px,0px);
+    opacity: 1;
+}
+.test3{
+    background:#331111;
+}
+/* .test3 figcaption{
+    transform: translate(20px,0);
+    transform:skew(0,0);
+} */
+.test3 figcaption h2{
+    margin:15% 0 3% 8%;
+    /* transform: translate(20px,0); */
+    transform:skew(90deg);
+}
+.test3 figcaption p{
+    margin-left:8%;
+    /* transform: translate(20px,0); */
+    transform:skew(90deg);
+}
+.test3:hover img{
+    opacity: 0.5;
+}
+.test3:hover figcaption h2,p{
+    transform:skew(0deg);
+}

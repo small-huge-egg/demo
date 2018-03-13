@@ -51,9 +51,9 @@ nav li{
     display:inline;
 }
 nav ul li a{
-    font-Family: "MicrosoftYaHei";
+    font-family: "MicrosoftYaHei";
     text-decoration-line: none;
-    padding:0 22 20 22;
+    padding:0 22px 20px 22px;
     color:rgb(120,123,131);
 }
 nav ul li a:hover{

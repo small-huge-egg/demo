@@ -8,6 +8,10 @@
         body{
             border:1px dashed green;
         }
+        *{
+            margin:0;
+            padding:0;
+        }
         .one{
             position:relative;
             top:20px;
@@ -84,7 +88,20 @@ ul>li:last-child{
 ul>li:hover{
 	background-color:#DDD;
 }
+.center{
+    background-color:red;
+    width:300px;
+    height:200px;
 
+}
+#wrapper {
+    display: table;
+}
+
+#cell {
+    display: table-cell;
+    vertical-align: middle;
+}
         </style>
     </head>
     <body>
@@ -116,14 +133,18 @@ ul>li:hover{
                 </form></div>
                 <a href="#">Menu</a>
                 <div class="drop-down" id="drop-down">
-                     <ul>
+                    <ul>
                       <li>Option 1</li>				
-                                  <li>Option 2</li>
+                      <li>Option 2</li>
                       <li>Option 3</li>
                       <li>Option 4</li>
-                     </ul>
+                    </ul>
                 </div>
-          
-
+                <div class="center">kkk</div>
+                <div id="wrapper">  
+                    <div id="cell">
+                        <div class="content">Content goes here</div>
+                    </div>
+                </div>  
     </body>
     </html>
