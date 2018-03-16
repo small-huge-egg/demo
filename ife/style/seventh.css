@@ -4,16 +4,15 @@
 }
 /*全局*/
 html,body{
-    /* height:2277px; */
     margin:0 auto;
-    width:1280vmin;
     /* overflow-x:hidden; */
-    width:100%; 
+    width: 1118px; 
 }
 
 /*头部*/
 header{
     height:55px;
+    width:100%;
 }
 .header-left{
     float:left;
@@ -491,7 +490,6 @@ nav ul li a:hover{
 }
 /* 志愿者报名 */
 .banner-volunteer{
-    min-height:750px;
     width:100%;
     margin: 0 auto;
 }
@@ -552,7 +550,7 @@ nav ul li a:hover{
 }
 .volunteer-application{
     float:left;
-    margin:106 0 0 73;
+    margin:117px 0 0 75px;
 }
 .applicationone-in{
     width:311px;
@@ -590,7 +588,7 @@ nav ul li a:hover{
     border:none;
 }
 .volunteer{
-    margin: 0 15.54%;
+    margin: 0 4.2%;
 }
 /* 第一个页脚 */
 .footerone{
