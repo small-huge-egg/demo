@@ -473,17 +473,18 @@ nav ul li a:hover{
     color:rgb(231,79,77);
     background:#fff;
 }
-.banner-lovelive-picture img{
+.banner-lovelive-picture{
     position: relative;
-    float:left;
+}
+.banner-lovelive-picture img{
     width:33.33%;
     height:521px;
     display:inline-block;
 }
 .b-l-w-triangle{
     position: absolute;
-    margin: 254px 0;
-    left:62%;
+    right:31.3%;
+    top:50%;
     border-top: 15px solid transparent;
     border-left: 24px solid #fff;
     border-bottom: 15px solid transparent;
