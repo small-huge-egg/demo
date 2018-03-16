@@ -483,8 +483,13 @@ nav ul li a:hover{
 }
 .b-l-w-triangle{
     position: absolute;
+<<<<<<< Updated upstream
     right:31.3%;
     top:50%;
+=======
+    right: 31.3%;
+    top: 50%;
+>>>>>>> Stashed changes
     border-top: 15px solid transparent;
     border-left: 24px solid #fff;
     border-bottom: 15px solid transparent;
@@ -550,8 +555,8 @@ nav ul li a:hover{
     margin-right:8px;
 }
 .volunteer-application{
-    float:left;
-    margin:117px 0 0 75px;
+    float:right;
+    margin:117px 0 0 0;
 }
 .applicationone-in{
     width:311px;
@@ -589,7 +594,8 @@ nav ul li a:hover{
     border:none;
 }
 .volunteer{
-    margin: 0 4.2%;
+    margin: 0 auto;
+    width:90%;
 }
 /* 第一个页脚 */
 .footerone{
