@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>第十九个啊啊啊啊</title>
+<style>
+    #box span{
+        float: left;
+        margin: 5px;
+        width: 50px;
+        height: 50px;
+        text-align: center;
+        line-height: 50px;
+        font-size: 20px;
+        color: #fff;
+        background: #FD0300;
+    }
+    #box .deo{
+        background-color: blue;
+    }
+</style>
+</head>
+<body>
+    <textarea name="" id="text" cols="30" rows="10"></textarea>
+    <button id="makeSelf" onclick="makeSelf()">生成随机数</button>
+    <button id="leftIn" onclick="leftIn()">左侧入</button>
+    <button id="rightIn" onclick="rightIn()">右侧入</button>
+    <button id="leftOut" onclick="leftOut()">左侧出</button>
+    <button id="rightOut" onclick="rightOut()">右侧出</button> 
+    <div>
+        <input type="text" id="inptxt"/> 
+        <button onclick="search()">查询</button>
+    </div>
+    <p id="box" onclick="delate()"></p> 
+</body>
+<script>
+    var txt = document.getElementById("text");
+    var newMake = document.getElementById("makeSelf");
+    var box = document.getElementById("box");
+    var inp = document.getElementById("inptxt");
+    function makeSelf(){
+        txt.value =  Math.ceil(Math.random() *99+1);
+    }
+    function setNode(data){
+        var textnode = document.createTextNode(data);
+        var newNode = document.createElement("span");
+        newNode.appendChild(textnode);
+        return newNode;
+    }
+
+    function filterElement(){
+        var i=0;
+        var val=txt.value;
+       return val.split(/[\n\t\r,，、   ]/).filter(x=>x);       
+    }
+    function leftIn(){
+        var data = filterElement();
+        data.reverse();
+        if(!txt.value){
+            alert("不能为空")
+        }else{
+            for(var i=0;i<data.length;i++){ 
+                box.insertBefore(setNode(data[i]),box.firstChild);
+                txt.value = "";
+            }
+        }    
+    }
+    function rightIn(){
+        var data = filterElement();        
+        if(!txt.value){
+            alert("不能为空")
+        }else{
+            for(var i=0;i<data.length;i++){ 
+                box.appendChild(setNode(data[i]));
+                txt.value = "";                
+            }
+        }   
+    }
+    function leftOut(){      
+        box.removeChild(box.firstChild);
+    }
+    function rightOut(){
+        box.removeChild(box.lastChild);
+    }
+    function delate(){
+        var oncl = event.target || event.srcElement;
+        box.removeChild(oncl);
+    }
+    function search(){
+        clear();
+        var list = box.childNodes;
+        var arr = [];
+        for(var i=0;i<list.length;i++){
+           arr[i] = list[i].innerText;
+        }
+        for(var i=0;i<list.length;i++){
+            if(arr[i].indexOf(inp.value)!==-1){
+                list[i].classList.add('deo');
+            }
+        }
+    }
+    function clear(){
+        var list = box.childNodes;
+        for(var i=0;i<list.length;i++){
+            if(list[i].classList.contains('deo')){
+               list[i].classList.remove('deo');
+           }
+        }
+    }
+</script>
+</html>

@@ -1,0 +1,101 @@
+<!DOCTYPE>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>第十八个</title>
+    <style>
+        #box p{
+          float:left;
+          height:50px;
+          margin:10px;
+          padding: 0 20px;
+          text-align: center;
+          line-height: 50px;
+          color:blue;
+          border: 1px solid rgb(92, 66, 66);
+        }
+        .demo {
+            color: #fff;
+            background: #e00340;
+        }
+    </style>
+  </head>
+<body>
+  <textarea name="" id="text" cols="30" rows="10"></textarea>
+  <button id="insert" onclick="insertIn()">插入</button>
+  <input type="text" id="search-text">
+  <button id="search" onclick="searchIn()">查询</button>
+  <div  id="box"></div>
+</body>
+<script>
+  var list = document.getElementById("text");
+  var inp = document.getElementById("search-text");
+  var box = document.getElementById("box");
+  function clear() {
+    let list = box.childNodes;
+    for(let i=0;i<list.length;i++) {
+        if(list[i].classList.contains('activate')) {
+          list[i].classList.remove('activate');
+        }
+    }
+  }
+  // 将textarea中的内容分离，返回分离后的string
+  function creatArr(){
+    var i=0;
+    var val=list.value;
+    return val.split(/[\n\t\r,，、   ]/).filter(x=>x);
+  }
+  // 创造p元素，返回p内容
+  function createNode(data){
+    let newNode = document.createElement('p');
+    newNode.innerText = data;
+    return newNode;
+  }
+  // 插入函数
+  function insertIn(){
+    var i=0;
+    if(!list.value){
+      alert("不能为空");
+    }
+    else{
+      var data = creatArr();//获取分离后的string内容赋值给data
+      for(i=0;i<data.length;i++){//创造p元素并将每个data[i]赋值给p元素
+        box.appendChild(createNode(data[i]));
+      }
+      list.value=null;//清空输入框
+    }
+  }
+  //查询函数
+  function searchIn(){
+    clear();
+    var arr = [];
+    var list = box.childNodes;
+    var len = list.length;
+    var i;
+    for(i=0; i<len; i++){
+      arr.push(list[i].innerText);
+    }
+    for(i=0;i<len;i++){
+      if(arr[i].indexOf(inp.value)!==-1){
+        list[i].classList.add('demo');
+        console.log(list[i]);
+      }
+    }
+  }
+  function clear(){
+    var list = box.childNodes;
+    for(var i=0;i<list.length;i++){
+      if(list[i].classList.contains('demo')){
+        list[i].classList.remove('demo');
+      }
+    }
+  }
+  box.addEventListener('click', function (e) {
+    var event = e || window.event;
+    var target = event.target || event.srcElement;
+    if (target.matches('p')) {
+      box.removeChild(target);
+    }
+  })
+</script>
+</html>

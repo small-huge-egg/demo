@@ -5,12 +5,221 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <style>
+        
+    </style>
 </head>
-<script type="text/javascript">
-    var a=1+2+3;
-    console.log(a);
-</script>
-<body>
-    <div></div>
+<!-- <body>
+    <p>该实例演示了在添加事件监听时冒泡与捕获阶段的不同。</p>
+    <div id="myDiv">
+            <p id="myP">点击该段落， 我是冒泡</p>
+    </div><br>
+    <div id="myDiv2">
+        <p id="myP2">点击该段落， 我是捕获</p>
+    </div>
 </body>
+<script type="text/javascript">
+document.getElementById("myDiv").addEventListener("click",function(){
+    alert("你点击了DIV元素");
+    this.style.backgroundColor="red";
+},false);
+document.getElementById("myP").addEventListener("click",function(){
+    alert("你点击了p元素");
+    this.style.backgroundColor="blue";    
+},false);
+document.getElementById("myDiv2").addEventListener("click",function(){
+    alert("你点击了DIV元素");
+    this.style.backgroundColor="red";
+},true);
+document.getElementById("myP2").addEventListener("click",function(){
+    alert("你点击了P元素");
+    this.style.backgroundColor="blue";
+},true);
+</script> -->
+<!-- <body>
+    <button id="myBtn">点我呀</button>
+    <p id="demo"></p>
+</body>
+<script>
+    document.getElementById("myBtn").addEventListener("click",function(){
+        document.getElementById("demo").innerHTML+="clickYOO";
+    })
+    document.getElementById("myBtn").addEventListener("mouseover",function(){
+        document.getElementById("demo").innerHTML+="路过";
+    })
+    document.getElementById("myBtn").addEventListener("mouseout",function(){
+        document.getElementById("demo").innerHTML+="拜拜";
+    })
+</script> -->
+<!-- <body>
+    输入你的名字: <input type="text" id="fname">
+    <p>当你离开输入框后，函数将被触发，将小写字母转为大写字母。</p>
+</body>
+<script>
+    x = document.getElementById("fname");
+    x.addEventListener("mouseout",function(){
+    x.value=x.value.toUpperCase();
+    })
+</script> -->
+<!-- <body>
+    <button onclick="myFunction()">惦记我</button>
+    <p id="demo"></p>
+</body>
+<script>
+    function myFunction(){
+        var x;
+        var d=new Date().getTime();
+        // switch(d)
+        // {
+        //     case 6:x="今天是星期六";
+        //     break;
+        //     case 0:x="今天是星期日";
+        //     break;
+        //     default: x="期待周末";
+        // }
+        document.getElementById("demo").innerHTML=d;
+    }
+</script> -->
+<!-- <script>//自调用函数
+    (function(){
+        var x=a*b;
+        document.getElementById("demo").innerHTML=x;
+    })();
+</script> -->
+<!-- <script>
+    function myFunction(a,b){
+        return a*b;
+    }
+    document.getElementById("demo").innerHTML=myFunction(2,3);
+</script> -->
+<!-- <script>
+    var x=function(a,b){
+        return a*b;
+    }
+    document.getElementById("demo").innerHTML=x(2,3);
+</script> -->
+<!-- <script>
+   var sss={
+       name:'kk',//字符串数据类型记得用引号
+       top:15,
+       height:60
+   };
+   document.write(sss.name+"</br>");
+   document.write(sss["name"]+"</br>");
+</script> -->
+<!-- <body>
+    <p>请输入一个5-10之间的数字</p>
+    <input type="number" id="number">
+    <button onclick="myFunction()">测试输入</button>
+    <p id="demo"></p>
+    <script>
+        var x,y;
+        x=document.getElementById("number").value;
+        y=document.getElementById("demo");
+        function myFunction(){
+            try{
+                if(x<5) throw "太小";
+                if(x>10) throw "太大";
+                if(isNaN(x)) throw "不是数字";
+            }
+            catch(err){
+                y.innerHTML="错误："+ err;
+            }
+        }
+    </script>
+</body> -->
+
+<!-- 对象 -->
+<!-- prototype给对象添加属性和方法 -->
+<!-- <script>
+    function employee(name,job,born){
+        this.name = name;
+        this.job = job;
+        this.born = born;
+    }
+    var bill = new employee("nk","ss","1250");
+    employee.prototype.salary =null;
+    bill.salary = 2000;
+    console.log(bill)
+</script> -->
+
+<!-- <script>
+    function Person(){ } 
+    Person.prototype = {    
+        constructor: Person,
+        name : "Nicholas",     
+        age : 29,     
+        job : "Software Engineer",     
+        friends : ["Shelby", "Court"],     
+        sayName : function () {         
+            alert(this.name);     
+        } };         
+    var person1 = new Person();
+    var person2 = new Person();         
+    person1.friends.push("Van");  //原型
+    person1.name = "lili" ; //实例    
+    alert(person1.friends);    //"Shelby,Court,Van" 
+    alert(person2.friends);    //"Shelby,Court,Van" alert(person1.friends === person2.friends);  //true
+    alert(person1.name);    //lili
+    alert(person2.name);    //Nicholas
+</script> -->
+
+<!-- 数组 -->
+<!-- prototype给数组添加属性 -->
+<!-- <button onclick="myFunction()">点我</button>
+<div id="demo"></div>
+<script>
+    Array.prototype.in = function(){
+        for(var i=0;i<this.length;i++){
+            this[i] = this[i].toUpperCase();
+        }
+    }
+    function myFunction(){
+        var friuts = ["kk","xx","dd"];     
+        friuts.in();
+        document.getElementById("demo").innerHTML=friuts;//underfined
+    }    
+</script> -->
+
+<!-- every()方法检测数组的所有元素是否符合指定条件,返回false/true -->
+<!-- <button onclick="myFunction()">点我</button>
+<div id="demo"></div>
+<script>
+ var ages = [32, 33, 16, 40];
+ function checkAdult(age) {
+     return age >= 18;
+ }
+ function myFunction() {
+    document.getElementById("demo").innerHTML = ages.every(checkAdult);//返回值false     
+    document.getElementById("demo").innerHTML = ages.filter(checkAdult);//返回值32，33，48
+ }
+</script> -->
+
+<!-- 字符串 -->
+<!-- replace在正则表达式中的应用，结合prototype -->
+<!-- <body>
+    <p>把y换成o</p>
+    <button onclick="myF()">点我</button>
+    <p id="demo"></p>
+</body>
+<script>
+    String.prototype.add = function (search,replacement){
+        return this.replace(new RegExp(search,'g'),replacement); 
+    };
+    function myF()
+    {
+        var str = new String("lk kkyou yy");
+        //str.add("y","o");
+        document.getElementById("demo").innerHTML=str.add("y","o");
+    }
+</script> -->
+<!-- <script>
+    setTimeout("alert('hello')",2000);
+    setInterval(function(){
+        alert('world');
+    },2000);
+</script> -->
+<script>
+    
+</script>
 </html>

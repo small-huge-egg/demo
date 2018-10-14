@@ -1,150 +1,79 @@
+
+<!DOCTYPE html>
 <html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-        <style type="text/css">
-        html{
-            border:1px dashed rgb(128, 62, 0);
-        }
-        body{
-            border:1px dashed green;
-        }
-        *{
-            margin:0;
-            padding:0;
-        }
-        .one{
-            position:relative;
-            top:20px;
-            left:20px;
-            width:200px;
-            height:100px;
-            border:1px solid red;
-            margin:40px;
-            padding:20px;
-        }
-        .two{
-            position:absolute;
-            top:0;
-            left:0;
-            width:200px;
-            height:100px;
-            border:1px solid rgb(47, 80, 172);
-        }
-        .kk{
-            height:360px;
-            background: rgb(236,236,236);
-            width:100%;
-        }
-        img{
-            display:block;
-            margin:0 auto;
-            padding-top:89px;
-        }
-        .banner-search{
-    width:100%;
-    height:340px;
-    background-image:url(images/seventh/map.png);
-}.banner-search:after{
-    position:absolute;
-    left:0;
-    top:0;
-    width:100%;
-    background-color:red;
-    opacity: 0.2;
-}
-
-a{
-	display: block;
-	width:50px;
-	border:1px solid #333;
-	background-color:white;
-	
-	padding:3px;
-	text-align: center;
-	text-decoration: none;
-}
-a:hover{  background-color:#EEE; }
-a:focus + .drop-down{  display: inline-block; }
-
-.drop-down{
-	display: none;
-}
-ul{
-	border:1px solid #333;
-	display: inline-block;
-	margin-top:1px;
-	padding:0px;
-}
-ul>li{
-	height: auto;
-	padding: 3px 10px;
-	border-bottom: 1px solid #333;
-	text-align: center;
-	vertical-align: middle;
-}
-ul>li:last-child{
-	border:0px solid transparent;
-}
-ul>li:hover{
-	background-color:#DDD;
-}
-.center{
-    background-color:red;
-    width:300px;
-    height:200px;
-
-}
-#wrapper {
-    display: table;
-}
-
-#cell {
-    display: table-cell;
-    vertical-align: middle;
-}
-        </style>
-    </head>
-    <body>
-        <div class="one">one
-        <div class="two">two</div></div>
-        <div class="kk"><img src="images/seventh/bigbook.png" />
-            <p>关于新世界，你不知道的还有什么？</p></div>
-            <div class="banner-search"><p class="b-s-textone">查找新世界<span>城</span>市活动信息</p>
-                <p class="b-s-texttwo">每个城市的有不同的活动信息，请自主查询您所需要了解的城市</p>
-                <form action="save.php" method="post" >
-                    <select>
-                        <option value="中国" selected="selected">中国</option>
-                        <option value="英国">英国</option>
-                        <option value="美国">美国</option>
-                        <option value="日本">日本</option>
-                    </select>
-                    <select>
-                        <option value="北京市">北京市</option>
-                        <option value="天津市">天津市</option>
-                        <option value="河北省">河北省</option>
-                        <option value="河南省">河南省</option>
-                    </select>
-                    <select>
-                        <option value="北京市" >北京</option>
-                        <option value="上海">上海</option>
-                        <option value="深圳">深圳</option>
-                        <option value="厦门">厦门</option>
-                    </select>
-                </form></div>
-                <a href="#">Menu</a>
-                <div class="drop-down" id="drop-down">
-                    <ul>
-                      <li>Option 1</li>				
-                      <li>Option 2</li>
-                      <li>Option 3</li>
-                      <li>Option 4</li>
-                    </ul>
-                </div>
-                <div class="center">kkk</div>
-                <div id="wrapper">  
-                    <div id="cell">
-                        <div class="content">Content goes here</div>
-                    </div>
-                </div>  
-    </body>
-    </html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			#box{
+				width: 50px;
+				height: 50px;
+				position: absolute;
+				background: palevioletred;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="box" style = "left: 0; top: 50px;"></div>
+		<button id = "btn">stop</button>
+	</body>
+	<script type="text/javascript">
+		var speed = 10;
+		var flag = true;
+		var interId;
+		
+		function moveLeft(){
+			var oldLeft = parseInt(box.style.left);
+ 
+			if(oldLeft >= window.innerWidth-50 || oldLeft < 0){
+				speed *= -1;
+			}
+			box.style.left = oldLeft + speed + "px";	
+		}
+		
+		function moveTop(){
+			var oldTop = parseInt(box.style.top);
+ 
+			if(oldTop >= window.innerHeight-50 || oldTop < 0){
+				speed *= -1;
+			}
+			box.style.top = oldTop + speed + "px";	
+		}
+		
+		function onOff(rand){
+//			var rand = random();
+			if (flag) {
+				btn.innerHTML = "start";
+				clearInterval(interId);
+				flag = false;
+			} else{
+				btn.innerHTML = "stop";
+				if (rand == 1) {
+					interId = setInterval("moveLeft()",50);
+//					flag = true;
+				} else{
+					interId = setInterval("moveTop()",50);
+//					flag = true;
+				}				
+				flag = true;
+			}
+		}
+		
+		btn.onclick =onOff;
+		
+		//产生一个1-2的随机数
+		function random(){
+			rand = parseInt(Math.random() * 2 + 1);
+			alert(rand);
+ 
+			if (rand == 1) {
+				interId = setInterval("moveLeft()",50);
+			} else{
+				interId = setInterval("moveTop()",50);
+			}
+		}
+		
+		random();
+		
+	</script>
+</html>

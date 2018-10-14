@@ -1,0 +1,80 @@
+<!DOCTYPE>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>第十六个</title>
+    <style>
+        .demo span {
+            float: left;
+            margin: 5px;
+            width: 50px;
+            height: 50px;
+            text-align: center;
+            line-height: 50px;
+            font-size: 20px;
+            color: #fff;
+            background: #FD0300;
+        }
+    </style>
+  </head>
+<body>
+    <input type="text" id="txtInput" />
+    <button id="makeSelf">生成随机数</button>
+    <button id="leftIn">左侧入</button>
+    <button id="rightIn">右侧入</button>
+    <button id="leftOut">左侧出</button>
+    <button id="rightOut">右侧出</button>  
+    <p class="demo" id="box"></p> 
+</body>
+<script>
+    window.onload = function(){
+        var btn1 = document.getElementById("leftIn");
+        var btn2 = document.getElementById("rightIn");
+        var btn3 = document.getElementById("leftOut");
+        var btn4 = document.getElementById("rightOut");
+        var btn5 = document.getElementsByClassName("demo")[0];        
+        function creatDiv(){
+            var context = document.getElementById("txtInput").value; 
+            var myDiv = document.createElement("span");
+            var divtxt = document.createTextNode(context);
+            myDiv.appendChild(divtxt);
+            myDiv.className = "demoNum";
+            return myDiv;
+        }
+    makeSelf.onclick = function random(){
+        document.getElementById("txtInput").value = Math.ceil(Math.random() *99+1);//生成1-100的随机数
+    }
+    btn1.onclick = function leftIn(){
+        var myBody = document.getElementsByClassName("demo")[0];
+        myBody.insertBefore(creatDiv(),myBody.firstChild);
+    }
+    btn2.onclick = function rightIn(){
+        var myBody = document.getElementsByClassName("demo")[0];
+        myBody.appendChild(creatDiv());
+    }
+    btn3.onclick = function leftOut(){
+        var myBody = document.getElementsByClassName("demo")[0];
+        if(!myBody.innerText){
+            alert("没有东西");
+        }
+        else{
+            myBody.removeChild(myBody.firstChild);
+        }   
+    }
+    btn4.onclick = function rightOut(){
+        var myBody = document.getElementsByClassName("demo")[0];
+        if(!myBody.innerText){
+            alert("没有东西");
+        }
+        else{
+            myBody.removeChild(myBody.lastChild);
+        }   
+    }
+    btn5.onclick = function delate(){
+       var target = window.event.target || window.event.srcElement;
+       box.removeChild(target);
+    }
+}
+    
+</script>
+</html>

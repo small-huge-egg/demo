@@ -1,64 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
 
-    <html lang="en-US">
-            <head>
-                <title>Responsive Type with CSS - by Dapper Gentlemen</title>
-                
-                <link href='https://fonts.googleapis.com/css?family=Lato:900' rel='stylesheet' type='text/css'>
-                <style>
-                    body{
-    margin: 0;
-    padding: 0;
-}
-
-ul {
-    margin: 0;
-    padding: 0;
-
-}
-
-li{
-    list-style: none;
-}
-
-.flex-container {
-    /* We first create a flex layout context */
-    display: flex;
-
-    /* Then we define the flow direction and if we allow the items to wrap 
-    * Remember this is the same as:
-    * flex-direction: row;
-    * flex-wrap: wrap;
-    */
-    flex-flow: row wrap;
-    /* Then we define how is distributed the remaining space */
-    justify-content: space-around;
-}
-.flex-item {
-    background: tomato;
-    padding: 5px;
-    width: 200px;
-    height: 150px;
-    margin-top: 10px;
-
-    line-height: 150px;
-    color: white;
-    font-weight: bold;
-    font-size: 3em;
-    text-align: center;
-}
-                </style>
-            </head>
-            
-            <body>
-                <ul class="flex-container">
-                    <li class="flex-item">1</li>
-                    <li class="flex-item">2</li>
-                    <li class="flex-item">3</li>
-                    <li class="flex-item">4</li>
-                    <li class="flex-item">5</li>
-                    <li class="flex-item">6</li>
-                </ul>
-            </body>
-            </html>
+<body onload="init();"> 
+<input id ="xy" disabled=true/> 
+<!--<button id="self" style="position:relative;">ssss</button> --> 
+<p id="pan" style=" height: 565; width: 925; background-image:url(http://dl.iteye.com/upload/picture/pic/97696/26d1caeb-c0ca-38e2-87ce-56e862235a79.jpg);background-repeat:no-repeat;" onmousemove="move(event)"> 
+    <p id="self" style="height:76px;width:76px; background-color: white; position:absolute;border-width:1px; border-style:solid;border-color: red;"></p> 
+</p> 
+ 
     </body>
-    </html>
+    <script> 
+    //用于判定是否是开始初始化方块 
+    var mark = false; 
+    var starttime, endtime, finaltime = 0;  //记录游戏时间 
+    var array = new Array();  //用一个数组装所有绿色方块对象 
+    var timerarr = new Array();  //记录每个绿色方块 和 对应的计时器id 
+     
+    function move(e){ 
+var xy = document.getElementById("xy"); 
+var self = document.getElementById("self"); 
+x = e.clientX; 
+y = e.clientY; 
+xy.value = "当前坐标："+x +","+y; 
+if(x>=454 && x<=530 &&y>=285 && y<=355 && mark==false){ 
+mark = true; 
+initothers(20); 
+} 
+target(e,x,y); 
+    } 
+     
+    //线宽4px  格边长36px   target函数定位白色方块的位置 
+    function target(e,x,y){ 
+ 
+var self = document.getElementById("self"); 
+if(x>=12 && x<=855 && y>=40 &&y<=525 && mark ==true){ 
+    self.style.left = x +'px'; 
+    self.style.top =  y +'px'; 
+} 
+    } 
+    //初始化白方块位置 
+    function init(){ 
+var today = new Date(); 
+starttime = today.getTime(); 
+document.getElementById("self").style.left = 454+'px'; 
+document.getElementById("self").style.top = 282+'px'; 
+    } 
+    //用一个对象存储绿色方块信息 
+    function piece(){ 
+piece.prototype.id = -1;   //方块编号   从0开始 
+piece.prototype.dire = 0;  //移动方向   1上 2下 3左 4右 
+piece.prototype.top = 0; 
+piece.prototype.left = 0; 
+    } 
+ 
+    //初始化num个绿色移动方块 
+    function initothers(num){ 
+for(var i=0;i<num;i++){ 
+    document.getElementById("pan").innerHTML += "<p id='"+i+"'; style='height:36px;width:36px;background-color:#00FF00;z-index:100; position:absolute;left:-50px'></p>"; 
+    //num1表示从横坐标出现还是纵坐标<1表示横 >1表示纵   num2 >1表示沿着坐标轴运动  <1表示逆着坐标走 
+    var num1 = Math.random()*2; 
+    var num2 = Math.random()*2; 
+    var top1 = 43;   //top1表示从上向下移动   
+    var top2 = 563;  //top2表示从下向上移动 
+    var left1 = 14;  //left1表示左-->右 
+    var left2 = 894;  //右-->左 
+    var p = new piece(); 
+    p.id = i; 
+     
+    if(num1<1){ 
+if(num2>1){  //从上往下移动 
+    p.dire = 2; 
+    p.top = top1; 
+    p.left = (Math.ceil(Math.random()*23)*40-26); 
+    document.getElementById(i).style.left = p.left+'px'; 
+    document.getElementById(i).style.top = top1+'px'; 
+     
+}else{   //从下往上移动 
+    p.dire = 1; 
+    p.top = top2; 
+    p.left = (Math.ceil(Math.random()*23)*40-26); 
+    document.getElementById(i).style.left = p.left+'px'; 
+    document.getElementById(i).style.top = top2+'px'; 
+     
+} 
+    }else{ 
+//从左向右移动 
+if(num2>1){ 
+    p.dire = 4; 
+    p.top = (Math.ceil(Math.random()*14)*40+3); 
+    p.left = left1; 
+    document.getElementById(i).style.left = left1+'px'; 
+    document.getElementById(i).style.top = p.top+'px'; 
+}else{  //右向左 
+    p.dire = 3; 
+    p.top = (Math.ceil(Math.random()*14)*40+3); 
+    p.left = left2; 
+    document.getElementById(i).style.left = left2+'px'; 
+    document.getElementById(i).style.top = p.top+'px'; 
+} 
+    } 
+    array.push(p); 
+} 
+ 
+//初始化完成  触发移动 
+var n; 
+for(n in array){ 
+    go(n,array[n].id,array[n].dire); 
+} 
+    } 
+     
+    //重新定位一个绿色方块location 
+function location(timerid,i,n,p){ 
+     
+    clearInterval(timerarr[timerid]); 
+    //alert(timerarr[timerid]); 
+    var num1 = Math.random()*2; 
+    var num2 = Math.random()*2; 
+    var top1 = 43;    
+    var top2 = 563;   
+    var left1 = 14;  
+    var left2 = 894;  
+     
+    if(num1<1){ 
+if(num2>1){  
+    p.dire = 2; 
+    p.top = top1; 
+    p.left = (Math.ceil(Math.random()*23)*40-26); 
+    document.getElementById(i).style.left = p.left+'px'; 
+    document.getElementById(i).style.top = top1+'px'; 
+}else{   
+    p.dire = 1; 
+    p.top = top2; 
+    p.left = (Math.ceil(Math.random()*23)*40-26); 
+    document.getElementById(i).style.left = p.left+'px'; 
+    document.getElementById(i).style.top = top2+'px'; 
+} 
+    }else{ 
+if(num2>1){ 
+    p.dire = 4; 
+    p.top = (Math.ceil(Math.random()*14)*40+3); 
+    p.left = left1; 
+    document.getElementById(i).style.left = left1+'px'; 
+    document.getElementById(i).style.top = p.top+'px'; 
+}else{   
+    p.dire = 3; 
+    p.top = (Math.ceil(Math.random()*14)*40+3); 
+    p.left = left2; 
+    document.getElementById(i).style.left = left2+'px'; 
+    document.getElementById(i).style.top = p.top+'px'; 
+} 
+    } 
+    go(n,p.id,p.dire); 
+    } 
+     
+    //绿色方块按规律直线移动 
+       function go(n,i,dire){ 
+//当一个绿色方块出界  重新初始化一个进入界面 
+var speed = Math.ceil(Math.random()*3)*10+10;  //速度随机 
+ 
+if(dire==2){ 
+timerarr[i] = setInterval("array["+n+"].top>=565 ? location("+i+","+i+","+n+",array["+n+"]): array["+n+"].top+=8;document.getElementById("+i+").style.top = array["+n+"].top+'px'; check(array["+i+"])",speed); 
+    } 
+if(dire==1){ 
+timerarr[i] = setInterval("array["+n+"].top<=41 ? location("+i+","+i+","+n+",array["+n+"]): array["+n+"].top-=8;document.getElementById("+i+").style.top = array["+n+"].top+'px';check(array["+i+"])",speed); 
+    } 
+if(dire==4){ 
+timerarr[i] = setInterval("array["+n+"].left>=896 ? location("+i+","+i+","+n+",array["+n+"]): array["+n+"].left+=8;document.getElementById("+i+").style.left = array["+n+"].left+'px';check(array["+i+"])",speed); 
+    } 
+if(dire==3){ 
+timerarr[i] = setInterval("array["+n+"].left<12 ? location("+i+","+i+","+n+",array["+n+"]): array["+n+"].left-=8;document.getElementById("+i+").style.left = array["+n+"].left+'px';check(array["+i+"])",speed); 
+    } 
+    }  
+     
+    //检查是否与白色方块相撞  传入绿色方块的对象进行判断 
+    function check(t){ 
+if(t.left<=x+75 && t.left>=x-36 && t.top<=y+75 && t.top>=y-36){ 
+    var today = new Date(); 
+    endtime = today.getTime(); 
+    finaltime = (endtime - starttime - 0) / 1000; 
+    window.alert('游戏结束！你坚持了 ' + finaltime + ' 秒…'); 
+    //alert('鼠标坐标'+x+','+y+'  方块坐标'+t.left+','+t.top); 
+    //重新载入页面 
+    document.location.reload();    
+} 
+    } 
+</script> 
+</body>
+</html>
