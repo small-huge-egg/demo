@@ -1,0 +1,133 @@
+<!DOCTYPE>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>第十六个</title>
+    <style>
+        .demo{
+            display: flex;
+            align-items:flex-end;
+        }
+        .demo span {
+            float: left;
+            margin: 5px;
+            width: 20px;
+            text-align: center;
+            font-size: 6px;
+            color: #fff;
+            background: #FD0300;
+        }
+    </style>
+  </head>
+<body>
+    <input type="text" id="txtInput" />
+    <button id="makeSelf">生成随机数</button>
+    <button id="leftIn">左侧入</button>
+    <button id="rightIn">右侧入</button>
+    <button id="leftOut">左侧出</button>
+    <button id="rightOut">右侧出</button>  
+    <button id="reorder">排序</button>
+    <p class="demo" id="box"></p> 
+</body>
+<script>
+    
+    window.onload = function(){
+        var c = document.getElementById("txtInput").value; 
+        var btn1 = document.getElementById("leftIn");
+        var btn2 = document.getElementById("rightIn");
+        var btn3 = document.getElementById("leftOut");
+        var btn4 = document.getElementById("rightOut");
+        var btn5 = document.getElementById("reorder");
+        function creatDiv(){
+            var context = document.getElementById("txtInput").value; 
+            var myDiv = document.createElement("span");
+            var divtxt = document.createTextNode(context);
+            myDiv.appendChild(divtxt);
+            myDiv.className = "demoNum";
+            myDiv.style.height = context;
+            return myDiv;
+            }
+        makeSelf.onclick = function random(){
+            document.getElementById("txtInput").value = Math.ceil(Math.random() *90+10);//生成10-100的随机数
+        }
+        btn1.onclick = function leftIn(){
+            var myBody = document.getElementsByClassName("demo")[0];
+            var c = document.getElementById("txtInput").value; 
+            if(!c){
+                alert("不能为空");
+            } 
+            if(myBody.childNodes.length>59){
+                alert("请输入不超过60个数字");
+            }
+            if(c<10||c>100){
+                alert("请输入10-100之间的数字");
+            }
+            else {
+                myBody.insertBefore(creatDiv(),myBody.firstChild);
+            }
+            //console.log("myBody.childNodes")
+        }
+        btn2.onclick = function rightIn(){
+            var c = document.getElementById("txtInput").value; 
+            var myBody = document.getElementsByClassName("demo")[0];
+            if(!c){
+                alert("不能为空");
+            } 
+            if(myBody.childNodes.length>59){
+                alert("请输入不超过60个数字");
+            }
+            if(c<10||c>100){
+                alert("请输入10-100之间的数字");
+            }
+            else {
+                myBody.appendChild(creatDiv());
+            }
+        }
+        btn3.onclick = function leftOut(){
+            var myBody = document.getElementsByClassName("demo")[0];
+            if(!myBody.innerText){
+                alert("没有东西");
+            }
+            else{
+                myBody.removeChild(myBody.firstChild);
+            }   
+        }
+        btn4.onclick = function rightOut(){
+            var myBody = document.getElementsByClassName("demo")[0];
+            if(!myBody.innerText){
+                alert("没有东西");
+            }
+            else{
+                myBody.removeChild(myBody.lastChild);
+            }   
+        }
+        btn5.onclick = function reorder(){
+            var i,j,tmp;
+            var list = box.childNodes;
+            console.log(list);
+            var arr = [];
+            for(i=0; i<len; i++){
+                arr.push(list[i].innerText);
+            }
+            console.log(arr);
+            if(len <= 1) {
+                return arr; 
+            }
+            for (i = 0; i < len; i++){
+                for (j = 0; j < len - i; j++){
+                    if (arr[j] > arr[j+1]){
+                        tmp = arr[j];
+                        arr[j] = arr[j+1];
+                        arr[j+1] = tmp;
+                        list[j].innerText = arr[j];
+                        list[j].style.height = `${arr[j]}px`;
+                        list[j + 1].innerText = arr[j + 1];
+                        list[j + 1].style.height = `${arr[j + 1]}px`; 
+                    }
+                }
+            }
+            return arr;
+        } 
+    }
+</script>
+</html>

@@ -1,0 +1,57 @@
+<html lang="en"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>filter</title>
+    <style>
+        
+    </style>
+</head>
+
+<body>
+        <p id="demo"></p>
+    <script>
+        //filter遍历数组用于删除空字符串
+        // var arr = ['A', '', 'B', null, undefined, 'C', '1 '];
+        // var r = arr.filter(function (s) {
+        //     return s&&s.trim();
+        //     //return (s!=''&&s!=null&&s!=undefined&&s!='  ');//建议用 
+        // });
+        // console.log(r); 
+
+        //filter运用元素位置检测以及元素内容来看是否存在相同元素用于删除重复元素
+        // var r,arr = ['apple', 'strawberry', 'banana', 'pear', 'apple', 'orange', 'orange', 'strawberry'];
+        // r = arr.filter(function (element, index, self) {
+        // return self.indexOf(element) === index;
+        // });
+        // alert(r.toString());
+        var arr=new Array("Saab","Volvo","BMW","BMW","ss");
+        var guo="BMW";
+        // function lala(){   
+            // for(var i=0;i<myArray.length;i++){
+            //     if(myArray[i]==r){
+            //         myArray.splice(i,1);
+            //         i=0;
+            //     } 
+            // }
+           // return myArray;
+           // console.log(myArray);
+            
+       // }
+    
+           function myFunction(arr,guo){
+            function guo (){
+                return guo;
+            }
+                for(var i=0;i<arr.length;i++){
+                    if(arr[i]==guo){
+                        arr.splice(guo,1);
+                        i=0;
+                    } 
+                }
+                // return arr;
+                console.log(arr);
+                document.getElementById("demo").innerHTML=my(arr,guo);
+            }
+        </script>
+</body></html>

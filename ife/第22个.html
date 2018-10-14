@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>第22个</title>
+</head>
+<style>
+    .super{
+        display: flex;
+        margin:30px;
+        justify-content: center;
+        flex-wrap: wrap;
+        border:2px solid red;
+        flex-flow:row;
+    }
+    .tow{
+        margin:15px;
+        display:flex;
+        align-self: auto;
+        padding:10px;
+        border:2px solid red;
+        justify-content: center;
+        flex-flow:row;   
+    }
+    .ji{
+        display: flex;
+        text-align: center;
+    }
+    .select{
+        border:2px solid rgb(20, 20, 19);        
+       
+    }
+</style>
+<body>
+    <div class="ji">
+        <div class="super" id="root">1
+            <div class="tow">2
+                <div class="tow">3
+                    <div class="tow">4</div>
+                    <div class="tow">4</div>
+                    <div class="tow">4</div>
+                    <div class="tow">4</div>    
+                </div>
+                <div class="tow">3</div>
+                <div class="tow">3
+                    <div class="tow">4</div>  
+                    <div class="tow">4</div>    
+                </div>  
+            </div>
+            <div class="tow">2
+                <div class="tow">3
+                <div class="tow">4
+                    <div class="tow">5</div>
+                    <div class="tow">5</div>
+                    <div class="tow">5</div>                  
+                </div>
+                <div class="tow">4
+                        <div class="tow">5
+                            <div class="tow">6</div>    
+                        </div> 
+                        <div class="tow">5</div>  
+                    </div> 
+                </div>
+            </div>
+            <div class="tow">2</div>
+        </div>
+    </div>
+    <div class="find">
+        <input id="finding" type="text" onclick="searchInp()">
+        <button onclick="xianxu()">先序遍历查找</button>
+        <button onclick="delate()">删除节点</button>
+        <input type="text" name="" id="inEle">
+        <button onclick="makeIn()">添加节点</button>
+    </div> 
+<script>
+    var inp = document.getElementById("finding"),
+    nodeChi = document.getElementById("root"),
+    towOnclick =  document.getElementsByClassName("super")[0],
+    tow = document.getElementById("tow"),
+    add = document.getElementById("inEle"),
+    timer=null,
+    sum=0,
+    sum2=0,
+    arr = [];
+    var target,selectNode;   
+    function xianxu(){
+        clear();
+        reset();
+        preOrder(nodeChi);   
+        changeColor();
+    } 
+    // 先序遍历查找  
+    function preOrder(node){
+        if(node!=null){
+            arr.push(node);
+        }
+        if(node.children&&node.children.length>0){
+            for(var i=0;i<node.children.length;i++){
+                this.preOrder(node.children[i]);
+            }
+        }
+        return arr;
+    }
+    // 颜色变化函数 
+    function changeColor(){
+        var i=0;
+        arr[i].style.backgroundColor="blue";
+        for(var j=0;j<arr.length;j++){
+            if(arr[j].firstChild.nodeValue.trim() == inp.value){
+                arr[j].classList.add('select');
+                sum++;
+            }
+        }
+        timer = setInterval(function(argument){
+            i++;            
+            if(i<arr.length){
+                arr[i-1].style.backgroundColor="#fff";
+                arr[i].style.backgroundColor="blue";
+            }else{
+                arr[i-1].style.backgroundColor="#fff";
+                clearInterval(timer);
+            }            
+        },100);
+       // console.log(arr.length);
+        if(sum==0){
+            setTimeout(()=>{
+                alert("没有找到")
+            },arr.length*100+100);
+            console.log(arr.length);
+        }
+    }
+    // 搜索框设置重置
+    function searchInp(){
+        inp.value="";
+    }
+    //重置函数
+    function reset(node){
+        arr=[];
+        clearInterval(timer);                 
+        var divs=document.getElementsByTagName("div");
+        for(var i=0;i<divs.length;i++){
+            divs[i].style.backgroundColor="#fff";
+        }
+        for(var j=0;j<arr.length;j++){
+            arr[j].classList.remove('select');
+        }
+    }
+    // 点击div事件
+    towOnclick.addEventListener("click",function(e){
+        clear();
+        var target = e.target;
+        if(target.nodeName!="DIV") return;
+        else{
+            target.classList.add("select");
+            sum2++;
+            selectNode = target;
+        }
+        
+    })
+    //清除上一个div标记
+    function clear(){ 
+        preOrder(nodeChi); 
+        if(sum2>0){  
+            for(i=0;i<arr.length;i++){
+                arr[i].classList.remove('select');
+            }   
+        }
+    }
+    function changeArr(){
+        while(arr.hasChildNodes('selectNode')){
+            arr.removeChild(arr.firstChild);
+        }
+        console.log(arr)
+        return arr;
+    }
+    //删除节点
+    function delate(){
+        if(selectNode.id!=='root'){
+            selectNode.remove(selectNode);
+            arr=[];
+        }else{
+            alert("根节点不要删除哦");
+            return;
+        } 
+    }
+    //创建新的div节点
+    function createDiv(){
+        if(add.value!=""){
+           var newDiv = document.createElement("div");
+           var divtxt = document.createTextNode(add.value);
+                newDiv.appendChild(divtxt);
+                newDiv.className = "tow"; 
+                return newDiv;
+        }
+    }
+    //添加节点
+    function makeIn(){   
+        if(add.value!=""&&selectNode!=null){
+            selectNode.appendChild(createDiv(),selectNode.lastChild);
+        }else{
+            alert("不能为空");
+        }
+    }
+</script>   
+</body>
+</html>

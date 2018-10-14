@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>第21个</title>
+</head>
+<style>
+    .super{
+        display: flex;
+        margin:30px;
+        justify-content: center;
+        flex-wrap: wrap;
+        border:2px solid red;
+        flex-flow:row;
+    }
+    .tow{
+        margin:15px;
+        display:flex;
+        align-self: auto;
+        padding:10px;
+        border:2px solid red;
+        justify-content: center;
+        flex-flow:row;   
+    }
+    .ji{
+        display: flex;
+        text-align: center;
+    }
+    .select{
+        border:2px solid rgb(20, 20, 19);        
+       
+    }
+</style>
+<body>
+    <div class="ji">
+        <div class="super" id="root">1
+            <div class="tow">2
+                <div class="three tow">3
+                    <div class="four tow">4</div>
+                    <div class="four tow">4</div>
+                    <div class="four tow">4</div>
+                    <div class="four tow">4</div>    
+                </div>
+                <div class="three-2 tow">3</div>
+                <div class="three-3 tow">3
+                    <div class="four-2 tow">4</div>  
+                    <div class="four-2 tow">4</div>    
+                </div>  
+            </div>
+            <div class="tow">2
+                <div class="tow-2 tow">3
+                <div class="three-4 tow">4
+                    <div class="four-3 tow">5</div>
+                    <div class="four-3 tow">5</div>
+                    <div class="four-3 tow">5</div>                  
+                </div>
+                <div class="three-4 tow">4
+                        <div class="four-4 tow">5
+                            <div class="five tow">6</div>    
+                        </div> 
+                        <div class="four-4 tow">5</div>  
+                    </div> 
+                </div>
+            </div>
+            <div class="tow tow-2">2</div>
+        </div>
+    </div>
+    <div class="find">
+        <input id="finding" type="text" onclick="searchInp()">
+        <button onclick="xianxu()">先序遍历查找</button>
+        <!-- <button onclick="zhongxu()">中序遍历查找</button>
+        <button onclick="houxu()">后序遍历查找</button> -->
+    </div> 
+<script>
+    var inp = document.getElementById("finding"),
+    nodeChi = document.getElementById("root"),
+    timer=null,
+    sum=0,
+    arr = [];
+    function xianxu(){
+        reset();
+        preOrder(nodeChi);   
+        changeColor();
+    } 
+    // 先序遍历查找  
+    function preOrder(node){
+        if(node!=null){
+            arr.push(node);
+        }
+        if(node.children&&node.children.length>0){
+            for(var i=0;i<node.children.length;i++){
+                this.preOrder(node.children[i]);
+            }
+        }
+    }
+    // 颜色变化函数 
+    function changeColor(){
+        var i=0;
+        arr[i].style.backgroundColor="blue";
+        for(var j=0;j<arr.length;j++){
+            if(arr[j].firstChild.nodeValue.trim() == inp.value){
+                arr[j].classList.add('select');
+                sum++;
+            }
+        }
+        timer = setInterval(function(argument){
+            i++;            
+            if(i<arr.length){
+                arr[i-1].style.backgroundColor="#fff";
+                arr[i].style.backgroundColor="blue";
+            }else{
+                arr[i-1].style.backgroundColor="#fff";
+                clearInterval(timer);
+            }            
+        },100);
+        if(sum==0){
+            setTimeout(()=>{
+                alert("没有找到")
+            },arr.length*100+100);
+           
+        }
+    }
+    // 搜索框设置重置
+    function searchInp(){
+        inp.value="";       
+        for(var j=0;j<arr.length;j++){
+            arr[j].classList.remove('select');
+        }
+    }
+    //重置函数
+    function reset(){
+        arr=[];
+        clearInterval(timer);
+        var divs=document.getElementsByTagName("div");
+        for(var i=0;i<divs.length;i++){
+            divs[i].style.backgroundColor="#fff";
+        }
+    }
+</script>   
+</body>
+</html>
