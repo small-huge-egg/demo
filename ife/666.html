@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        
+    </style>
+</head>
+<body>
+    
+<script>
+    //字面量构造函数
+    //     var per={
+    //         name:"xiaoming",
+    //         age:18,
+    //         salary:20000,
+    //         eat:function(){
+    //             console.log("爱吃臭豆腐")
+    //         },
+    //         read:function(){
+    //             console.log("坏蛋是怎样炼成的")
+    //         }
+    //     };
+    //     console.log(per instanceof Object)
+    // 
+
+    // <!-- 调用系统的构造函数 -->
+        // var per = new Object();
+        // per.name="xiaoming";
+        // per.age=18;
+        // per.salary=20000;
+        // per.eat = function(){
+        //     console.log("爱吃臭豆腐")
+        // }
+        // per.read = function(){
+        //     console.log("坏蛋是怎样炼成的")
+        // }
+        // function Person(){
+
+        // }
+        // console.log(per instanceof Person)
+
+        // 自定义构造函数
+            // function Person(name,age,salary){
+            //     this.name = name;
+            //     this.age = age;
+            //     this.salary = salary;
+            //     this.eat = function(){
+            //         console.log("爱吃臭豆腐")
+            //     };
+            // }
+            // var per = new Person("xiaoming",18,20000);
+            // console.log(per instanceof Person)
+
+    // 工厂模式创建对象
+    // function createObj(name,age,sex){
+    //     var obj = new Object();
+    //     obj.name=name;
+    //     obj.age = age;
+    //     obj.sex = sex;
+    //     obj.eat = function(){
+    //         console.log("爱吃臭豆腐");
+    //     }
+    //     return obj;
+    // }
+    // var per1 = createObj("小明",18,"男");
+    // console.log(per1)
+
+    // 原型添加方法，解决数据共享，节省内存空间
+    function Person(name,age){
+        this.name=name;
+        this.age=age;
+    }
+    Person.prototype.eat = function(){
+        console.log("臭豆腐")
+    }
+    var per1 = new Person("小明",18);
+    var per2 = new Person("小红",20);
+    console.log(per1);
+    console.log(per2);
+    console.log(per1.eat==per2.eat);
+    console.dir(per1);
+    console.dir(per2);
+</script>
+</body>
+</html>
