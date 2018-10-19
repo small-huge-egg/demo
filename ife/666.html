@@ -70,20 +70,84 @@
     // console.log(per1)
 
     // 原型添加方法，解决数据共享，节省内存空间
-    function Person(name,age){
-        this.name=name;
-        this.age=age;
-    }
-    Person.prototype.eat = function(){
-        console.log("臭豆腐")
-    }
-    var per1 = new Person("小明",18);
-    var per2 = new Person("小红",20);
-    console.log(per1);
-    console.log(per2);
-    console.log(per1.eat==per2.eat);
-    console.dir(per1);
-    console.dir(per2);
+    // function Person(name,age){
+    //     this.name=name;
+    //     this.age=age;
+    // }
+    // Person.prototype.eat = function(){
+    //     console.log("臭豆腐")
+    // }
+    // var per1 = new Person("小明",18);
+    // var per2 = new Person("小红",20);
+    // console.log(per1);
+    // console.log(per2);
+    // console.log(per1.eat==per2.eat);
+    // console.dir(per1);
+    // console.dir(per2);
+    // console.dir(Person);
+
+    // 需要共享的数据写在原型中，不需要共享的数据写在构造函数中
+    //构造函数
+    // function Student(name,age,sex){
+    //     this.name=name;
+    //     this.age=age;
+    //     this.sex=sex;
+    // }
+    //创建原型对象方法一
+    // Student.prototype.weight="55kg";
+    // Student.prototype.height="188cm";
+    // Student.prototype.study = function(){
+    //     console.log("每天至少五百行代码");
+    // }
+    // Student.prototype.eat = function(){
+    //     console.log("我最爱吃榴莲");
+    // }
+    // 创建原型对象方法二
+    // Student.prototype={
+    //     //手动修改构造器的指向
+    //     constructor:Student,
+    //     weight:"55kg",
+    //     height:"188cm",
+    //     study : function(){
+    //         console.log("每天至少五百行代码");
+    //     },
+    //     eat : function(){
+    //         console.log("我最爱吃榴莲");
+    //     }
+    // };
+    //实例化对象
+    // var stu = new Student("小明",18,"男");
+    // console.dir(Student);
+    // console.dir(stu);
+    // stu.eat();
+
+    // //原型对象中的属性可以相互访问
+    // function Animal(name,age){
+    //     this.name=name;
+    //     this.age=age;
+    // }
+    // Animal.prototype.eat = function(){
+    //     console.log("动物最爱吃榴莲");
+    //     this.sleep();
+    // }
+    // Animal.prototype.sleep = function(){
+    //     console.log("动物睡觉了");
+    // }
+    // var ani =new Animal("小鸡",5);
+    // ani.eat();
+
+    //通过自调用函数产生一个随机数对象,在自调用函数外面,调用该随机数对象方法产生随机数
+    (function(window) {
+        function Random(){
+
+        }
+        Random.prototype.getRandom = function(min,max){
+            return Math.floor(Math.random()*(max-min)+min);
+        }
+        window.Random =new Random();
+    })(window)
+    var ran = Random;
+    console.log(ran.getRandom(2,5));
 </script>
 </body>
 </html>
