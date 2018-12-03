@@ -4,38 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>css核心技术详解</title>
-    <style>
-        body{
-            margin:0;
-            padding:0;
-        }
-        .box div{
-            width:100px;
-            height:100px;
-            border:1px solid red;
-            margin:0 auto;
-        }
-        .box{
-            float:left;
-            margin-left:20px;
-        }
-    </style>
+    <title>Document</title>
 </head>
 <body>
-    <div class="box">
-        <div class="h"></div>
-        <div class="l"></div>
-        <div class="f"></div>
-    </div>   
+    <script>
+        setTimeout(function() {
+            console.log('setTimeout');
+        })
+        
+        new Promise(function(resolve) {
+            console.log('promise');
+            resolve(3)
+        }).then(val=>{
+            console.log(val);
+        })
+        
+        console.log('console');
+    </script>
 </body>
-<script>/*
-    var oBtn=document.getElementById('btn');
-    oBtn.onclick=function(){
-        oBtn.classList.add('disable');
-        setTimeout(function(){
-            oBtn.classList.remove('disable');
-        },3000)
-    };*/
-</script>
 </html>

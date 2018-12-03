@@ -1,0 +1,8 @@
+#box{
+    width: 150px;
+    height: 150px;
+    background-color: red;
+    filter: alpha(opacity(30));
+    opacity: 0.3;
+    /* alpha和opacity的区别：alpha是用来对元素设置透明度，针对元素的背景色、文字颜色、边框颜色等设置透明度。opacity却只能给整个元素设置一个透明度，并且其透明度直接会继承给其后代元素 */
+}

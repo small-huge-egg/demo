@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>动态</title>
+
+    <!-- 单个目标移动事件 -->
+    <!-- <link rel="stylesheet" href="style/控制左右移动.css"> -->
+
+    <!-- 鼠标移入移出改变透明度 -->
+    <!-- <link rel="stylesheet" href="style/控制透明度.css"> -->
+
+    <!-- js控制多物体运动 -->
+    <!-- <link rel="stylesheet" href="style/多物体运动.css"> -->
+
+    <!-- js多物体改变透明度 -->
+    <link rel="stylesheet" href="style/多物体改变透明度.css">
+</head>
+<!-- 单个目标移动事件 -->
+<!-- <body>
+    <div id="box">
+        <span id="lag">拉动</span>
+    </div>
+    <script>
+        window.onload = function(){
+            var box = document.getElementById("box");
+            box.onmouseover = function(){
+                move(0);
+            }
+            box.onmouseout = function(){
+                move(-150);
+            }
+
+            var timer=null;
+            function move(target){
+                clearInterval(timer);//解决speed叠加问题
+                timer = setInterval(function(){
+                    var speed=0;
+                    if(box.offsetLeft>target){
+                        speed=-10;
+                    }else{
+                        speed=10;  
+                    }
+                    if(box.offsetLeft==target){
+                        clearInterval(timer);
+                    }else{
+                        box.style.left = box.offsetLeft+speed + 'px';
+                    } 
+                },30)
+            }
+        }
+    </script>
+</body> -->
+
+<!-- 鼠标移入移出改变透明度 -->
+<!-- <body>
+    <div id="box"></div>
+    <script>
+        window.onload = function(){
+            var box=document.getElementById("box");
+            box.onmouseover = function(){
+                move(100);
+            }
+            box.onmouseout = function(){
+                move(30);
+            }
+
+            var timer=null,
+            alpha = 30;
+            function move(target){
+                clearInterval(timer);
+                timer = setInterval(function(){
+                    var speed=0;
+                    if(alpha<target){
+                        speed=10;
+                    }else{
+                        speed=-10;
+                    }
+                    if(alpha==target){
+                        clearInterval(timer);
+                    }else{
+                        alpha+=speed;
+                        box.style.filter = 'alpha(opacity(alpha))';
+                        box.style.opacity = alpha/100;
+                    }
+                },100)
+            }
+        }
+    </script>
+</body> -->
+
+<!-- js缓冲动画，速度会变 -->
+<!-- <body>
+    <div id="box">
+        <span id="lag">拉动</span>
+    </div>
+    <script>
+        window.onload = function(){
+            var box = document.getElementById("box");
+            box.onmouseover = function(){
+                move(0);
+            }
+            box.onmouseout = function(){
+                move(-150);
+            }
+
+            var timer=null;
+            function move(target){
+                clearInterval(timer);
+                timer = setInterval(function(){
+                    var speed=(target-box.offsetLeft)/20;
+                    speed=speed>0?Math.ceil(speed):Math.floor(speed);
+                    if(box.offsetLeft==target){
+                        clearInterval(timer);
+                    }else{
+                        box.style.left = box.offsetLeft + speed +'px'; 
+                    }
+                },20)
+            }
+        }
+
+    </script>
+</body> -->
+
+<!-- js控制多物体运动 -->
+<!-- <body>
+    <ul>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+    <script>
+        window.onload = function(){
+            var aLi = document.getElementsByTagName("li");
+            for(var i=0;i<aLi.length;i++){
+                aLi[i].timer=null;
+                aLi[i].onmouseover = function(){
+                    move(this,700);
+                }
+                aLi[i].onmouseout = function(){
+                    move(this,300);
+                }
+            }
+
+            function move(obj,target){
+                clearInterval(obj.timer);
+                // var speed = (target-obj.offsetWidth)/8;
+                // speed = speed>0?Math.ceil(speed):Math.floor(speed);
+                obj.timer = setInterval(function(){
+                    var speed = (target-obj.offsetWidth)/8;
+                speed = speed>0?Math.ceil(speed):Math.floor(speed);
+                    if(obj.offsetWidth==target){
+                        clearInterval(obj.timer);
+                    }else{
+                        obj.style.width = obj.offsetWidth + speed + 'px';
+                    }
+                },50)
+            }
+        }
+    </script>
+</body> -->
+
+<!-- js多物体改变透明度 -->
+<body>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+<script>
+    window.onload = function(){
+        var oDiv = document.getElementsByTagName("div");
+        for(var i=0;i<oDiv.length;i++){
+            var timer = null;
+            oDiv[i].alpha=null;
+            oDiv[i].onmouseover = function(){
+                move(this,100);
+            }
+            oDiv[i].onmouseout = function(){
+                move(this,30);
+            }
+        }
+        // var alpha = 30;
+        function move(obj,target){
+            clearInterval(obj.timer);
+            obj.timer = setInterval(function(){
+                var speed = 0;
+                if(obj.alpha>target){
+                    speed=-10;
+                }else{
+                    speed=10; 
+                }
+                if(obj.alpha==target){
+                    clearInterval(obj.timer);
+                }else{
+                    obj.alpha+=speed;
+                    obj.style.filter = 'alpha(opcity(alpha))';
+                    obj.style.opacity = obj.alpha/100;
+                }
+            },100)
+        }
+    }
+</script>
+</body>
+</html>

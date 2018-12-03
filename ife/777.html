@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <table>
+                <thead>
+                    <tr>
+                        <th>姓名</th>
+                        <th>力量</th>
+                        <th>敏捷</th>
+                        <th>实力</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>德鲁伊</td>
+                        <td>17</td>
+                        <td>24</td>
+                        <td>13</td>
+                    </tr>
+                    <tr>
+                        <td>德神之王</td>
+                        <td>19</td>
+                        <td>15</td>
+                        <td>20</td>
+                    </tr>
+                    <tr>
+                        <td>月之骑士</td>
+                        <td>15</td>
+                        <td>22</td>
+                        <td>16</td>
+                    </tr>
+                    <tr>
+                        <td>德鲁剑客</td>
+                        <td>23</td>
+                        <td>15</td>
+                        <td>14</td>
+                    </tr>
+                </tbody>
+                </table>
+    <script>
+    window.onload=function(){
+        var tbody=document.getElementsByTagName('tbody');
+        var th=document.getElementsByTagName('th');
+        var r=tbody[0].rows.length;//获取表格行数
+        var c=tbody[0].rows[0].cells.length;//获取第一行表格的列数
+        var arr2=[];
+        for(var i=0;i<r;i++){
+                arr2[i]=tbody[0].rows[i];//将每一行存入数组arr2里面
+        }
+        for(var i=0;i<th.length;i++){
+            (function(n){
+                var count=0;//记录点击次数
+                th[i].onclick=function(){
+
+                if(count==0){//未点击
+                    if(n==0){//i=0,即第一个th
+                        strSortUp(arr2,n);//比较名字并返回排序好的名字
+                    }
+                    sortUp(arr2,n);
+                    count=1;
+                    }else{
+                        if(n==0){
+                            strSortDown(arr2,n);
+                        }
+                        sortDown(arr2,n);
+                        count=0;
+                        }
+                        var str="";
+                        var html="";
+                        for(var k=0;k<arr2.length;k++){
+                            for(var j=0;j<c;j++){
+                            str+="<td>"+arr2[k].children[j].innerText+"</td>";
+                            }
+                            html+="<tr>"+str+"</tr>";
+                            str="";
+
+                        }
+                        tbody[0].innerHTML=html;
+                    }
+                })(i);
+            }
+    }
+    //数字降序
+    function sortUp(arr,n){
+        arr.sort(function(a,b){
+            return a.children[n].innerText-b.children[n].innerText;
+        });
+    }
+    //数字升序
+    function sortDown(arr,n){
+        arr.sort(function(a,b){
+            return b.children[n].innerText-a.children[n].innerText;
+        });
+    }
+    //字符串降序
+    function strSortUp(arr,n){//n代表这一行的第几列
+        var i=0;
+        arr.sort(function(a,b){
+            return  a.children[n].innerText.localeCompare(b.children[n].innerText);
+            //返回第一行与第二行等行的比较，比较的是第一行的第0个孩子和其他行的第0个孩子的大小，并将大的行数放在后面。
+        });
+
+    }
+//字符串降升序
+    function strSortDown(arr,n){
+        arr.sort(function(a,b){
+            return  -(a.children[n].innerText.localeCompare(b.children[n].innerText));
+        });
+    }
+
+    </script>
+</body>
+</html>

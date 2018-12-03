@@ -209,3 +209,19 @@
         max-width:100%;
     }
 *面对hover下的下划线被图片盖住问题，添加margin即可*
+![区别](元素隐藏.png)
+# 四个自适应宽高
+#### [注意]IE浏览器不支持，webkit内核浏览器需添加-webkit-前缀
+* fill-available
+* max-content
+* min-content
+* fit-content
+### width:-webkit-fill-available
+    div{
+    background-color: pink;
+    display:inline-block;
+    width:-webkit-fill-available;
+    }
+    <div>小火柴的蓝色理想</div>
+    ![自适应宽度](img/fill-available.png)
+### 更多：https://www.cnblogs.com/xiaohuochai/p/7210540.html

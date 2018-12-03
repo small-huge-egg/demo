@@ -69,7 +69,7 @@
     // var per1 = createObj("小明",18,"男");
     // console.log(per1)
 
-    // 原型添加方法，解决数据共享，节省内存空间
+    //原型添加方法，解决数据共享，节省内存空间
     // function Person(name,age){
     //     this.name=name;
     //     this.age=age;
@@ -137,17 +137,272 @@
     // ani.eat();
 
     //通过自调用函数产生一个随机数对象,在自调用函数外面,调用该随机数对象方法产生随机数
-    (function(window) {
-        function Random(){
+    // (function(window) {
+    //     function Random(){
 
-        }
-        Random.prototype.getRandom = function(min,max){
-            return Math.floor(Math.random()*(max-min)+min);
-        }
-        window.Random =new Random();
-    })(window)
-    var ran = Random;
-    console.log(ran.getRandom(2,5));
+    //     }
+    //     Random.prototype.getRandom = function(min,max){
+    //         return Math.floor(Math.random()*(max-min)+min);
+    //     }
+    //     window.Random =new Random();
+    // })(window)
+    // var ran = Random;
+    // console.log(ran.getRandom(2,5));
+
+    // function Person(age,sex){
+    //     this.age=age;
+    //     this.sex=sex;
+    // }
+    // Person.prototype.sex="女";
+    // var per=new Person(10,'男');
+    // console.log(per.sex);//男
+    // console.log(per.hjhjh);//undefined
+    // console.log(hjhjh);//报错
+    // //因为js是一门动态类型语言，对象没有什么，只要点了，那么对象就有了这个东西，没有这个属性，只要对象.属性名字没对象就有了这个属性，但是该属性没有赋值，所以是undefined
+
+    //实例对象能否改变原型对象的属性值？不能，要改变原型对象的属性值，直接原型对象.属性=值
+
+        // // //人的构造函数
+        // function Person(age){
+        //     this.age = age;
+        // }
+        // //人的原型中添加方法
+        // Person.prototype.eat = function () {
+        //     console.log("人吃");
+        // }
+        // //学生的构造函数
+        // function Student(sex) {
+        //     this.sex = sex;
+        // }
+        // //学生的原型中添加方法
+        // Student.prototype.sayHi = function () {
+        //     console.log("您好跑");
+        // }
+        // //改变了原型对象的指向
+        // Student.prototype = new Person();
+        // var stu=new Student("男");
+        // stu.eat();
+        // stu.sayHi();//报错,因为改变了指向，原来的student原型相当于没了，解决方法是先改变指向，在添加方法
+
+            // //人的构造函数
+            // function Person(age){
+            //     this.age = age;
+            // }
+            // //人的原型中添加方法
+            // Person.prototype.eat = function () {
+            //     console.log("人吃");
+            // }
+            // //学生的构造函数
+            // function Student(sex) {
+            //     this.sex = sex;
+            // }
+            // //先改变原型对象的指向,相当于原型实现继承
+            // Student.prototype = new Person();
+            // //学生的原型中添加方法
+            // Student.prototype.sayHi = function () {
+            //     console.log("您好跑");
+            // }
+            // // Student.prototype.eat = function () {
+            // //     console.log("学生吃");
+            // // }
+            // var stu=new Student("男");
+            // stu.eat();//人吃
+            // stu.sayHi();//您好跑
+        
+
+
+        // //利用原型实现继承
+        // //动物有名字，有体重，有吃东西的行为
+        // //小狗有名字，有体重，有毛色，有吃东西的行为，还有咬人的行为
+        // //哈士奇有名字，有体重，有毛色，性别，有吃东西的行为，还有咬人的行为，逗主人开心的行为
+
+        // //动物的构造函数
+        // function Animal(name,weight){
+        //     this.name=name;
+        //     this.weight=weight;
+        // }
+        // //动物的原型方法
+        // Animal.prototype.eat = function () {
+        //     console.log("臭豆腐真好次");
+        // }
+
+        // //小狗的构造函数
+        // function Dog(color){
+        //     this.color = color;
+        // }
+        // //改变小狗原型的指向
+        // Dog.prototype = new Animal("哮天犬","50kg");
+        // //给小狗添加原型方法
+        // Dog.prototype.bitePerson = function () {
+        //     console.log("旺旺，咬死你");
+        // }
+
+        // //哈士奇的构造函数
+        // function Erha(sex){
+        //     this.sex = sex;
+        // }
+        // //改变二哈的原型指向
+        // Erha.prototype = new Dog("red");
+        // //给erha添加原型方法
+        // Erha.prototype.play = function () {
+        //     console.log("逗你玩呢");
+        // }
+        // var erha = new Erha("男的");
+        // console.log(erha.color);
+        // console.log(erha.sex);
+        // erha.bitePerson();
+        // erha.play();
+        // erha.eat();
+        
+        // //利用原型实现继承有一个弊端就是初始化了属性，导致其他人没那个属性值也有了
+    //     function Person(name,age,sex,weight){
+    //         this.name = name;
+    //         this.age = age;
+    //         this.sex = sex;
+    //         this.weight = weight;
+    //     }
+    //     Person.prototype.sayHi = function () {
+    //         console.log("您好哦");
+    //     }
+    //     function Student(score){
+    //         this.score = score;
+    //     }
+    //     Student.prototype = new Person("小明",18,"男","50kg");
+    //     var stu1 = new Student("100");
+    //     stu1.sayHi();//您好哦
+    //     console.log(stu1.name,stu1.age,stu1.sex,stu1.weight,stu1.score);// 小明 18 男 50kg 100
+       
+    //     var stu2 = new Student("120");
+    //         stu2.name="张三";
+    //         stu2.age=20;
+    //         stu2.sex="女";
+    //     console.log(stu2.name,stu2.age,stu2.sex,stu2.weight,stu2.score);//小明 18 男 50kg 120
+    //     stu2.sayHi();//您好哦
+    //    stu1.sayHi();//您好哦
+        //这样一个个弄太麻烦
+        //为了实现数据共享，改变原型指向，做到了继承-----通过改变原型指向实现的继承
+        //缺陷：因为改变原型指向的同时实现继承，直接初始化了属性，继承过来的属性的值都是一样的了，所以问题来了
+        //只能重新调用对象的属性进行重新赋值
+        
+        // //解决方案：继承的时候，不用改变原型指向，直接调用父级的构造函数的方式来为属性赋值-----借用构造函数：把要继承的父级的构造函数拿出来，使用一下
+        // //借用构造函数：构造函数名字.call(当前对象（通常写this）,属性，属性，属性。。。)；
+        // //解决了属性继承，并且值不重复的问题
+        // //缺陷：父级类别的方法不能继承
+        // function Person(name,age,sex,weight){
+        //     this.name = name;
+        //     this.age = age;
+        //     this.sex = sex;
+        //     this.weight = weight;
+        // }
+        // Person.prototype.width="15px";
+        // Person.prototype.sayHi = function () {
+        //     console.log("您好哦");
+        // }
+        // function Student(name,age,sex,weight,score){
+        //     this.score = score;
+        //     Person.call(this,name,age,sex,weight);
+        // }
+        // var stu1 = new Student("小红",19,"女","50kg","100")
+        // console.log(stu1.width(显示undefined),stu1.name,stu1.age,stu1.sex,stu1.weight,stu1.score);// 小明 18 男 50kg 100
+        // stu1.sayHi();//sayHi is not a function报错
+        // Student.prototype = new Person("小明",18,"男","50kg","120");
+        // console.log(stu2.width(显示undefined),stu2.name,stu2.age,stu2.sex,stu2.weight,stu2.score);//小明 18 男 50kg 120
+        // stu2.sayHi();//sayHi is not a function报错
+        // stu1.sayHi();//sayHi is not a function报错
+
+            // //原型实现继承
+            // //借用构造函数实现继承
+            // //组合继承：原型继承+借用构造函数继承
+            // function Person(name,age,sex) {
+            // this.name=name;
+            // this.age=age;
+            // this.sex=sex;
+            // }
+            // Person.prototype.sayHi=function () {
+            // console.log("阿涅哈斯诶呦");
+            // };
+            // function Student(name,age,sex,score) {
+            // //借用构造函数:属性值重复的问题
+            // Person.call(this,name,age,sex);
+            // this.score=score;
+            // }
+            // //改变原型指向----继承
+            // Student.prototype=new Person();//不传值
+            // Student.prototype.eat=function () {
+            // console.log("吃东西");
+            // };
+            // var stu=new Student("小黑",20,"男","100分");
+            // console.log(stu.name,stu.age,stu.sex,stu.score);
+            // stu.sayHi();
+            // stu.eat();
+            // var stu2=new Student("小黑黑",200,"男人","1010分");
+            // console.log(stu2.name,stu2.age,stu2.sex,stu2.score);
+            // stu2.sayHi();
+            // stu2.eat();
+            // //属性和方法都被继承了
+
+            // //拷贝继承：把一个对象中的属性或方法直接复制到另一个对象中
+            //     function Person(name){
+            //         this.name=name;
+            //     }
+            //     Person.prototype.age=10;
+            //     Person.prototype.sex="男";
+            //     Person.prototype.eat = function(){
+            //         console.log("吃了");
+            //     }
+            //     var obj={};
+            //     for(var key in Person.prototype){
+            //         obj[key] = Person.prototype[key];
+            //     }
+            //     console.dir(obj);
+            //     obj.eat();
+        
+
+        // //对象中__proto__原型，是对象
+        // //函数中有prototype原型，是对象
+        // function F1(){
+        // }
+        // console.dir(F1);
+        // console.dir(Math);
+  
+            // //数组可以存储任何类型的数据
+            // var arr=[
+            //     function (){
+            //         console.log("1")
+            //     },
+            //     function (){
+            //         console.log("2")
+            //     },
+            //     function (){
+            //         console.log("3")
+            //     },
+            //     function (){
+            //         console.log("4")
+            //     }
+            // ]
+            // //回调函数：函数作为参数使用
+            // arr.forEach(function(e){
+            //     e();
+            // })
+
+
 </script>
+
+<!-- a.value=2的问题，b继承的是指针，而不是a的值 -->
+<!-- 对象复制传递的实际是一个对象的引用（可以理解为指针），所以a和b代表的是一个东西 -->
+<!-- <script>
+    var a=new Object();
+    a.value = 1;
+    b = a;
+    b.value = 2;
+    a.value=3;
+    console.log(b.value)
+    console.log(a.value)//a=2
+</script> -->
+
+
+
+
+
 </body>
 </html>
