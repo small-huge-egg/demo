@@ -234,16 +234,18 @@
     var arr = ['B', 'C', 'A'];
     arr.sort();
     arr; // ['A', 'B', 'C']
-    var arr = [10, 20, 1, 2];
-    arr.sort(function (x, y) {
-    if (x < y) {
-        return 1;
-    }
-    if (x > y) {
-        return -1;
-    }
-    return 0;
-    }); // [20, 10, 2, 1]
+    //sort排序不稳定，解决方法：
+    var arr=[100,1,50,26,89,100,108];
+    arr.sort(function (x,y){
+        if(x>y){
+            return 1;//相当于x-y>0
+        }else if(x==y){
+            return 0;
+        }else{
+            return -1
+        }
+    });
+    console.log(arr)//按从小到大顺序排列
 ### 在二维数组中应用举例:将比较90，50等的值，并按递减顺序排列，若改成x-y则按递增顺序排列
     var aqiData = [
     ["北京", 90],
@@ -482,6 +484,26 @@
 * BOM：中顶级对象是window，浏览器中所有的东西都是window的
 ### 函数是对象，对象不一定是函数；对象中有__proto__，函数中有prototype,如果一个东西里面既有prototype又有__proto__,说明是函数，也是对象
 ![所有函数实际上是由Function的构造函数创建出来的实例对象](Function.png)
+## 函数的几个成员
+    函数中有一个name属性----->函数的名字,name属性是只读的,不能修改
+    函数中有一个arguments属性--->实参的个数
+    函数中有一个length属性---->函数定义的时候形参的个数
+    函数中有一个caller属性---->调用(f1函数在f2函数中调用的,所以,此时调用者就是f2)
+# 高阶函数之函数作为参数
+    function f1(fn){
+        console.log("f1的函数");
+        fn();//此时fn当作是函数使用了
+    }
+    //传入匿名函数
+    f1(function(){
+        console.log("我是匿名函数");//此时输出f1的函数,我是匿名函数
+    });
+    //命名函数
+    function f2(){
+        console.log("f2的函数");
+    }
+    f1(f2);//此时输出f1的函数,我是匿名函数，f1的函数，f2的函数
+    //函数作为参数时，如果是命名函数，那么只用传入命名函数的名称，没有括号
 ![中](date.png)
 # boolean布尔
 ## 创建Boolean
@@ -610,6 +632,77 @@
     (function(a,b){
         console.log(a+b)
     })(2,3)
+# 作用域链与预解析
+## 作用域
+### 变量的使用，从里向外，层层的搜索，搜索到了就可以直接使用，搜索到0级作用域的时候,如果还是没有找到这个变量,结果就是报错
+    var num = 10;//作用域链 级别：0
+    function f1(){
+        var num=20;//作用域链 级别：1
+        function f2(){
+            var num=30;//作用域链 级别：2
+            console.log(num);
+        }
+        f2();
+    }
+    f1();//30
+## 预解析
+### 预解析就是在浏览器解析代码之前，把变量的声明和函数声明提前（提升）到该作用域的最前面
+# 递归
+## 递归:用于自身调用，减少不必要的代码。函数中调用函数自己,此时就是递归,递归一定要有结束的条件
+    <!-- 求一个数字各个位数上的数字的和 -->
+    function getSum(x){253
+        if(x<10){
+            return x;
+        }
+        return (x%10+getSum(parseInt(x/10)));
+    }
+    console.log(getSum(128))//11
+# 闭包
+## 闭包概念：函数a中，有一个函数b，函数b可以访问到函数a中定义的变量或数据，此时形成了闭包（不严谨解释）
+### 闭包模式：函数模式的闭包，对象模式的闭包
+### 闭包的作用：缓存数据，延长作用域链
+### 闭包的优点和缺点：缓存数据
+### 总结：要想缓存数据，就把这个数据放到外层的函数和里层的函数之间。
+### 闭包后，里面的局部变量的使用作用域链就会被延长
+    <!-- 普通函数 -->
+    <!-- <script>
+        function f1(){
+            var num = 10;
+            num++;
+            return num;
+        }
+        console.log(f1());
+        console.log(f1());
+        console.log(f1());//全部输出11
+    </script> -->
+    <!-- 函数模式的闭包 -->
+    <script>
+        function f2(){
+            var num = 10;
+            return function (){
+                num++;
+                return num;
+            }
+        }
+        var ff=f2();
+        console.log(ff())//11
+        console.log(ff())//12
+        console.log(ff())//13
+        //相当于只调用了一次f2函数中的num=10,在每次调用函数内部之后都会存在数据缓存
+    </script>
+    <!-- 利用闭包产生3个值相等的随机数 -->
+    <script>
+        function f1(){
+            var num=parseInt(Math.random()*10+1);
+            return function(){
+                return num;
+            }
+        }
+        var ff=f1();
+        console.log(ff());
+        console.log(ff());
+        console.log(ff());
+    </script>
 # 将局部方法在全局使用
 ![中](自调用与原型.png)
 # 解决闭包的方法
@@ -620,3 +713,17 @@
 * this只能用于函数内部，指代触发这个事件的对象，包括这个对象的所有属性和方法,解决方法：![中](闭包3.png)
 # js中的eventloop事件循环机制
 https://www.cnblogs.com/hanzhecheng/p/9046144.html
+# apply,call,bind用法与区别（403-507）
+## 语法：
+    函数/方法.call(obj(所指向的要利用的函数或对象),value,value)
+    函数/方法.apply(obj,[value,value])
+    函数/方法.call(obj,value,value)
+    函数名字.bind(对象,参数1,参数2,...);返回值是复制之后的这个函数
+    方法名字.bind(对象,参数1,参数2,...);返回值是复制之后的这个方法
+### apply和call方法改变对象或函数的this指向,不同的地方：参数传递方式不一样.当onj=null时，默认this指向window
+### 使用：只要是想使用别的对象的方法，并且希望这个方法是当前对象的,那么就可以使用apply/call
+### bind方法是复制的意思，参数可以在复制的时候传入，也可以在复制之后调用的时候传入
+### apply和call是调用的时候改变this的指向
+### bind方法是复制一份的时候，改变了this的指向
+# 深拷贝与浅拷贝
+### 浅拷贝就是复制，相当于把一个对象的所有内容复制一份给另一个对象。拷贝还是复制，而他相对于浅拷贝的区别在于他复制数组和对象时，不是直接一块复制，而是一个一个的复制到另一个对象中

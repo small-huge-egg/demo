@@ -1,0 +1,41 @@
+
+body{
+	margin:0;
+	padding:0;
+}
+
+
+.box{
+	margin:auto;
+	position:relative;
+	width: 270px;
+	height: 270px;
+	text-align: center;
+	line-height: 90px;
+}
+
+.row{
+	position:absolute;
+	width:270px;
+	height: 90px;
+}
+
+.col{
+	position:absolute;
+	float:left;
+	width: 90px;
+	height: 90px;
+	border:1px solid #000;
+	background-color: red;
+	box-sizing: border-box;
+}
+
+[id^="c0"]{top:0px;}
+[id^="c1"]{top:90px;}
+[id^="c2"]{top:180px;}
+[id^="c3"]{top:270px;}
+
+[id$="0"]{left:0px;}
+[id$="1"]{left:90px;}
+[id$="2"]{left:180px;}
+[id$="3"]{left:270px;}
