@@ -168,9 +168,15 @@
     var s='Hello'
     s.toLowerCase();//返回hellow
 ## parseInt()
+### ES6 引入了字符串补全长度的功能，如果某个字符串不够指定长度，会在头部活尾部补全。
+#### padStart(第一个参数规定字符串长度，第二个人参数指定填充的内容) 用于头部补全；
+#### padEnd() 用于尾部补全。
+#### 具体用法：(https://blog.csdn.net/ww430430/article/details/78363026).通常用于日期
 ## 将字符串变成数字
     a="123";b="456"
     x=parseInt(a)+parseInt(b)//x=579
+## ie6新方法padStart()
+
 ## strig HTML包装方法
 ## anchor()
 ### anchor()用于创建html.语法：string.anchor(name)
@@ -280,6 +286,9 @@
     // 只添加,不删除:
     arr.splice(2, 0, 'Google', 'Facebook'); // 返回[],因为没有删除任何元素
     arr; // ['Microsoft', 'Apple', 'Google', 'Facebook', 'Oracle']
+## findIndex()
+### findIndex() 方法返回传入一个测试条件（函数）符合条件的数组第一个元素位置。findIndex() 方法为数组中的每个元素都调用一次函数执行：当数组中的元素在测试条件时返回 true 时, findIndex() 返回符合条件的元素的索引位置，之后的值不会再调用执行函数。
+如果没有符合条件的元素返回 -1
 ## every()
 ### every()方法检测数组的所有元素是否符合指定条件,返回false/true
 ## concat
