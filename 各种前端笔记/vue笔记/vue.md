@@ -62,6 +62,7 @@
 # 生命周期
 ![指令简写](./img/lifecycle.png)
 # 动画
+## 半场动画
 ### 钩子函数自定义动画，此时可分别设置进入动画与离开动画
 ![](./img/动画1.png)
 
@@ -114,12 +115,30 @@
 > 组建切换的动画效果
 
 ![](./img/组件切换-动画.png)
-## 子组件引用父组件的属性
-### 需要在父组件com1上写
-    <com1 v-bind:属性="要引用的变量"></com1>
-    <com1 v-bind:parentmsg="msg"></com1>
+## 父组件向子组件传递属性（子组件引用父组件属性）
+(https://www.jb51.net/article/140581.htm)
+### 方法1：prop 需要在父组件com1上写
+    <com1 :属性="要引用的变量"></com1>
+    <com1 :parentmsg="msg"></com1>
+		子组件：
+		props:["parentmsg"]
 ![](./img/prop.png)
-## 父组件把方法传递给子组件
+### 方法2：ref
+	父组件：
+		<child ref="msg">
+		this.$refs.msg.getMessage('我是子组件')
+	子组件：
+		methods:{
+			getMessage(m){
+				this.message=m
+			}
+		}
+## 子组件向父组件通信
+	子组件:
+		this.$emit(event(子组件定义事件),arg(子组件给父组件的值))
+	父组件：
+		event(父组件定义事件)
+		<child @event(子组件定义的事件)="event(父组件定义事件)"></child>
 ### @fun=""
 # ref获取dom对象,也可用于父组件调用子组件
 ![](./img/ref.png)
@@ -147,7 +166,8 @@
 ## :冒号（绑定属性）之路由
 > 当动态路由，即地址中有字符串的时候to前加：
     <router-link :to="'/home/newsinfo/'+item.id">
-
+## router
+![](./img/router导航.png)
 ## 动态路由匹配
 ### 在嵌套路由中，父路由向子路由传值除了query外，还有params，params传值有两种情况，一种是值在url中显示，另外一种是值不显示在url中。
 1、显示在url中
@@ -260,3 +280,19 @@ home.vue 中router-link修改为:to="{ name:'game1', params: {num: 123} }" param
 
 
     Vue.http.options.emulateJSON = true;
+# mui使用注意
+### 当使用mui,mint-ui出现bug一定要去看官方文档。因为如mui中有时使用到js时有bug官方会告诉怎么解决
+# 项目遇到的问题：
+### 浏览器渲染页面之先来后到引发的问题
+	<numbox style="display:inline"	@getcount="getSelectedCount" :max="goodsdetail.stock_quantity"><numbox>
+>自定义了一个属性max，该属性是我用来向子组件传递属性的，此时我用了goodsdetail.stock_quantity。其中goodsdetail是我在data中定义的空对象，他用来接收服务器发送回来的数据的，我把max传递给子组件后，子组件却说max=undefined。因为在浏览器解析到:max=goodsdetail.stock_quantity时，我们的goodsdetail很有可能还没有获取到服务器传来的数据。但总有一个时刻他获取到了数据
+* 解决办法：watch属性监听父组件传递过来的max值
+	watch: {
+      //max属性监听
+      max:function(newVal,oldVal){
+				//mui文档给numbox设置最大值，最小值，步长的js方法
+        mui(".mui-numbox").numbox().setOption("max",newVal);
+      }
+    }
+
+
