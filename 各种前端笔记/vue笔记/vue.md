@@ -262,6 +262,9 @@ home.vue 中router-link修改为:to="{ name:'game1', params: {num: 123} }" param
 ## vue-resource
 (https://www.cnblogs.com/Juphy/p/7073027.html)
 #### vue-resource是Vue.js的一款插件，它可以通过XMLHttpRequest或JSONP发起请求并处理响应。也就是说，$.ajax能做的事情，vue-resource插件一样也能做到，而且vue-resource的API更为简洁。另外，vue-resource还提供了非常有用的inteceptor功能，使用inteceptor可以在请求前和请求后附加一些行为，比如使用inteceptor在ajax请求时显示loading界面。
+### vue-resource安装
+(https://blog.csdn.net/qq_38209578/article/details/79227477)
+	cnpm install vue-resource
 ### vue-resource使用:
 * 1、引入vue-resource
     * script src="js/vue.js"
@@ -294,5 +297,84 @@ home.vue 中router-link修改为:to="{ name:'game1', params: {num: 123} }" param
         mui(".mui-numbox").numbox().setOption("max",newVal);
       }
     }
+# 解决移动端1像素问题
+## 因为手机端像素比通常比较高，为了防止1px在移动端出现多px问题，贴上代码：
+### 定义伪类
+```
+border-bottom($height,$color) {
+  position:relative;
+
+  &::after{
+    position: absolute;
+    display: block;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    border-top: $height solid $color;
+    content: '';
+  }
+}
 
 
+ border-top($height,$color) {
+    position:relative;
+
+    &::after{
+      position: absolute;
+      display: block;
+      left: 0;
+      top: 0;
+      width: 100%;
+      border-top: $height solid $color;
+      content: '';
+    }
+}
+```
+### 定义不同最小像素比下的 类border-1px
+@media (-webkit-min-device-pixel-ratio: 1.5),(min-device-aspect-ratio: 1.5) {
+    .border-1px{
+        &::after{
+            transform:scaleY(0.7);    //1.5 * 0.7接近1
+        }
+    }
+}   
+
+@media (-webkit-min-device-pixel-ratio: 2),(min-device-aspect-ratio: 2) {
+    .border-1px{
+        &::after{
+            transform:scaleY(0.5);    //2 * 0.5 = 1
+        }
+    }
+}
+
+@media (-webkit-min-device-pixel-ratio: 2.5),(min-device-aspect-ratio: 2.5) {
+    .border-1px{
+        &::after{
+            transform:scaleY(0.4);    //2.5 * 0.4 = 1
+        }
+    }
+}
+
+@media (-webkit-min-device-pixel-ratio: 3),(min-device-aspect-ratio: 3) {
+    .border-1px{
+        &::after{
+            transform:scaleY(0.333);    //3 * 0.333 接近 1
+        }
+    }
+}
+
+@media (-webkit-min-device-pixel-ratio: 3.5),(min-device-aspect-ratio: 3.5) {
+    .border-1px{
+        &::after{
+            transform:scaleY(0.2857);    //3.5 * 0.2857 接近 1
+        }
+    }
+}
+### 添加一个类border-1px：
+	<div id="navbar" class="border-1px"></div>
+### 添加样式
+```
+#navbar{
+  border-bottom(1px, #ccc);
+}
+```
