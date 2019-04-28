@@ -139,3 +139,80 @@ server.on('request', function (req, res) {
   }
 })
 ```
+# 模板引擎
+* 目的：服务端也具有模版渲染的能力 
+* 模版引擎不关心内容，只关心标记{{}}，模板引起最早就是诞生于服务器领域，后来才发展到了前端。
+
+* 步骤： 
+1. 安装 npm install art-template 
+2. 在需要使用的文档模块中加载art-template，只需要使用require方法加载就可以了 `require(‘art-template’)`
+3. 如下代码`template.render(data.toString(), {渲染的内容})`
+```
+var comments = [
+  {
+    name: '张三',
+    message: '今天天气不错！',
+    dateTime: '2015-10-16'
+  },
+  {
+    name: '张三2',
+    message: '今天天气不错！',
+    dateTime: '2015-10-16'
+  },
+  {
+    name: '张三3',
+    message: '今天天气不错！',
+    dateTime: '2015-10-16'
+  },
+]
+http
+  .createServer(function (req, res) { // 简写方式，该函数会直接被注册为 server 的 request 请求事件处理函数
+  // 使用 url.parse 方法将路径解析为一个方便操作的对象，第二个参数为 true 表示直接将查询字符串转为一个对象（通过 query 属性来访问）
+  var parseObj = url.parse(req.url, true)
+
+  // 单独获取不包含查询字符串的路径部分（该路径不包含 ? 之后的内容）
+  var pathname = parseObj.pathname
+  if (pathname === '/') {
+    fs.readFile('./views/index.html', function (err, data) {
+      if (err) {
+        return res.end('404 Not Found.')
+      }
+      var htmlStr = template.render(data.toString(), {
+        comments: comments
+      })
+      res.end(htmlStr)
+    })
+  }
+```
+4. 
+```
+<ul class="list-group">
+  {{each comments}}
+  <li class="list-group-item">{{ $value.name }}说：{{ $value.message }} <span class="pull-right">{{ $value.dateTime }}</span></li>
+  {{/each}}
+</ul>
+```
+- 服务端渲染和客户端渲染的区别
+  + 客户端渲染不利于 SEO 搜索引擎优化
+  + 服务端渲染是可以被爬虫抓取到的，客户端异步渲染是很难被爬虫抓取到的
+  + 所以你会发现真正的网站既不是纯异步也不是纯服务端渲染出来的
+  + 而是两者结合来做的
+  + 例如京东的商品列表就采用的是服务端渲染，目的了为了 SEO 搜索引擎优化
+  + 而它的商品评论列表为了用户体验，而且也不需要 SEO 优化，所以采用是客户端渲染
+# url解析路径
+* 步骤一：`var url = require('url')`
+* 步骤二：`var parseObj = url.parse(req.url, true)`
+  - 使用 url.parse 方法将路径解析为一个方便操作的对象，第二个参数为 true 表示直接将查询字符串转为一个对象（通过 query 属性来访问）
+* url.parse方法一：`var pathname = parseObj.pathname`
+  * 单独获取不包含查询字符串的路径部分（该路径不包含 ? 之后的内容）
+* url.parse方法二：`var comment = parseObj.query`
+  * 获取路径?后的内容
+# 通过服务器让客户端重定向
+* 1. 状态码statusCode设置为 302 临时重定向
+* 2. 在响应头setHeader中通过 Location 告诉客户端往哪儿重定向
+  * 如果客户端发现收到服务器的响应的状态码是 302 就会自动去响应头中找 Location ，然后对该地址发起新的请求，就能看到客户端自动跳转了
+```
+res.statusCode = 302
+res.setHeader('Location', '/')
+res.end()
+```
