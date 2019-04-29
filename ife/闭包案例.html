@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+
+  <!-- 用闭包实现自+1 -->
+  <script>
+    a=(function () {
+     let i = 1;
+      return function b() {
+        return ++i
+      }
+    })()
+    console.log(a()) // 2
+    console.log(a()) // 3
+    console.log(a()) // 4
+  </script>
+
+  <!-- 用闭包实现自加函数 -->
+  <script>
+    // 写法1：
+    function sum(n1) {
+      let count = n1
+      return function sum2(n2) {
+        if(!n2){
+          return count;
+        } else{
+           count += n2
+           return sum2
+        }
+      }
+    }
+    console.log(sum(1)(2)()) // 3
+    console.log(sum(10)(12)(30)()); // 52
+
+    // 写法2：
+    function sum (n) {
+      var v = function (x) {
+        return sum (n + x);
+      };
+      v.valueOf = v.toString = function () {
+        return n;
+      };
+      return v;
+    }
+    console.log(+sum(10)(12)(30));
+  </script>
+</body>
+</html>

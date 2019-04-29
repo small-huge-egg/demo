@@ -19,6 +19,35 @@
       - `let fs = require('fs')`
     * 也可以有用户自己编名的模块，例如：`require(./b.js)`。则在该js文件引入其他js文件，可以省略b后的'js'
     * 导出模块： exports,该模块导出一个对象，通过‘对象.方法’可以在其他地方调用该模块的方法
+# CommonJS模块规范
+## 使用 `require` 方法来加载模块
+```
+语法：let 自定义变量名称 = require(模块)
+```
+- 两个作用:
+  * 执行被加载模块中的代码
+  * 得到被加载模块中的exports导出接口对象
+## 使用 `exports` 接口对象用来导出模块中的成员
+* node中是模块作用域，默认文件中的所有成员只在当前文件模块起作用
+* 对于希望让其他模块也用到的东西用exports导出
+```
+语法：
+`b.js`
+exports.add = function (x,y) { console.log(x+y) }
+使用： var a = require('./b')
+      a.add(2,4) // 6
+```
+## 使用 `module.exports` 接口对象用来导出模块中的成员
+* exports是module.exports的一个引用
+  * `module.exports===exports // true`
+## exports 和 module.exports
+* 导出多个成员：
+```
+module.exports = {}
+或： exports.xxx = xxx
+```
+* 导出单个成员：
+module.exports = xxx
 # 作用域
 * node没有全局作用域，只有模块作用域
 # ip地址和端口号
@@ -31,7 +60,7 @@
   - error:成功时为null
   - data:失败时为undefined
 
-```
+```javaScript
 let fs = require('fs') // 加载文件模块
 
 fs.readFile('1.txt',(error,data) => { // 读取文件
@@ -42,7 +71,7 @@ fs.readFile('1.txt',(error,data) => { // 读取文件
 * 第一个参数：文件路径
 * 第二个参数：文件内容
 * 第三个参数：回调函数(只有error这个形参)
-```
+```javaScript
 let fs = require('fs')
 
 fs.writeFile('1.txt','我时sha',(error) => {
@@ -58,7 +87,7 @@ fs.writeFile('1.txt','我时sha',(error) => {
   + request: 接收浏览器发送的请求
   + responce: 响应请求
     - response 对象有一个方法：write 可以用来给客户端发送响应数据，write 可以使用多次，但是最后一定要使用 end 来结束响应，否则客户端会一直等待
-```
+```javaScript
 // 1. 加载 http 核心模块
 var http = require('http')
 
@@ -147,7 +176,7 @@ server.on('request', function (req, res) {
 1. 安装 npm install art-template 
 2. 在需要使用的文档模块中加载art-template，只需要使用require方法加载就可以了 `require(‘art-template’)`
 3. 如下代码`template.render(data.toString(), {渲染的内容})`
-```
+```javaScript
 var comments = [
   {
     name: '张三',
@@ -187,7 +216,7 @@ http
 4. 
 ```
 <ul class="list-group">
-  {{each comments}}
+  {{each comments}}  // each是art-template模版语法
   <li class="list-group-item">{{ $value.name }}说：{{ $value.message }} <span class="pull-right">{{ $value.dateTime }}</span></li>
   {{/each}}
 </ul>
@@ -212,7 +241,14 @@ http
 * 2. 在响应头setHeader中通过 Location 告诉客户端往哪儿重定向
   * 如果客户端发现收到服务器的响应的状态码是 302 就会自动去响应头中找 Location ，然后对该地址发起新的请求，就能看到客户端自动跳转了
 ```
-res.statusCode = 302
+res.statusCode = 302 // 临时重定向
 res.setHeader('Location', '/')
 res.end()
 ```
+# 如何加载模块
+![](img/加载第三方模块.png)
+# 修改完代码自启动
+安装：`npm install --global nodemon`
+使用：`nodemon 文件`
+# express
+安装：`npm install express --save`
