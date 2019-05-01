@@ -251,4 +251,91 @@ res.end()
 安装：`npm install --global nodemon`
 使用：`nodemon 文件`
 # express
-安装：`npm install express --save`
+* 安装：`npm install express --save`
+* 使用：
+```javaScript
+var express = require('express')
+
+var app = express()
+
+app.get('/', function (req, res) {
+  res.send('hd33djs')
+})
+
+app.listen(3000,function () {
+  console.log("running.....")
+})
+```
+## express 引入文件
+* app.js: `app.use('/public/',express.static('public'))`
+* 浏览器：`http://127.0.0.1:3000/public/css/main.css` 
+## 在express中使用art-template模版引擎
+* 官方文档：(https://aui.github.io/art-template/)
+* 安装：`npm install --save art-template express-art-template`
+* 配置模版引擎：
+  `app.engine('art(默认文件后缀，通常改为html)', require('express-art-template'));`
+* 使用：
+```javaScript
+app.get('/', function (req, res) {
+  // express会默认从views文件目录去找index.html,
+  // 如果想修改默认的views文件目录，app.set('vies',目录路径)
+  res.render('index.html',{
+    title: '哈哈'
+  })
+})
+```
+## 在express中获取表单get请求参数：
+* `req.query`
+## 在express中获取表单post请求参数：
+* express没有提供post的api，但是有一个body-parser中间件,然后用req.body获取参数
+* 安装： `npm install --save body-parser`
+* 使用：
+```javaScript
+var express = require('express')
+var bodyParser = require('body-parser')
+
+var app = express()
+
+// create application/json parser
+var jsonParser = bodyParser.json()
+
+// create application/x-www-form-urlencoded parser
+var urlencodedParser = bodyParser.urlencoded({ extended: false })
+
+// POST /login gets urlencoded bodies
+app.post('/login', urlencodedParser, function (req, res) {
+  if (!req.body) return res.sendStatus(400)
+  res.send('welcome, ' + req.body.username)
+})
+
+// POST /api/users gets JSON bodies
+app.post('/api/users', jsonParser, function (req, res) {
+  if (!req.body) return res.sendStatus(400)
+  // create user in req.body
+
+// 我的写法：
+var bodyParser = require('body-parser')
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: false })) 
+app.post('/post', function (req, res) {
+  var comment = req.body
+  comment.dateTime = '2019-05-01 06:11:22'
+  comments.unshift(comment)
+  res.redirect('/')
+})
+```
+## 在express中使用路由
+* var router = express('./router')
+* `app.use(router)`
+* 使用：
+```java
+// 1.app.js
+var router = require('./router')
+// 把路由容器挂载到 app 服务中
+app.use(router)
+// 2. router.js 创建一个路由容器
+var express = require('express')
+var router = express.Router()
+router.get('/students', function (req, res) {})
+module.exports = router
+```
