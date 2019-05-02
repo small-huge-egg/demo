@@ -48,6 +48,40 @@ module.exports = {}
 ```
 * 导出单个成员：
 module.exports = xxx
+# path路径操作模块
+* path.basename
+  * 获取一个路径的文件名（默认包含扩展名）
+* path.dirname
+  * 获取一个路径中的目录部分
+* path.extname
+  * 获取一个路径中的扩展名部分
+* path.parse
+  * 把一个路径转为对象
+    * root根路径
+    * dir目录
+    * base文件名
+    * ext扩展名部分
+    * name文件名（默认不包含扩展名）
+* path.join
+  * 当需要进行路径拼接的时候使用
+* path.isAbsolute
+  * 判断一个路径是否为绝对路径
+# Node中的其他成员
+>在每个模块中，出了require、exports等模块相关API之外，还有两个特殊的成员：
+* `__dirname`:可以用来获取当前文件模块所属目录的绝对路径
+* `__filename`:可以用来获取当前文件的绝对路径
+* `__dirname`和`__filename`是不受执行node命令所处的路径影响的
+>在稳健操作中，使用相对路径是不可靠的，因为在node中稳健操作的路径被设计为**相对于执行node命令所处的路径**
+* 所以为了解决这个问题，只需要把相对路径变为绝对路径即可
+```javaScript
+let path = require('path')
+fs.readFile(path.join(__dirname,'./a.txt'),'utf8',(err,data) => {
+  if (err){
+    throw err
+  }
+  console.log(data)
+})
+```
 # 作用域
 * node没有全局作用域，只有模块作用域
 # ip地址和端口号
@@ -154,7 +188,7 @@ server.listen(3000, function () {
 * 在服务端默认发送的数据，其实是 utf8 编码的内容，但是浏览器不知道你是 utf8 编码的内容
   - 解决方法就是在 http 协议中，Content-Type 就是用来告知对方我给你发送的数据内容是什么类型
     - Content-Type对照表：(http://tool.oschina.net/commons) 
-```
+```javaScript
 server.on('request', function (req, res) {
   let url = req.url
   if (url === '/plain') {
@@ -214,7 +248,7 @@ http
   }
 ```
 4. 
-```
+```html
 <ul class="list-group">
   {{each comments}}  // each是art-template模版语法
   <li class="list-group-item">{{ $value.name }}说：{{ $value.message }} <span class="pull-right">{{ $value.dateTime }}</span></li>
@@ -338,4 +372,307 @@ var express = require('express')
 var router = express.Router()
 router.get('/students', function (req, res) {})
 module.exports = router
+```
+# mongodb
+* 下载（https://www.cr173.com/soft/34691.html）
+* 配置环境变量
+* 检验是否成功：`mongod --version`
+* 开启数据库
+  * c盘新建data目录、data目录新建db目录（默认的数据存储目录）
+  * 命令行：`mongod`
+  * 如果想要修改：mongod --dbpath=数据存储目录路径（不推荐）
+* 停止数据库：
+  * ctrl+c
+* 连接数据库
+  * 新建另一个命令行：`mongo`
+* 退出连接
+  * 命令行：`exit`
+## mongodb基本命令
+* show dbs
+  * 查看显示所有数据库
+* db
+  * 查看当前操作的数据库
+* use 数据库名称
+  * 切换到指定的数据（如果没有会新建）
+## mongodb数据库基本概念
+* 可以有多个数据库
+* 一个数据库中可以有多个集合（表）
+* 一个集合中可以有多个文档（表记录）
+* 文档结构灵活，没有任何限制
+* mongodb非常灵活，不需要像mySQL一样先创建数据库、表、设计表结构
+  * 当你需要插入数据的时候，只需要指定往哪个数据库的哪个集合操作就可以了
+  * 一切都由mongodb来自动完成建库建表
+```javaScript
+{
+  qq: { // 数据库名
+    users:[ // 表名
+      {name:'张三',age:15} // 表记录
+      {name:'张三',age:15}
+      {name:'张三',age:15}
+      {name:'张三',age:15}
+      ···
+    ]，
+    products: [
+
+    ],
+    ···
+  },
+  taobao: {
+
+  },
+  baidu: {
+
+  }
+  ···
+}
+```
+## 在node中操作mongodb数据
+>使用官方的mongodb包操作
+* （https://elemefe.gitbooks.io/mongodb/content/introduction/getting-started.html）
+>使用第三方mongoose来操作mongodb数据库
+* （https://mongoosejs.com）
+* 装包：`npm i mongoose`
+* hello world
+```javaScript
+const mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost:27017/test', {useNewUrlParser: true});
+
+const Cat = mongoose.model('Cat', { name: String });
+
+const kitty = new Cat({ name: 'Zildjian' });
+kitty.save().then(() => console.log('meow'));
+```
+> 官方指南
+1. 设计Schema发布Model
+```javaScript
+var mongoose = require('mongoose')
+
+var Schema = mongoose.Schema
+
+// 1. 连接数据库
+// 指定连接的数据库不需要存在，当你插入第一条数据之后就会自动被创建出来
+mongoose.connect('mongodb://localhost/itcast')
+
+// 2. 设计文档结构（表结构）
+// 字段名称就是表结构中的属性名称
+// 约束的目的是为了保证数据的完整性，不要有脏数据
+var userSchema = new Schema({
+  username: {
+    type: String,
+    required: true // 必须有
+  },
+  password: {
+    type: String,
+    required: true
+  },
+  email: {
+    type: String
+  }
+})
+
+// 3. 将文档结构发布为模型
+//    mongoose.model 方法就是用来将一个架构发布为 model
+//    第一个参数：传入一个大写名词单数字符串用来表示你的数据库名称
+//                 mongoose 会自动将大写名词的字符串生成 小写复数 的集合名称
+//                 例如这里的 User 最终会变为 users 集合名称
+//    第二个参数：架构 Schema
+//
+//    返回值：模型构造函数
+var User = mongoose.model('User', userSchema)
+```
+2. 增加数据
+```javaScript
+var admin = new User({
+  username: 'zs',
+  password: '123456',
+  email: 'admin@admin.com'
+})
+
+admin.save(function (err, ret) {
+  if (err) {
+    console.log('保存失败')
+  } else {
+    console.log('保存成功')
+    console.log(ret)
+  }
+})
+```
+3. 查询数据
+```javaScript
+User.find(function (err, ret) { // 查询所有数据
+  if (err) {
+    console.log('查询失败')
+  } else {
+    console.log(ret)
+  }
+})
+
+User.find({ // 查询username: 'zs'的数据，得到的是一个数组对象
+  username: 'zs'
+}, function (err, ret) {
+  if (err) {
+    console.log('查询失败')
+  } else {
+    console.log(ret)
+  }
+})
+
+User.findOne({// 查询username: 'zs'的数据，得到的是一个对象
+  username: 'zs'
+}, function (err, ret) {
+  if (err) {
+    console.log('查询失败')
+  } else {
+    console.log(ret)
+  }
+})
+```
+4. 删除数据
+```javaScript
+User.findByIdAndRemove({
+  username: 'zs'
+}, function (err, ret) {
+  if (err) {
+    console.log('删除失败')
+  } else {
+    console.log('删除成功')
+    console.log(ret)
+  }
+})
+```
+5. 更新数据
+```javaScript
+User.findByIdAndUpdate('5a001b23d219eb00c8581184', {
+  password: '123'
+}, function (err, ret) {
+  if (err) {
+    console.log('更新失败')
+  } else {
+    console.log('更新成功')
+  }
+})
+```
+# promise
+callback-hell:因为读取文件是异步的，so读取顺序不知
+```javaScript
+var fs = require('fs')
+
+fs.readFile('./data/a.txt', 'utf8', function (err, data) {
+  if (err) {
+    // return console.log('读取失败')
+    // 抛出异常
+    //    1. 阻止程序的执行
+    //    2. 把错误消息打印到控制台
+    throw err
+  }
+  console.log(data)
+  fs.readFile('./data/b.txt', 'utf8', function (err, data) {
+    if (err) {
+      // return console.log('读取失败')
+      // 抛出异常
+      //    1. 阻止程序的执行
+      //    2. 把错误消息打印到控制台
+      throw err
+    }
+    console.log(data)
+    fs.readFile('./data/c.txt', 'utf8', function (err, data) {
+      if (err) {
+        // return console.log('读取失败')
+        // 抛出异常
+        //    1. 阻止程序的执行
+        //    2. 把错误消息打印到控制台
+        throw err
+      }
+      console.log(data)
+    })
+  })
+})
+```
+promise:new Promise是立即执行，resolve表示成功，reject表示失败。then方法的第一个参数是执行成功的函数，第二个参数是失败时执行的函数
+```javaScript
+var fs = require('fs')
+
+var p1 = new Promise(function (resolve, reject) {
+  fs.readFile('./data/a.txt', 'utf8', function (err, data) {
+    if (err) {
+      reject(err)
+    } else {
+      resolve(data)
+    }
+  })
+})
+
+var p2 = new Promise(function (resolve, reject) {
+  fs.readFile('./data/b.txt', 'utf8', function (err, data) {
+    if (err) {
+      reject(err)
+    } else {
+      resolve(data)
+    }
+  })
+})
+
+var p3 = new Promise(function (resolve, reject) {
+  fs.readFile('./data/c.txt', 'utf8', function (err, data) {
+    if (err) {
+      reject(err)
+    } else {
+      resolve(data)
+    }
+  })
+})
+
+p1
+  .then(function (data) {
+    console.log(data)
+    // 当 p1 读取成功的时候
+    // 当前函数中 return 的结果就可以在后面的 then 中 function 接收到
+    // 当你 return 123 后面就接收到 123
+    //      return 'hello' 后面就接收到 'hello'
+    //      没有 return 后面收到的就是 undefined
+    // 上面那些 return 的数据没什么卵用
+    // 真正有用的是：我们可以 return 一个 Promise 对象
+    // 当 return 一个 Promise 对象的时候，后续的 then 中的 方法的第一个参数会作为 p2 的 resolve
+    // 
+    return p2
+  }, function (err) {
+    console.log('读取文件失败了', err)
+  })
+  .then(function (data) {
+    console.log(data)
+    return p3
+  })
+  .then(function (data) {
+    console.log(data)
+    console.log('end')
+  })
+```
+封装promise:
+```javaScript
+var fs = require('fs')
+
+function pReadFile(filePath) {
+  return new Promise(function (resolve, reject) {
+    fs.readFile(filePath, 'utf8', function (err, data) {
+      if (err) {
+        reject(err)
+      } else {
+        resolve(data)
+      }
+    })
+  })
+}
+
+pReadFile('./data/a.txt')
+  .then(function (data) {
+    console.log(data)
+    return pReadFile('./data/b.txt')
+  })
+  .then(function (data) {
+    console.log(data)
+    return pReadFile('./data/c.txt')
+  })
+  .then(function (data) {
+    console.log(data)
+  })
 ```

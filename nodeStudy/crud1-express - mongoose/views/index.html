@@ -7,6 +7,7 @@
     <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
     <meta name="description" content="">
     <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
 
     <title>Dashboard Template for Bootstrap</title>
 
@@ -103,14 +104,14 @@
               <tbody>
                 {{ each students }}
                 <tr>
-                  <td>{{ $value.id }}</td>
+                  <td>{{ $index + 1 }}</td>
                   <td>{{ $value.name }}</td>
                   <td>{{ $value.gender }}</td>
                   <td>{{ $value.age }}</td>
                   <td>{{ $value.hobbies }}</td>
                   <td>
-                    <a href="/students/edit?id={{ $value.id }}">编辑</a>
-                    <a href="/students/delete?id={{ $value.id }}">删除</a>
+                    <a href="/students/edit?id={{ $value._id }}">编辑</a>
+                    <a href="/students/delete?id={{ $value._id }}">删除</a>
                   </td>
                 </tr>
                 {{ /each }}
