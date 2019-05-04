@@ -741,3 +741,125 @@ https://www.cnblogs.com/hanzhecheng/p/9046144.html
 ![](回调函数.png)
 * 解释： 如果将callback(ret)替换成return ret,你会发现在外部执行add函数时值为undefined,因为setTimeout是异步的，会延后执行。所以只能把调用的add函数利用回调函数获取setTimeout里的值
 ![](回调函数2.png)
+# ES6
+## var let const
+>var是函数作用域,let,const是块级作用域，不能像var一样存在变量提升。
+>const一般声明常量，定义的值不可改变，但是如果送一的是一个对象，那么可以改变该对象的属性。
+## 模板语法``
+* `i am ${userName}`
+## 给参数设置默认值
+>目的：防止有时候调用函数不给参数时报错
+```javaScript
+function sum(flag=true){
+    if(flag){
+        return true
+    }else{
+        return false
+    }
+}
+```
+## 箭头函数
+>用就完事了
+## 解构
+```javaScript
+// 数组的解构
+var [a,b,c] = [3,8,10]
+console.log(a)//3
+console.log(b)//8
+console.log(c)//10
+
+var [x,...y] = [4,8,5,1,0,6]
+console.log(y) // [8,5,1,0,6],变成数组了
+// 字符串的解构
+var [x,y,z] = "Vue"
+console.log(x:${x},y:${y},z:${z}) // x:V,y:u,z:e
+
+let x = [...'ES6'] // ["E","S","6"]
+// 对象的解构
+var {n,m} = {m:10,n:20}
+console.log(`m:${m},n:${n}`) // m:10,n:20//我没写错！
+```
+## 函数的rest参数和扩展
+```javaScript
+// 老方法
+function sum (a,b,c){
+    let total = 0;
+    if(a) total+=a
+    if(b) total+=b
+    if(c) total+=c
+    console.log(`tatal:${total}`)
+}
+sum(2,5,"") //这样才能保证没传c而不报错
+
+// ES6的rest
+function sum (...m){
+    let total = 0;
+    for(var i of m){
+        tatal += i // i是m的每一项的值
+    }
+    console.log(`tatal:${total}`)
+}
+sum(2,5,4,8,9,10) //想传多少传多少
+
+// 整个箭头函数
+var sum = (...m) => {
+    let total = 0;
+    for(var i of m){
+        tatal += i // i是m的每一项的值
+    }
+    console.log(`tatal:${total}`)
+}
+
+// rest参数和数组结合就会解构数组
+var [x,y] = [4,8]
+console.log(...[4,8]) //4 8
+
+// rest参数合并数组
+var arr1 = [1,3]; let arr2 = [2,4]
+console.log([...arr1,...arr2]) // [1,3,2,4]
+```
+## Promise使用（node.js笔记有写）
+>解决地狱回调
+```javaScript
+let checkLogin = function () {
+  return new Promise(function (resolve, reject) {
+    let flag = document.cookie.indexOf("userId")>-1?true:false;
+    if(flag=true){
+        resolve({
+            status:0,
+            result:true
+        })
+    }else{
+        reject("error")
+    }
+  })
+}
+
+checkLogin()
+  .then((res) => {
+    if(res.status==0){
+        console.log("login success");
+    }  
+  }).catch((error)=>{ // 捕获异常
+      console.log(`errors:${error}`)
+  })
+```
+## module.exports和ES6 import/export的使用
+>module.exports，export导出，import导入
+>使用export导出的东西，import导入时把名字用‘{}’包裹：
+```javaScript
+// app.js
+export let sum = (x,y) => {
+    return x+y
+}
+export let decrease = (x,y) => {
+    return x-y
+}
+// 2.js
+import {sum,decrease} from './app' //至于为什么没写‘js’,因为我全局配置的是js可省
+console.log(`sum:${sum(6,1)}`) // 7
+
+// 2.js的另一种写法
+import * as app from './app' // 这样可以获取app.js中任何暴露的元素
+console.log(`sum:${app.sum(6,1)}`) // 7
+```

@@ -14,6 +14,25 @@
 # v-model实现数据双向绑定
 ![](./img/v-model.png)
 ### 可运用在计算器
+> 原生js实现双向数据绑定一般是通过操作dom监听一个'keyup'事件，然后`dom.innerText=event.target.value`
+>而vue会有一个defineProperty方法，该方法接收三个参数，同时内置get,set方法，实时监听。机制如下：
+```html
+<input type="text" id="userName">
+<span id="uName"></span>
+```
+```javaScript
+let obj={
+    pwd:"123"
+}
+Object.defineProperty(obj,"userName",{
+    get: function() {
+        // 当获取userName里面的东西时，get会实时触发
+    },
+    set: function() {
+        // 当userName的里面的东西发生改变时，set函数会监听到，并触发set事件
+    }
+})
+```
 # v-on事件绑定机制
 ### bind绑定的变量写在data中，on绑定的是事件，写在methods中，缩写“@”
 ![](./img/v-onclick.png)
@@ -283,6 +302,28 @@ home.vue 中router-link修改为:to="{ name:'game1', params: {num: 123} }" param
 
 
     Vue.http.options.emulateJSON = true;
+## Vue.set
+>如果在实例创建之后添加新的属性到实例上，它不会触发视图更新
+* 解决办法：
+1、通过Vue.set方法设置data属性（全局），如上：
+`Vue.set(data,'sex', '男')`
+2、您还可以使用 vm.$set实例方法，这也是局部 Vue.set方法的别名:
+```javaScript
+var key = 'content'; //这种主要用于当对象中某个属性值动态生成时处理方式
+this.$set('info.'+key, 'what is this?');
+ 或
+this.$set('info.content', 'what is this?');
+或
+this.$set(data,'content', 'what is this?');// data->content:what is this?
+```
+## v
+## @click和:class结合
+> 示例代码
+```
+data:{currentIndex:0}
+<li v-for="(item,index) in List" :class="{'check':index==currentIndex}" @click="currentIndex=index"></li>`
+```
+* 点击某项li的时候，把currentIndex=index,然后class会判断index和currentIndex是否相等，然后改变li的样貌。这里可能会问怎么不直接在vue里面改变currentIndex然后改变class,因为这里这样写就不用去把之前有该样式的li设为false
 # mui使用注意
 ### 当使用mui,mint-ui出现bug一定要去看官方文档。因为如mui中有时使用到js时有bug官方会告诉怎么解决
 # 项目遇到的问题：
