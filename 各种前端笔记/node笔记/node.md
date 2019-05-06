@@ -300,6 +300,10 @@ app.listen(3000,function () {
   console.log("running.....")
 })
 ```
+> 全局安装express generator生成器
+* `cnpm i -g express-generator`,可通过express --version查看express版本
+> 生成express项目
+* 在项目目录命令行输入：`express server`
 ## express中间件
 ```javaScript
 router.post('/login', (req, res, next) => {
@@ -498,10 +502,23 @@ $('#login_form').on('submit', function (e) {
 ## mongodb基本命令
 * show dbs
   * 查看显示所有数据库
+* show collections
+  * 查看当前操作的数据库的表
 * db
   * 查看当前操作的数据库
 * use 数据库名称
   * 切换到指定的数据（如果没有会新建）
+* db.createCollection("user")
+  * 创建集合（表），名字叫user
+  * 另一种建表语法：`db.users.insert({id:123,name:'hello'})` 创建集合（表），名字叫users并插入数据
+* db.dropDatabase
+  * 删除数据库
+* db.表名.find() 或 db.表名.find().pretty()格式化
+  * 查看表中信息
+* db.表名.update({userName:'jack'},{$set:{userAge:30}})
+  * 找到userName='jack'的那条数据，将userAge更新为30
+* db.表名.remove({userId:101})
+  * 删除userId:101项的所有信息
 ## mongodb数据库基本概念
 * 可以有多个数据库
 * 一个数据库中可以有多个集合（表）
@@ -538,8 +555,10 @@ $('#login_form').on('submit', function (e) {
 >使用官方的mongodb包操作
 * （https://elemefe.gitbooks.io/mongodb/content/introduction/getting-started.html）
 >使用第三方mongoose来操作mongodb数据库
+>Mongoose是在node.js异步环境下对mongodb进行便捷操作的对象模型工具,同时它也是针对mongoDB操作的一个对象模型库，封装了mongoDB对文档的一些增删改查等常用方法，让nodejs操作mongoDB数据库变得更加容易。
 * （https://mongoosejs.com）
 * 装包：`npm i mongoose`
+* 引包：`const mongoose = require('mongoose')`
 * hello world
 ```javaScript
 const mongoose = require('mongoose');
@@ -580,7 +599,7 @@ var userSchema = new Schema({
 
 // 3. 将文档结构发布为模型
 //    mongoose.model 方法就是用来将一个架构发布为 model
-//    第一个参数：传入一个大写名词单数字符串用来表示你的数据库名称
+//    第一个参数：传入一个大写名词单数字符串用来表示你的数据库的集合（表）名称
 //                 mongoose 会自动将大写名词的字符串生成 小写复数 的集合名称
 //                 例如这里的 User 最终会变为 users 集合名称
 //    第二个参数：架构 Schema
@@ -659,6 +678,17 @@ User.findByIdAndUpdate('5a001b23d219eb00c8581184', {
     console.log('更新成功')
   }
 })
+```
+## mongodb更多方法：
+* find（）   查询商品，
+* limit(),   限制显示文档个数
+* skip();     跳过文档个数，
+* exec(callback)  立即执行查询方法
+>分页和排序
+```javaScript
+let goodsModel = Goods.find(params).skip(skip).limit(pageSize);
+  goodsModel.sort({'salePrice':sort});
+  goodsModel.exec(function (err,doc) { })// 立即执行查询
 ```
 # promise
 callback-hell:因为读取文件是异步的，so读取顺序不知
