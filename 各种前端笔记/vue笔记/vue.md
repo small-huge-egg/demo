@@ -419,3 +419,84 @@ border-bottom($height,$color) {
   border-bottom(1px, #ccc);
 }
 ```
+# 插槽slot
+* 简单地说，子组件决定插槽位置，父组件决定插槽显示与否以及插槽内容
+> 单个插槽
+* 父组件
+```html
+<template>
+    <div class="father">
+        <h3>这里是父组件</h3>
+        <child>
+            <div class="tmpl">
+              <span>菜单1</span>
+              <span>菜单2</span>
+              <span>菜单3</span>
+              <span>菜单4</span>
+              <span>菜单5</span>
+              <span>菜单6</span>
+            </div>
+        </child>
+    </div>
+</template>
+```
+* 子组件
+```html
+<template>
+    <div class="child">
+        <h3>这里是子组件</h3>
+        <slot></slot>
+    </div>
+</template>
+```
+![](./img/匿名插槽.jpg)
+>具名插槽
+* 父组件
+```html
+<template>
+  <div class="father">
+    <h3>这里是父组件</h3>
+    <child>
+      <div class="tmpl" slot="up">
+        <span>菜单1</span>
+        <span>菜单2</span>
+        <span>菜单3</span>
+        <span>菜单4</span>
+        <span>菜单5</span>
+        <span>菜单6</span>
+      </div>
+      <div class="tmpl" slot="down">
+        <span>菜单-1</span>
+        <span>菜单-2</span>
+        <span>菜单-3</span>
+        <span>菜单-4</span>
+        <span>菜单-5</span>
+        <span>菜单-6</span>
+      </div>
+      <div class="tmpl">
+        <span>菜单->1</span>
+        <span>菜单->2</span>
+        <span>菜单->3</span>
+        <span>菜单->4</span>
+        <span>菜单->5</span>
+        <span>菜单->6</span>
+      </div>
+    </child>
+  </div>
+</template>
+```
+* 子组件
+```html
+<template>
+  <div class="child">
+    // 具名插槽
+    <slot name="up"></slot>
+    <h3>这里是子组件</h3>
+    // 具名插槽
+    <slot name="down"></slot>
+    // 匿名插槽
+    <slot></slot>
+  </div>
+</template>
+```
+![](./img/具名插槽.jpg)
