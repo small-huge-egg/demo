@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>jquery学习</title>
+    <!-- jq初体验 -->
+        <!-- <style>
+            *{
+                margin:0;
+                padding:0;
+                box-sizing: border-box;
+            }
+            div{
+                display:inline-block;
+                width:100px;
+                height: 30px;
+                background-color: pink;
+                text-align: center;
+                line-height: 30px;
+            }
+            ul{
+                width:100px;
+                display:none;
+            }
+            li{
+                width:100px;            
+                display: table;
+                list-style: none;
+                height: 30px;
+                background-color: pink;
+            }
+        </style> -->
+    <!-- class操作 -->
+        <style>
+                .basic {
+                  background-color: pink;
+                  font-size: 32px;
+                  color: red;
+                }
+                
+                .bigger {
+                  font-size: 50px;
+                }
+                .small{
+                    font-size:10px;
+                }
+              </style>
+
+</head>
+<body>
+    <script type="text/javascript" src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+
+<!-- jq初体验 -->
+    <!-- <div>表单1
+        <ul>
+            <li>表单11</li>
+            <li>表单12</li>
+            <li>表单13</li>
+        </ul>
+    </div>
+    <div>表单2
+        <ul>
+            <li>表单21</li>
+            <li>表单22</li>
+            <li>表单23</li>
+        </ul>
+    </div>
+    <div>表单3
+        <ul>
+            <li>表单11</li>
+            <li>表单12</li>
+            <li>表单13</li>
+        </ul>
+    </div> -->
+    <!-- <script>
+        $(function(){
+            $("div").mouseenter(function(){
+                $(this).children("ul").show();
+            })
+
+            $("div").mouseleave(function(){
+                $(this).children("ul").hide();
+            })
+        })
+    </script> -->
+
+
+<!-- 过滤选择器 -->
+    <!-- <ul>
+        <li>我是第1个li</li>
+        <li>我是第2个li</li>
+        <li>我是第3个li</li>
+        <li>我是第4个li</li>
+        <li>我是第5个li</li>
+        <li>我是第6个li</li>
+        <li>我是第7个li</li>
+        <li>我是第8个li</li>
+        <li>我是第9个li</li>
+        <li>我是第10个li</li>
+    </ul>
+    <script>
+        $(function(){
+            // 下标为偶数
+            $("li:even").css("backgroundColor","pink");
+            // 下标为奇数
+            $("li:odd").css("backgroundColor","purple");
+            // 下标等于1的元素
+            $("li:eq(1)").css("backgroundColor","blue");
+        })
+    </script> -->
+
+
+<!-- css操作 -->
+    <!-- <ul>
+        <li>讲真的</li>
+        <li>讲价的</li>
+        <li>啦啦啦</li>
+        <li>卖报的</li>
+    </ul> -->
+    <!-- 修改单个样式
+    name:样式名，value:样式值
+    <script>
+        $(function(){
+            $("li").css("backgroundColor","pink")
+            .css("fontSize","20px")
+            .css("color","purple")
+        })
+    </script> -->
+
+    <!-- 修改多个样式值，或者添加样式值 -->
+    <!-- <script>
+        $("li").css({
+            fontSize:"32px",
+            color:"#ccc",
+            backgroundColor:"black"
+        })
+    </script> -->
+
+    <!-- 获取样式   css(name),name:想要获取的样式 -->
+    <!-- <script>
+        console.log($("li").css("backgroundColor"))
+
+        $("li").eq(0).css("fontSize","20px");
+        $("li").eq(1).css("fontSize","22px");
+        $("li").eq(2).css("fontSize","24px");
+        //隐式迭代：
+            //设置操作的时候，会给jq内部的所有对象都设置相同的值
+            //获取的时候，只会返回第一个元素对应的值
+        console.log($("li").css("fontSize"))//输出20px
+    </script> -->
+
+<!-- class操作 -->
+    <!-- <input type="button" value="添加basic类" >
+    <input type="button" value="添加bigger类">
+    <input type="button" value="移除bigger类">
+    <input type="button" value="判断bigger类">
+    <input type="button" value="切换类">
+    <input type="button" value="js添加small类">
+    <input type="button" value="js移除small类">
+    <input type="button" value="js判断small类">
+    <ul>
+      <li class="aa bb cc dd">1</li>
+      <li class="aa bb cc dd">2</li>
+      <li class="aa bb cc dd">3</li>
+      <li class="aa bb cc dd">4</li>
+    </ul> -->
+    <!-- <script>
+        //注意行内class名，在前的权重大于在后的
+        //添加一个类，不会像js中className方法使其他类被删除,但使用classList.add()方法和jq一样了
+        $("input").eq(0).click(function(){
+            $("li").addClass("basic");
+        })
+        $("input").eq(1).click(function(){
+            $("li").addClass("bigger");
+        })
+        //移除一个类
+        $("input").eq(2).click(function(){
+            $("li").removeClass("bigger");
+        })
+        //判断一个类是否存在
+        $("input").eq(3).click(function(){
+            console.log($("li").hasClass("bigger"));
+        });
+        //判断li有没有basic类，如果有移除他，没有就添加他(toggleClass)
+        $("input").eq(4).click(function(){
+            $("li").toggleClass("basic");
+        });
+        //js添加类
+        $("input").eq(5).click(function(){
+            $("li")[0].classList.add("small");//此时不仅添加了类也不会删除其他类，也可添加多个类
+            // $("li")[0].className="small";//此时只有small类了
+        });
+        //js移除类
+        $("input").eq(6).click(function(){
+            $("li")[0].classList.remove("small");//也可移除多个类
+        });
+        //js判断类
+        $("input").eq(7).click(function(){
+            console.log($("li")[0].classList.contains("small"));//true/false
+        });
+    </script> -->
+
+
+    
+<!-- 属性操作 -->
+    <!-- 属性：在标签里面写的，用attr方法操作
+    样式: 在style里面写的，用css来操作 -->
+    <!-- <script>
+        //设置单个属性
+        $("img").attr("name","value")
+        //设置多个属性
+        $("img").attr({
+            alt:"图破了",
+            title:"斗图",
+            aa:"bb"//还可自定义属性
+        })
+    </script> -->
+    <!-- 对于布尔类型的属性，不要attr方法，用prop方法 -->
+    <!-- <input type="button" value="选中">
+    <input type="button" value="不选中">
+    <input type="checkbox" id='ck'>
+    <script>
+        $(function(){
+            $("input").eq(0).click(function(){
+                $("#ck").prop("checked",true)
+            });
+            $("input").eq(1).click(function(){
+                $("#ck").prop("checked",false)
+            })
+        })
+    </script> -->
+
+<!-- 动画操作 -->
+<!-- <input type="button" value="显示">
+<input type="button" value="隐藏">
+<input type="button" value="滑入">
+<input type="button" value="滑出">
+<input type="button" value="切换">
+<input type="button" value="淡入">
+<input type="button" value="淡出">
+<input type="button" value="淡出/入切换">
+<input type="button" value="淡入后淡出">
+
+
+
+<div style="background-color:blueviolet;width:400px;height:400px"></div>
+<script>
+    $(function(){
+        $("input").eq(0).click(function(){
+            //show不传参数,没有动画效果，毕竟是一个显示
+            $("div").show(1000);//显示
+        })
+        $("input").eq(1).click(function(){
+            $("div").hide(1000,function(){//隐藏
+                console.log("哈哈，动画只想完成")
+            });
+        })
+        //滑入
+        $("input").eq(2).click(function(){
+            $("div").slideDown(1000,function(){
+                console.log("哈哈，动画只想完成")
+            });
+        })
+        //滑出
+        $("input").eq(3).click(function(){
+            $("div").slideUp(1000);
+        })
+        //划入画出之间进行切换
+        $("input").eq(4).click(function(){
+            $("div").slideToggle(1000);
+        })
+        //淡入，即改变透明度  fadeIn
+        $("input").eq(5).click(function(){
+            $("div").fadeIn(1000);
+        })
+        //淡出  fadeOut
+        $("input").eq(6).click(function(){
+            $("div").fadeOut(2000);
+        })
+        //切换  fadeToggle
+        $("input").eq(7).click(function(){
+            $("div").fadeToggle(2000);
+        })
+        //记住jq可以方法.方法
+        $("input").eq(8).click(function(){
+            $("div").fadeIn(1000).fadeOut(1000);//动画队列，注意停止动画的运用
+        })
+    })
+</script> -->
+<!-- 自定义动画 -->
+<input type="button" value="开始">
+<input type="button" value="结束">
+<div style="background-color:blueviolet;width:100px;height:100px;position:absolute"></div>
+<div style="background-color:rgb(55, 231, 231);margin-top:120px;width:100px;height:100px;position:absolute"></div>
+<div style="background-color:rgb(216, 9, 9);margin-top:240px;width:100px;height:100px;position:absolute"></div>
+<script>
+    $(function(){
+        //开始按钮
+        $("input").eq(0).click(function(){
+            //animate 第一个参数：对象，里面可以传需要的动画样式
+            //第二个参数：speed 动画执行时间
+            //第三个参数：动画的执行效果(“swing:摇摆,默认”，“linear：匀速”)
+            //第四个参数：回调函数
+            $("div").eq(0).animate({left:500},5000);
+            $("div").eq(1).animate({left:500},5000,"swing");
+            $("div").eq(2).animate({left:500},5000,"linear",function(){
+                alert("ok")
+            });
+        })
+        //结束按钮
+        //一般不设置参数，用于动画效果之前，避免多动画发生重叠，抽搐现象
+        //stop:停止当前正在执行的动画
+        //第一个参数：clearQueue：是否清除动画队列 true,false(默认)，若不清除，则当前正在执行动画的下一个动画效果将会展示
+        //第二个参数：jumpToEnd：是否跳转到当前动画的最终效果 true,false(默认)
+        $("input").eq(1).click(function(){
+            $("div").stop();
+        })
+    })
+</script>
+</body>
+</html>

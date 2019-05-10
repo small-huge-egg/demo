@@ -225,3 +225,7 @@
     <div>小火柴的蓝色理想</div>
     ![自适应宽度](img/fill-available.png)
 ### 更多：https://www.cnblogs.com/xiaohuochai/p/7210540.html
+# 控制鼠标事件:
+## 实现禁用鼠标单击，也可用于禁止页面跳转
+    pointer-events:none
+
