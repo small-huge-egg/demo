@@ -669,6 +669,7 @@ User.findByIdAndRemove({
 ```
 5. 更新数据
 ```javaScript
+// 实例1
 User.findByIdAndUpdate('5a001b23d219eb00c8581184', {
   password: '123'
 }, function (err, ret) {
@@ -677,6 +678,34 @@ User.findByIdAndUpdate('5a001b23d219eb00c8581184', {
   } else {
     console.log('更新成功')
   }
+})
+
+// 实例2
+// 编辑购物车数量接口
+router.post('/cartEdit', (req, res, next) => {
+  // 获取商品id和用户id
+  let userId = req.cookies.userId;
+  let productId = req.body.productId; // 客户端传来的productId
+  let productNum = req.body.productNum; // 客户端传来的productNum
+  User.update({"userId":userId,"cartList.productId":productId},{ // 注意cartList.productId是users数据表下cartList数组下的一个数据
+    "cartList.$.productNum":productNum // 更改cartList下的productNum
+  },(err,doc)=>{
+    if(err){
+      res.json({
+        status: '1',
+        msg: err.message,
+        result: ''
+      })
+    }else{
+      // if(doc){
+        res.json({
+          status: '0',
+          msg: '',
+          result: 'suc'
+        })
+      // }
+    }
+  })
 })
 ```
 ## mongodb更多方法：
@@ -690,6 +719,15 @@ let goodsModel = Goods.find(params).skip(skip).limit(pageSize);
   goodsModel.sort({'salePrice':sort});
   goodsModel.exec(function (err,doc) { })// 立即执行查询
 ```
+
+
+```javaScript
+
+```
+
+
+
+
 # promise
 callback-hell:因为读取文件是异步的，so读取顺序不知
 ```javaScript

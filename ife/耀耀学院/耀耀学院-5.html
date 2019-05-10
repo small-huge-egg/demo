@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>蛋蛋---耀耀学院--5</title>
+    <style>
+        table,td{
+            border:1px solid rgb(226, 68, 68);
+            border-collapse: collapse;
+            box-sizing: border-box;  
+            position: relative;
+           
+        }
+        #block{
+            background: #F73859;
+            border-top: #404b69 solid 15px;
+            box-sizing: border-box;
+            transform: rotate(0deg);
+        }
+        button{
+            width:100px;
+            height: 30px;
+            margin:5px;
+        }
+        #jiji{
+            background: #F73859;
+            border-right: #404b69 solid 15px;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+<body>
+    <button id="goStright">走起</button></br>
+    <button id="goLeft">左转</button>
+    <button id="goRight">右转</button>
+    <button id="goBack">回头</button></br>
+    <button id="onlyGoLeft">左移方向不变</button>
+    <button id="onlyGoUp">上移方向不变</button>
+    <button id="onlyGoRight">右移方向不变</button>
+    <button id="onlyGoDown">下移方向不变</button></br>
+    <button id="GoLeft">左移方向也变</button>
+    <button id="GoUp">上移方向也变</button>
+    <button id="GoRight">右移方向也变</button>
+    <button id="GoDown">下移方向也变</button>
+    <script>
+        //任务4思路：
+        //首先为了模块化编程，这里用自调用函数实现，并用构造函数创建物体
+        //自调用函数创建表格，这里我懒因此直接用函数创建表格了，所以用的时候记得在最外面调用函数
+        //自调用函数创建小方块：小方块有宽高，背景颜色（注意旋转，暂不考虑），xy轴坐标（范围0~9），旋转角度（用于旋转）,创建方向坐标数组[[0,1](上),[1,0](右),[0 -1](下),[-1,0](左)]，为了后来计算小方块的left和top，n值，0,1,2,3,每次点击转向，n适当改变，用于最后判断方向
+        //初始化小方块，让他显示在表格中，初始宽高，颜色，xy坐标值，方向，旋转度数（0），
+        //给小方块添加点击右旋转方法：右旋转旋转角度=初始化角度+90deg，小方块的坐标x+1;
+        //给小方块添加点击左旋转方法：右旋转旋转角度=初始化角度-90deg，小方块的坐标x-1;
+        //给小方块添加点击回头旋转方法：右旋转旋转角度=初始化角度+180deg;
+        //给小方块添加走的方法：
+            // （1）判断小方块方向坐标，比如方向[0,1]的时候上移小方块，调取小方块上移后的坐标值，若x或y任一个>9&&<0，弹出对话框，否则block.x+0,block+1,block.left=block.left*block.x,block.top=block.top*block.y
+            // (2)通过检测小方块的n值判断小方块头朝哪
+        
+        //任务5
+        //增加新的指令如下：
+        // TRA LEF：向屏幕的左侧移动一格，方向不变
+        // TRA TOP：向屏幕的上面移动一格，方向不变
+        // TRA RIG：向屏幕的右侧移动一格，方向不变
+        // TRA BOT：向屏幕的下面移动一格，方向不变
+        // MOV LEF：方向转向屏幕左侧，并向屏幕的左侧移动一格
+        // MOV TOP：方向转向屏幕上面，向屏幕的上面移动一格
+        // MOV RIG：方向转向屏幕右侧，向屏幕的右侧移动一格
+        // MOV BOT：方向转向屏幕下面，向屏幕的下面移动一格
+
+        //创建表格
+        function createTable(){
+            //创建表格
+            //创建对象
+            var table = document.createElement("table");
+            table.id="table";
+            for(var i=0;i<10;i++){
+                var tr = document.createElement("tr");
+                for(var j=0;j<10;j++){
+                    var td = document.createElement("td");
+                    tr.appendChild(td);
+                    //设置表格属性
+                    td.style.width = 50 + "px";
+                    td.style.height = 50 + "px";
+                }
+                table.appendChild(tr);
+            }
+            //显示表格
+            document.body.appendChild(table);
+        }
+       
+
+        //自调用函数创建小方块
+        (function(){ 
+            var that=null;
+            // 小方块有高，宽，背景颜色，横纵坐标，方向，旋转度数
+            function Block(width,height,x,y,direction,deg){
+                //横纵坐标
+                this.x=x || 0;
+                this.y=y || 0;
+                // 宽高
+                this.width = width || 50.4;
+                this.height = height || 50.4;
+                //方向
+                this.direction = [
+                    [0,-1],//(上)
+                    [1,0],//(右)
+                    [0,1],//(下)
+                    [-1,0]//（左）
+                ];
+                this.n = 0;
+                //旋转角度
+                this.deg = deg||0 ;
+                //创建小方块元素，规定小方块id="block"
+                this.element = document.createElement("div");
+                this.element.id = "block";
+                that=this;
+            }
+
+            //为原型添加方法---方块的初始化方法
+            Block.prototype.init = function (table) {
+                //把方块加到table中
+                var div = this.element;
+                table.appendChild(div);
+                //设置小方块样式
+                div.style.position = "absolute";
+                div.style.width = this.width +'px';
+                div.style.height = this.height +'px';
+                div.style.transform = `rotate(${this.deg}deg)`;
+                //设置小方块坐标
+                var bounDing = div.getBoundingClientRect();  //获取初始相对位置
+                div.style.left =this.x+ 'px';
+                div.style.top = this.y + 'px'; 
+                //旋转角度           
+                div.style.transform = `rotate(${this.deg}deg)`;
+            }
+
+            //为原型添加方法----方块转向
+            Block.prototype.move = function () {
+                //方块右移
+                var goRight = document.getElementById("goRight");
+                goRight.addEventListener("click",function(){
+                   //方块旋转，规定n值为了判断方向
+                    that.deg = that.deg+90;
+                    that.element.style.transform = `rotate(${that.deg}deg)`;
+                    that.n =that.n+1;//0上，1右，2下，3左，
+                },false)
+
+                //方块左移
+                var goLeft = document.getElementById("goLeft");
+                goLeft.addEventListener("click",function(){
+                    //方块旋转，规定n值为了判断方向
+                    that.deg = that.deg-90;
+                    that.element.style.transform = `rotate(${that.deg}deg)`;
+                    that.n =that.n+3;//0上，1右，2下，3左，
+                },false)
+
+                //方块回头
+                var goBack = document.getElementById("goBack");
+                goBack.addEventListener("click",function(){
+                    //方块旋转，规定n值为了判断方向
+                    that.deg = that.deg+180;
+                    that.element.style.transform = `rotate(${that.deg}deg)`;
+                    that.n =that.n+2;//0上，1右，2下，3左，
+                },false)
+
+                //方块左移但是方向不变
+                var onlyGoLeft = document.getElementById("onlyGoLeft");
+                onlyGoLeft.addEventListener("click",function(){
+                    //方块左移但是方向不变
+                    if(that.x>0){
+                      turnLeft();
+                    }else{
+                        alert("不能走了到头了亲");
+                    }
+                },false)
+
+                //方块右移但是方向不变
+                var onlyGoRight = document.getElementById("onlyGoRight");
+                onlyGoRight.addEventListener("click",function(){
+                    //方块右移但是方向不变
+                    if(that.x<9){
+                        turnRight();
+                    }else{
+                        alert("不能走了到头了亲");
+                    }
+                },false)
+
+                //方块上移但是方向不变
+                var onlyGoUp = document.getElementById("onlyGoUp");
+                onlyGoUp.addEventListener("click",function(){
+                    //方块上移但是方向不变
+                    if(that.y>0){
+                        turnUp();
+                    }else{
+                        alert("不能走了到头了亲");
+                    }
+                },false)
+
+                //方块下移但是方向不变
+                var onlyGoDown = document.getElementById("onlyGoDown");
+                onlyGoDown.addEventListener("click",function(){
+                    //方块下移但是方向不变
+                    if(that.y<9){
+                        turnDown();
+                    }else{
+                        alert("不能走了到头了亲");
+                    }
+                },false)
+                
+                // 方向转向屏幕左侧，并向屏幕的左侧移动一格
+                var GoLeft = document.getElementById("GoLeft");
+                GoLeft.addEventListener("click",function(){
+                    //方块左移并向左移动
+                    that.deg = -90;
+                    that.element.style.transform = `rotate(${that.deg}deg)`;
+                    that.n =3;//0上，1右，2下，3左[-1,0]，
+                    console.log(that.n); 
+                    if(that.x>0){
+                        turnLeft();
+                    }else{
+                        alert("不能走了到头了亲");
+                    }
+                },false)
+
+                // 方向转向屏幕右侧，并向屏幕的右侧移动一格
+                var GoRight = document.getElementById("GoRight");
+                GoRight.addEventListener("click",function(){
+                    //方块左移并向右移动
+                    that.deg = 90;
+                    that.element.style.transform = `rotate(${that.deg}deg)`;
+                    that.n =1;//0上，1右，2下，3左[-1,0]，
+                    if(that.x<9){
+                        turnRight();
+                    }else{
+                        alert("不能走了到头了亲");
+                    }
+                },false)
+
+                // 方向转向屏幕上侧，并向屏幕的上侧移动一格
+                var GoUp = document.getElementById("GoUp");
+                GoUp.addEventListener("click",function(){
+                    //方块上移，并转向
+                    that.deg = 0;
+                    that.element.style.transform = `rotate(${that.deg}deg)`;
+                    that.n =0;//0上，1右，2下，3左[-1,0]，
+                    if(that.y>0){
+                        turnUp();
+                    }else{
+                        alert("不能走了到头了亲");
+                    }
+                },false)
+
+                // 方向转向屏幕下侧，并向屏幕的下侧移动一格
+                var GoDown = document.getElementById("GoDown");
+                GoDown.addEventListener("click",function(){
+                    //方块下移并转向下侧
+                    that.deg = 180;
+                    that.element.style.transform = `rotate(${that.deg}deg)`;
+                    that.n =2;//0上，1右，2下，3左[-1,0]，
+                    if(that.y<9){
+                        turnDown();
+                    }else{
+                        alert("不能走了到头了亲");
+                    }
+                },false)
+
+                //走起来
+                var goStright= document.getElementById("goStright");
+                goStright.addEventListener("click",function(){
+                    //如果方向向右
+                    if((that.n-1)%4==0&&that.x<9){//1 0 
+                        that.x+=1;         
+                        that.element.style.left = (that.x*that.direction[1][0])*that.width + 'px';
+                        that.element.style.top += (that.y*that.direction[1][1])*that.height + 'px';
+                        return false;
+                    }
+                    // 如果方向向左
+                    if((that.n-3)%4==0&&that.x>0){//-1 0
+                        that.x-=1;         
+                        that.element.style.left = Math.abs((that.x*that.direction[3][0])*that.width) + 'px';
+                        that.element.style.top += (that.y*that.direction[3][1])*that.height + 'px';
+                        return false;
+                    }                        
+                    // 如果方向向上
+                    if(that.n%4==0&&that.y>0){//0 -1
+                        that.y=that.y-1;                
+                        that.element.style.left += (that.x*that.direction[0][0])*that.width + 'px';
+                        that.element.style.top = Math.abs((that.y*that.direction[0][1])*that.height) + 'px';
+                        return false;
+                    }                                      
+                    // 如果方向向下
+                    if((that.n-2)%4==0&&that.y<9){// 0 1
+                        that.y+=1;                 
+                        that.element.style.left += (that.x*that.direction[2][0])*that.width + 'px';
+                        that.element.style.top = (that.y*that.direction[2][1])*that.height + 'px';
+                        return false;
+                    }
+                    else{
+                        alert("到头不能走了亲");
+                        // return false;
+                    }
+                },false)
+            }
+
+            function turnLeft () {
+                that.x-=1;         
+                that.element.style.left = Math.abs((that.x*that.direction[3][0])*that.width) + 'px';
+                that.element.style.top += (that.y*that.direction[3][1])*that.height + 'px';
+                return false;
+            }
+            function turnRight () {
+                that.x+=1;         
+                that.element.style.left = (that.x*that.direction[1][0])*that.width + 'px';
+                that.element.style.top += (that.y*that.direction[1][1])*that.height + 'px';
+                return false;
+            }
+            function turnUp() {
+                that.y=that.y-1;                
+                that.element.style.left += (that.x*that.direction[0][0])*that.width + 'px';
+                that.element.style.top = Math.abs((that.y*that.direction[0][1])*that.height) + 'px';
+                return false;
+            }
+            function turnDown(){
+                that.y+=1;                 
+                that.element.style.left += (that.x*that.direction[2][0])*that.width + 'px';
+                that.element.style.top = (that.y*that.direction[2][1])*that.height + 'px';
+                return false;
+            }
+             window.Block = ,Block;
+        })();
+        
+        //调用表格方法，显示表格
+        createTable();
+
+        //运行游戏
+        var block = new Block();
+        block.init(document.getElementById("table")); 
+        block.move();
+</script>
+</body>
+</html>

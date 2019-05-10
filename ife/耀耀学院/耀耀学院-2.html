@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>耀耀学院——2</title>
+</head>
+<style>
+    div{
+        width:800px;
+        margin: 0 auto;
+    }
+    form{
+        text-align:right;
+        width:500px;
+    }
+    lable,input{
+        margin: 10px;
+    }
+    lable{
+        text-align:right;
+        width:100px;
+    }
+    input{
+        width:200px;
+        height:25px;
+    }
+    p{
+        text-align:left;
+        margin:-7px 0 0 290px;  
+        color:#ccc;
+        font-size:12px;
+    }
+    #submit{
+        width:60px;
+        height: 30px;
+        /* margin-top:30px; */
+        background-color: blue; 
+        color: #fff;
+        border: 1px solid blue;
+        border-radius: 4px ;
+    }
+</style>
+<body>
+    <div>
+        <form action="" name="myForm">
+            <lable>名称</lable><input type="text" id="name"><br><p class="onename"></p>
+            <lable>密码</lable><input type="text"id="password"><br><p class="towname"></p>
+            <lable>密码确认</lable><input type="text" id="rePassword"><br><p class="threename"></p>
+            <lable>邮箱</lable><input type="text" name="email" id="myEmail"><br><p class="fourname"></p>
+            <lable>手机</lable><input type="text" id="phone"><br><p class="fivename"></p>
+            <input type="submit" value="提交" id="submit" onclick="submiit()" >
+        </form>
+    </div>
+</body>
+<script>
+    var examine=0; 
+    nameC = document.getElementById("name"),
+    password = document.getElementById("password"),
+    rePassword = document.getElementById("rePassword"),
+    myEmail = document.getElementById("myEmail"),
+    phone =  document.getElementById("phone"),
+    nameMetion = document.getElementsByClassName("onename")[0],
+    nameMetion2 = document.getElementsByClassName("towname")[0],
+    nameMetion3 = document.getElementsByClassName("threename")[0], 
+    nameMetion4 = document.getElementsByClassName("fourname")[0],
+    nameMetion5 = document.getElementsByClassName("fivename")[0];        
+    // 名称焦点事件
+    nameC.onfocus = function(){
+        nameC.style = "border:solid 2px #fff";
+        nameMetion.style = "color:#ccc";
+        nameMetion.innerHTML = "必填，长度为4~16个字符";
+        return false;
+    }
+    // 名称失去焦点事件
+    nameC.onblur = function(){
+        var inpLength = checkLength(nameC.value);
+        if(nameC.value==null||nameC.value==""){
+            nameMetion.innerHTML = "不能为空!";
+            nameMetion.style = "color:red";
+            nameC.style = "border: solid 2px red"
+            return false;            
+    }
+        if(inpLength<4||inpLength>8){
+            nameMetion.innerHTML="不能超过4~16位字符，一个汉字算2个字符";
+            nameMetion.style = "color:red";
+            nameC.style = "border:solid 2px red";
+            return false;
+        }
+        if(!/^[a-zA-Z0-9\u4e00-\u9fa5]+$/.test(nameC.value)){
+            nameMetion.innerHTML="只能输入中文,字母和数字";
+            nameMetion.style = "color:red";
+            nameC.style = "border:solid 2px red";
+            return false;
+        }
+        else{
+            nameMetion.innerHTML = "名称正确";
+            nameMetion.style = "color:green";
+            nameC.style = "border: solid 2px green";
+            examine=1;
+            return true;            
+        }
+    }
+    //检验输入的值有多少个字符
+    function checkLength(str){
+        var len =0,temp=0;
+            for(var j=0;j<str.length;j++){
+            　　temp = 1;
+            　　if(/^[\u2E80-\u9FFF]+$/.test(str[j])){
+                　　temp = 2;
+            　　}
+            　　len += temp;
+            }
+            return len;
+        }
+    // 密码框焦点事件
+    password.onfocus = function(){
+        password.style = "border:solid 2px #fff";
+        nameMetion2.style = "color:#ccc";
+        nameMetion2.innerHTML = "必填，长度为8~16个字符";
+    }
+    //密码框没焦点事件
+    password.onblur = function(){
+        if(rePassword.onblur()&password.value!=""&rePassword.value!=""){
+            rePassword.onblur();
+        }
+        if(password.value==null|password.value==""){
+            nameMetion2.innerHTML = "密码不能为空!";
+            nameMetion2.style = "color:red";
+            password.style = "border: solid 2px red"
+            return false;
+        }
+        if(/^[a-z0-9_-]{6,18}$/.test(password.value)){
+            nameMetion2.innerHTML = "密码可用";
+            nameMetion2.style = "color:green";
+            password.style = "border: solid 2px green";
+            examine++;
+            return true;
+        }
+        else{
+            nameMetion2.innerHTML="密码输入错误";
+            nameMetion2.style = "color:red";
+            password.style = "border:solid 2px red";
+            return false;            
+        }
+    }
+    // 密码确认焦点事件
+    rePassword.onfocus = function(){
+        rePassword.style = "border:solid 2px #fff";
+        nameMetion3.style = "color:#ccc";
+        nameMetion3.innerHTML = "两次输入相同密码";
+    }  
+    // 密码确认失去焦点事件
+    rePassword.onblur = function(){
+        if(rePassword.value==password.value&password.value!=""){
+            rePassword.style = "border:solid 2px green";
+            nameMetion3.style = "color:green";
+            nameMetion3.innerHTML = "密码输入一致";
+            examine++;
+            return true;
+        }
+        if(rePassword.value!=password.value&rePassword.value!=""){
+            rePassword.style = "border:solid 2px red";
+            nameMetion3.style = "color:red";
+            nameMetion3.innerHTML = "密码输入不一致";
+          //  return false;
+        }else{
+            rePassword.style = "border:solid 2px red";
+            nameMetion3.style = "color:red";
+            nameMetion3.innerHTML = "密码输入不一致";
+        }
+    }
+    //邮箱焦点事件
+    myEmail.onfocus = function(){
+        myEmail.style = "border:solid 2px #fff";
+        nameMetion4.innerHTML = "请输入邮箱";
+    }
+	//邮箱失去焦点事件
+    myEmail.onblur = function(){
+        var atpos=myEmail.value.indexOf("@");
+        var dotpos=myEmail.value.lastIndexOf(".");
+        if (atpos<1 || dotpos<atpos+2 || dotpos+2>=myEmail.value.length){
+            myEmail.style = "border:solid 2px red";
+            nameMetion4.style = "color:red";
+            nameMetion4.innerHTML = "邮箱格式错误";
+            return false;
+        }else{
+            myEmail.style = "border:solid 2px green";
+            nameMetion4.style = "color:green";
+            nameMetion4.innerHTML = "邮箱格式正确";
+            examine++;
+            return true;
+        }
+    }
+    ///手机焦点事件
+    phone.onfocus = function(){
+        phone.style = "border:solid 2px #fff";
+        nameMetion5.innerHTML = "请输入11位手机号";
+        return false;
+    }
+	//手机失去焦点事件
+    phone.onblur = function(){
+        var reg=/^1[345678]\d{9}$/;
+        if (reg.test(phone.value)){ 
+            examine++;
+            phone.style = "border:solid 2px green";
+            nameMetion5.style = "color:green";
+            nameMetion5.innerHTML = "手机格式正确";
+         console.log(examine)
+            return true;
+        }
+        else{
+            phone.style = "border:solid 2px red";
+            nameMetion5.style = "color:red";
+            nameMetion5.innerHTML = "手机格式错误";
+        }   
+    }
+    function submiit(){
+        if(phone.onblur()&&myEmail.onblur()&&rePassword.onblur()&&password.onblur()&&nameC.onblur()){
+            alert("提交成功");
+            
+        }else{
+            alert("提交失败");
+        }
+    }
+</script>
+</html>
