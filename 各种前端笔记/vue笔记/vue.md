@@ -500,3 +500,75 @@ border-bottom($height,$color) {
 </template>
 ```
 ![](./img/具名插槽.jpg)
+# (数据管理仓库)
+* 1.命令行：
+    cnpm i vuex -S
+* 2.导入包
+    main.js中输入：import Vuex from 'vuex'
+* 3.注册vuex到vue中
+    main.js中输入：Vue.use(Vuex)
+* 4.new Vuex.Store()实例，得到一个数据仓储对象
+```javaScript
+var store = new Vuex.Store({
+    state:{ // 通过this.$store.state.***来访问
+        //相当于组件中的data,专门用来存储数据
+        //如果在组件中想要访问store中的数据，通过this.$store.state.***来访问
+    },
+    mutations:{//this.$store.commit('方法名称','按需传递参数')
+        //相当于组件中的methods
+        方法名(state){//固定state参数，最多俩参数，若想传更多，可通过传对象
+
+        }
+    },
+    getters:{ // this.$store.getters.方法名
+        //只负责对外提供数据，不负责修改数据，要想修改去mutations
+        //跟过滤器很像，都是把元数据进行包装，提供给调用它的人
+        //其次跟computed也很像，只要state中的数据发生变化并且getters正好也引用了这个数据，那么就会立即触发getters的重新求值
+        //例子：
+        optCount:function(state){
+            return '我i想我今天也很快乐' + state.count
+        }
+    },
+    action:{ // this.$store.dispatch("方法名"，参数)
+        //负责提交mutation，而不是直接变更状态，
+        //action可以包含任意异步操作
+        //自动获得一个默认参数context,  它是一个store 实例，通过它可以获取到store 实例的属性和方法,如 context.state 就会获取到 state 属性， context.commit 就会执行commit命令。
+        actions: {
+            increment(context) {
+                context.commit("INCREMENT");
+            },
+            decrement(context) {
+                context.commit("DECREMENT");
+            }
+        }
+    }
+})
+```
+* 5.将vuex创建的store挂载到vm实例上
+    const vm=new Vue({
+        el:"#app",
+        render:c=>c(App),
+        store //挂载只要挂载到了vm中，任何组件都可以访问store中的数据
+    })
+>mapState方法：
+* `...mapState(['nickName','cartCount'])` mapState是vuex封装的this.$store.state对象，加...解构
+```javaScript
+computed:{
+    ...mapState(['nickName','cartCount']) // mapState是vuex封装的this.$store.state对象，加...解构
+    /*
+    nickName() { // 通过vuex实时获取用户名
+      return this.$store.state.nickName
+    },
+    cartCount() {
+      return this.$store.state.cartCount
+    }
+    */
+  },
+```
+>补充es6
+* 将数组中重复元素去掉：
+```
+a=[1,2,3,2,5]
+[...new Set(a)] // [1,2,3,5]
+```
+

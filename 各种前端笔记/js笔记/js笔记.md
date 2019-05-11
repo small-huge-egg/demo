@@ -863,3 +863,10 @@ console.log(`sum:${sum(6,1)}`) // 7
 import * as app from './app' // 这样可以获取app.js中任何暴露的元素
 console.log(`sum:${app.sum(6,1)}`) // 7
 ```
+## new Set
+> 将数组中重复元素去掉：
+```javaScript
+a=[1,2,3,2,5]
+[...new Set(a)] // [1,2,3,5]
+// 如果单单new Set不解构会返回{1,2,3,5},通过解构+[]转化为数组
+```

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>div实现textarea效果</title>
+    <style>
+      #textarea {
+        height: 50px;
+        width: 300px;
+        padding: 4px;
+        border: 1px solid #888;
+        /* resize规定用户对元素尺寸的调整 
+         vertical表示可调整高度 horizontal可调整宽度 both都可以调整 none都不可*/
+        resize: vertical;  
+        overflow: auto;
+        /* 
+        visible	默认值。内容不会被修剪，会呈现在元素框之外。
+        hidden	内容会被修剪，并且其余内容是不可见的。
+        scroll	内容会被修剪，但是浏览器会显示滚动条以便查看其余的内容。
+        auto	如果内容被修剪，则浏览器会显示滚动条以便查看其余的内容。
+        inherit	规定应该从父元素继承 overflow 属性的值。
+         */
+      }
+ 
+      #textarea:empty:before {
+        /* :empty选择器选择每个没有任何子级的元素（包括文本节点）。     
+        :before 选择器向选定的元素前插入内容。
+        使用content 属性来指定要插入的内容。
+        */
+        content: attr(placeholder);
+        color: #bbb;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="textarea" contenteditable="true" placeholder="请输入内容..."></div>
+  </body>
+</html>
