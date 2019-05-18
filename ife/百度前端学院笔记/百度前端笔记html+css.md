@@ -228,4 +228,7 @@
 # 控制鼠标事件:
 ## 实现禁用鼠标单击，也可用于禁止页面跳转
     pointer-events:none
-
+# 滑动条,type="range"
+    <input type="range" id="myRange">
+# 进度条
+    background:linear-gradient(#999, #999) no-repeat, #eb2525

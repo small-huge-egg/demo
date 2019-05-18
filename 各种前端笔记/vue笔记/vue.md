@@ -172,7 +172,7 @@ Object.defineProperty(obj,"userName",{
 ### 在点击导航栏的时候，让被点击的那一个有背景色，其他的没有背景色？如何做？在路由里面设置:
     const router = new VueRouter({
         routes,
-        linkActiveClass: 'is-active'
+        linkActiveClass: 'is-active'2
     });
     然后在css里面设置:
     .is-active{
@@ -190,7 +190,7 @@ Object.defineProperty(obj,"userName",{
 ## 动态路由匹配
 ### 在嵌套路由中，父路由向子路由传值除了query外，还有params，params传值有两种情况，一种是值在url中显示，另外一种是值不显示在url中。
 1、显示在url中
-```
+```javaScript
 index.html
 <div id="app">
 	<!-- router-view 路由出口, 路由匹配到的组件将渲染在这里 -->
@@ -248,7 +248,7 @@ game.vue 在子路由中，通过 this.$route.params.参数名来接受传递过
 
 同样只需将上面的main.js中的定义路由改为如下样子，在子路由中通过name来给路径其一个game1的别名。
 
-```
+```javaScript
 //定义路由
 const routes = [
 	{ path: "/", redirect: "/home" },//重定向
@@ -519,7 +519,7 @@ var store = new Vuex.Store({
         方法名(state){//固定state参数，最多俩参数，若想传更多，可通过传对象
 
         }
-    },
+    },   
     getters:{ // this.$store.getters.方法名
         //只负责对外提供数据，不负责修改数据，要想修改去mutations
         //跟过滤器很像，都是把元数据进行包装，提供给调用它的人
