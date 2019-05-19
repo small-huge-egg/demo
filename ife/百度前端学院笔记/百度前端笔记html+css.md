@@ -230,5 +230,26 @@
     pointer-events:none
 # 滑动条,type="range"
     <input type="range" id="myRange">
+> ::-webkit-slider-thumb,type为range的input标签内的一种伪类样式,用于设置range的滑块的具体样式,该伪类只在内核为webkit/blink的浏览器中有效
+   
 # 进度条
     background:linear-gradient(#999, #999) no-repeat, #eb2525
+# 文本超出用...
+```css
+.progress-section-text {
+    text-overflow: ellipsis; // 超出则用...
+    overflow: hidden;
+    white-space: nowrap; // 不换行
+}
+```
+# 设置块元素显示的文本行数-webkit-line-clamp
+.box {
+    width: 100px; 
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+>注意：-webkit-line-clamp是webkit的私有属性，是一个 不规范的属性（unsupported WebKit property），它没有出现在 CSS 规范草案中。-webkit-line-clamp用来限制在一个块元素显示的文本的行数。 为了实现该效果，它需要组合其他的WebKit属性。常见结合属性：
+* display: -webkit-box; 必须结合的属性 ，将对象作为弹性伸缩盒子模型显示 。
+* -webkit-box-orient 必须结合的属性 ，设置或检索伸缩盒对象的子元素的排列方式 。
