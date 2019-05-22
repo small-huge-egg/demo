@@ -65,6 +65,7 @@ Object.defineProperty(obj,"userName",{
     如果不想要时间可以写成 <span>{{item.add_time | dataFormat('YYYY-MM-DD')}}</span>
 # 按键修饰符
 ### 系统自带的有@keyup.enter/tab/delete/.esc/space/up/down/left/right
+> vue中鼠标的‘enter箭’：`@keyup.enter.exact="search()"`,加exact为了防止同时按别的键也触发enter事件
 ### 自定义全局按键修饰符方法：
     Vue.config.keyCodes.f2=113;
 # 自定义全局指令，钩子函数
@@ -571,4 +572,3 @@ computed:{
 a=[1,2,3,2,5]
 [...new Set(a)] // [1,2,3,5]
 ```
-
