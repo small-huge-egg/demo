@@ -887,3 +887,5 @@ a=[1,2,3,2,5]
 * 屏幕分辨率的宽：window.screen.width 
 * 屏幕可用工作区高度：window.screen.availHeight 
 * 屏幕可用工作区宽度：window.screen.availWidth
+# tyoeOf
+![](./typeof.png)
