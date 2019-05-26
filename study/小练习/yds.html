@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    body{
+      background: pink;
+      overflow-x: hidden;
+      overflow-y: scroll;
+    }
+    #shuai {
+      font-size: 48px;
+      color:#fff;
+      /* background: red; */
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      left: -300px;
+      font-family: 'SimHei';
+      font-weight: bold;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      /* overflow-y: scroll; */
+      /* transition: all .2s linear */
+    }
+  </style>
+</head>
+<body>
+  <div id="shuai">你长的有点帅</div>
+</body>
+<script>
+  let shuai = document.getElementById('shuai');
+  console.log(shuai.innerText[0])
+  let timer = setInterval(() => {
+    if(shuai.offsetLeft < 375) {
+      shuai.style.left = shuai.offsetLeft + 35 + 'px';
+    } else if(shuai.offsetLeft == 400) {
+      shuai.style.left = -300 + 'px'
+    }
+    else{
+      clearInterval(timer)
+    }
+  }, 200);
+  
+</script>
+</html>
