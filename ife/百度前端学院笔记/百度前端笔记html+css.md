@@ -254,3 +254,36 @@
 * display: -webkit-box; 必须结合的属性 ，将对象作为弹性伸缩盒子模型显示 。
 * -webkit-box-orient 必须结合的属性 ，设置或检索伸缩盒对象的子元素的排列方式。
 # 隐藏被旋转的 div 元素的背面`backface-visibility: hidden`
+# transform和annimation和transition区别与联系
+> CSS3 有3种和动画相关的属性：transform, transition, animation。其中 transform 描述了元素静态样式。而transition 和 animation 却都能实现动画效果。所以transform 常常配合后两者使用
+1. transform  描述的是元素静态样式
+* transform属性应用于元素的2D或3D转换。这个属性允许你将元素旋转，缩放，移动，倾斜等。 必须是鼠标移上或者点击执行属性变化，鼠标离开属性回归。说到底就是属性不会变化。配合-webkit-transition: 0.3s才会有动画的效果，否则会很生硬。
+* 旋转：rote(30deg)    水平面以元素中心旋转多少度；
+* rotateX(angle)   定义沿着 X 轴的 3D 旋转；
+* rotateY(angle)   定义沿着 Y 轴的 3D 旋转；
+* 位移 ：translate(x,y)   定义 2D 转换;
+* translate3d(x,y,z)  定义 3D 转换;
+* 缩放：scale(x,y)   定义 2D 缩放转换;
+* scale3d(x,y,z)   定义 3D 缩放转换;
+2. 实现动画效果的：transition   animation
+> transition是一个简写属性，用于设置四个过渡属性 
+* transition: property duration timing-function delay;
+* 过渡的属性，完成过度效果需要时间 , 速度曲线， 延迟时间
+* .one1{transition: width 3s linear 2s;}    .one1:hover{width:300px;}
+* transition定义了动画的属性、时间、速度曲线以及延迟时间  ；通常和hover等事件配合使用，由事件触发。
+> animation 属性是一个简写属性，用于设置六个动画属性,animation的使用必须结合@keyframes animation-name使用
+```
+@keyframes  move{
+    form{ left:0px;}   to{ left:200px;}
+}
+```
+* 在需要动画的元素上面添加动画  div{animation:move 5s infinite;}
+
+* animation: name duration timing-function delay iteration-count direction;
+* 动画名称，动画执行时间，速度曲线，动画延迟时间，播放次数，是否反向播放
+* animation可以设定每一帧的样式和时间
+> 区别：
+* 触发条件不同。transition通常和hover等事件配合使用，由事件触发。animation则立即播放。
+* 循环。 animation可以设定循环次数。
+* 精确性。 animation可以设定每一帧的样式和时间。tranistion 只能设定头尾。 animation中可以设置每一帧需要单独变化的样式属性， transition中所有样式属性都要一起变化。
+* 与javascript的交互。animation与js的交互不是很紧密。tranistion和js的结合更强大。js设定要变化的样式，transition负责动画效果，天作之合，比之前只能用js时爽太多。
