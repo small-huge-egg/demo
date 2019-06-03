@@ -279,6 +279,55 @@ home.vue 中router-link修改为:to="{ name:'game1', params: {num: 123} }" param
 > 2.$route为当前router跳转对象，里面可以获取name、path、query、params等
 
 ![](./img/this.router和route.jpg)
+### vue中通过路由跳转的三种方式
+1. router-link
+```
+<li >
+    <router-link to="keyframes">点击验证动画效果 </router-link>
+</li>
+
+<!-- router.js -->
+export default new Router({
+    routes: [
+        {
+            path: '/keyframes',
+            name:'keyframes',
+            component: Keyframes
+        }
+    ]
+})
+```
+2. this.$router.push({path:'/user'})
+```html
+<template>
+<li @click="change">验证路由传参</li>
+</template>
+<script>
+export default {
+  data () {
+    return {
+      id:43,  //需要传递的参数
+    }
+  },
+  methods:{
+    change(){
+      this.$router.push({  //核心语句
+        path:'/select',   //跳转的路径
+        query:{           //路由传参时push和query搭配使用 ，作用时传递参数
+          id:this.id ,  
+        }
+      })
+    }
+  }
+}
+// 接收的文件
+created(){  //生命周期里接收参数
+    this.id = this.$route.query.id,  //接受参数关键代码
+    console.log(this.id)
+}
+</script>
+```
+3. this.$router.replace{path：‘/’ }类似
 ## vue-resource
 (https://www.cnblogs.com/Juphy/p/7073027.html)
 #### vue-resource是Vue.js的一款插件，它可以通过XMLHttpRequest或JSONP发起请求并处理响应。也就是说，$.ajax能做的事情，vue-resource插件一样也能做到，而且vue-resource的API更为简洁。另外，vue-resource还提供了非常有用的inteceptor功能，使用inteceptor可以在请求前和请求后附加一些行为，比如使用inteceptor在ajax请求时显示loading界面。

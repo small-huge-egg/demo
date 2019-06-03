@@ -287,3 +287,13 @@
 * 循环。 animation可以设定循环次数。
 * 精确性。 animation可以设定每一帧的样式和时间。tranistion 只能设定头尾。 animation中可以设置每一帧需要单独变化的样式属性， transition中所有样式属性都要一起变化。
 * 与javascript的交互。animation与js的交互不是很紧密。tranistion和js的结合更强大。js设定要变化的样式，transition负责动画效果，天作之合，比之前只能用js时爽太多。
+# 图片自适应
+>背景图片自适应（使完全展示）
+```css
+.banner-img {
+  width: 100%; // 关键
+  height: 140px;
+  background-repeat: no-repeat; // 关键
+  background-size: 100% 100%; // 关键
+}
+```
