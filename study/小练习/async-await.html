@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    async function a1() {
+      console.log('a1 start')
+      await new Promise((resolve, reject) => {
+        console.log('resolve')
+        resolve()
+      })
+      console.log('a1 end')
+    }
+    function a2() {
+      console.log('a2 start')
+    }
+    a1()
+    a2()
+    </script>
+    <!-- 
+      a1 start
+      async-await.html:14 resolve
+      async-await.html:20 a2 start
+      async-await.html:17 a1 end
+     -->
+    <!-- promise虽然是异步的，但是只会把使用resolve和reject的东西放到异步队列，所以这里的console.log('resolve')仍然是个同步任务
+
+酸奶盖盖 2019/6/10 11:37:34
+await虽然会导致后面的代码执行不了，但不会影响外部函数的执行
+
+ -->
+</body>
+</html>

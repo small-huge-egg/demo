@@ -624,3 +624,41 @@ a=[1,2,3,2,5]
 # $nextTick
 >在Vue生命周期的created()钩子函数进行的DOM操作一定要放在Vue.nextTick()的回调函数中
 >在数据变化后要执行的某个操作，而这个操作需要使用随数据改变而改变的DOM结构的时候，这个操作都应该放进Vue.nextTick()的回调函数中。
+# vue深拷贝
+> 有时不想让子元素从父元素取值后，子元素改变值导致父元素的值也改变，需要采取深拷贝
+* 如果是纯数据对象方法一
+```javaScript
+computed: {  
+    data: function () {  
+        var obj={};  
+        // 先转成字符串，再转成对象赋值
+        obj=JSON.parse(JSON.stringify(this.templateData)); //this.templateData是父组件传递的对象  
+        return obj  
+    }  
+}
+```
+* 方法2(注意null array object的type=object)
+```javaScript
+function deepClone(data){
+    var type = Array.isArray(data)?[]:{};
+    var obj;
+    if(type === 'array'){
+        obj = [];
+    } else if(type === 'object'){
+        obj = {};
+    } else {
+        //不再具有下一层次
+        return data;
+    }
+    if(type === 'array'){
+        for(var i = 0, len = data.length; i < len; i++){
+            obj.push(deepClone(data[i]));
+        }
+    } else if(type === 'object'){
+        for(var key in data){
+            obj[key] = deepClone(data[key]);
+        }
+    }
+    return obj;
+}
+```
