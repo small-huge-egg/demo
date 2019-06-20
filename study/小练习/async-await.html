@@ -10,9 +10,14 @@
   <script>
     async function a1() {
       console.log('a1 start')
+      setTimeout(() => {
+        console.log('setTimeout')
+      }, 0);
       await new Promise((resolve, reject) => {
         console.log('resolve')
         resolve()
+      }).then(() => {
+        console.log('then')
       })
       console.log('a1 end')
     }
@@ -26,7 +31,9 @@
       a1 start
       async-await.html:14 resolve
       async-await.html:20 a2 start
+      then
       async-await.html:17 a1 end
+      setTimeout
      -->
     <!-- promise虽然是异步的，但是只会把使用resolve和reject的东西放到异步队列，所以这里的console.log('resolve')仍然是个同步任务
 
@@ -34,5 +41,6 @@
 await虽然会导致后面的代码执行不了，但不会影响外部函数的执行
 
  -->
+ <!-- 此外，new Promise会被放入微任务，setTimeout放入宏任务，主线程执行完后先执行微，然后宏 -->
 </body>
 </html>

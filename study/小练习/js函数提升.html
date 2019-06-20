@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>面试题-函数提升与优先级</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+  <script>
+    function Foo() {
+      getName = function () { alert(1); };
+      return this;
+    }
+    Foo.getName = function () { alert(2); };
+    Foo.prototype.getName = function () { alert(3); };
+    var getName = function () {
+      alert(4)
+    }
+    function getName() {
+      alert(5)
+    }
+
+    /*
+    // 由于变量提升和函数提升
+    function Foo() {
+      getName = function () { alert(1); };
+      return this;
+    }
+
+    // var getName; // 变量提升
+    function getName() { // 函数提升，变量和函数名一样就会默认为函数（1）
+      alert(5)
+    }
+    Foo.getName = function () { alert(2); };
+    Foo.prototype.getName = function () { alert(3); };
+    getName = function () { // 这里将getName函数重新定义，（1）被忽略掉
+      alert(4) // （2）
+    }
+    */
+
+    Foo.getName(); // 2
+    getName(); // 4
+    /*
+    执行getName = function () { alert(1); }，于是（2）被代替为 alert(1);
+    相当于 (Foo()).getName() -> window.getName()，此时（2）已经被更改为alert(1)
+    */
+    Foo().getName();  // 1
+    getName(); // 1
+    // .的优先级最高，于是相当于new (Foo.getName)() -> new (function () { alert(2)})() -> 2
+    new Foo.getName(); // 2
+    // (new Foo()).getName() ->foo.getName() -> foo__proto__.getName() -> 3
+    new Foo().getName(); // 3
+    // new ( (new Foo()).getName )() --> new (foo.getName()) =>3
+    new new Foo().getName(); // 3
+  </script>
+</body>
+</html>
