@@ -30,21 +30,25 @@
         width:250px;
         height:250px;
         background: red;
+        display: table
+    }
+    .conten-txt {
         *display:table-cell;//相当于tr
         *vertical-align: middle;//使内容垂直居中
         *text-align:center;//使内容水平居中
     }
-    <div class="center">垂直居中</div>
-#### table-cell法：此方法需要设置长度，不然就是元素长度(水平居中)
+    <div class="center"><div class="conten-txt">垂直居中</div></div>
+#### 父级line-height=height
+#### margin: auto法：此方法需要设置长度，不然就是元素长度(水平居中)
     .center{
-        display:table;
+        display:block;
         margin:0 auto;
     }    
 #### display:flex法:此方法需要知道高才能垂直居中
     .center{
         *display:flex;//不可轻易设置
         *justify-content:center;//使内容水平居中，和flex一块用才居中
-        *align-items:Center;//使内容垂直居中，同上
+        *align-items:center;//使内容垂直居中，同上
     }
 ### div块居中
 #### 绝对定位和负边距法(前提知道宽高)：
@@ -59,13 +63,17 @@
         background:green;
     }
     <div class="center">垂直居中</div>
-#### 绝对定位和0(不用知道宽高):
+#### css3计算的方式居中元素calc:
     .center{
+        position: relative;
+        height: 300px;
+        width: 200px;
+        border: 1px solid #ccc;
+    }
+    .center-txt{
        *position:absolute;
-       *top:0;left:0;bottom:0;right:0;
-       *margin:auto;//此属性在相对定位中无效
-        width:50%;
-        height:50%;
+       *top: calc(50% - 150px)
+       *left: calc(50% - 100px)
         background:green;
         .time-show:nth-child(2)
     }
