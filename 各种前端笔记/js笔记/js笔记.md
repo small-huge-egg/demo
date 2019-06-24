@@ -546,6 +546,7 @@
 * toString(),把数字转换成字符串
 * valueOf(),返回number的数字
 # 正则表达式
+* [^]反义字符，表示除了^所描述的字符外的其他字符
 * 正则运算式.test(所检测的字符内容)。返回true/false
 * match 方法:使用正则表达式模式对字符串执行查找，并将包含查找的结果作为数组返回。
 * 正则运算式.replace()匹配字符串
@@ -869,7 +870,13 @@ console.log(`sum:${app.sum(6,1)}`) // 7
 a=[1,2,3,2,5]
 [...new Set(a)] // [1,2,3,5]
 // 如果单单new Set不解构会返回{1,2,3,5},通过解构+[]转化为数组
+
+// 或者
+Array.from(new Set(a))
 ```
+## Symbol数据类型
+>消除魔术字符串：
+`const EVENT_ID = Symbol()`
 # 屏幕
 * window.innerheight	返回窗口的文档显示区的高度。
 * window.innerwidth	返回窗口的文档显示区的宽度。
@@ -890,4 +897,9 @@ a=[1,2,3,2,5]
 * 屏幕可用工作区高度：window.screen.availHeight 
 * 屏幕可用工作区宽度：window.screen.availWidth
 # tyoeOf
+#### typeof有局限性，可以发现不会输出数据类型如null
 ![](./typeof.png)
+# 堆栈和垃圾回收机制
+* 堆栈溢出：对象存放在栈中，里面的内容存放在堆中，当堆中某地址存放太多东西，就会导致堆栈溢出
+* 内存泄漏：大哥不断地向堆中存储数据，而不进行清理，就会导致内存泄漏
+* 垃圾回收机制：就是将所有引用堆中地址的对象设置为null

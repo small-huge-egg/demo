@@ -25,6 +25,20 @@
     </style>
 </head>
 <body>
+    <!-- 
+        知识盲区：
+          select可通过.add(new Option(key))添加并创建下拉选项
+          通过addEventListener(change)监听select的option变化
+          被选中的选项key = this.options[this.selectedIndex].text
+
+
+        表单联动思想：对象+对象数组；先获取选择的地方，然后通过for循环添加option并给定指定值
+
+
+     -->
+
+
+
     <form>
         <!-- 注意name要取值一样才起到单选框的作用 -->
         <lable>在校生</lable>
@@ -62,11 +76,13 @@
             }   
         }     
     }
+    // 点击非在校生
     function worker(){
         var  schoolView = document.getElementById("school-detail");
         schoolView.style.display = "none";
         whereWork.style.display = "block";
     }
+    // 点击在校生
     function student(){
         var  schoolView = document.getElementById("school-detail");
         schoolView.style.display = "block";
