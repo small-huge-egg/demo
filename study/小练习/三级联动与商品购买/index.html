@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="vue.js"></script>
+    <script src="data.js"></script>
+    <script src="area.js"></script>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        table,tbody,th,tr,td{
+            border:none;
+        }
+        body {
+            width: 100%;
+            min-width: 1000px;
+        }
+        .list{
+            margin: 0 auto;
+            width: 80%;
+            max-width: 1980px;
+            border: 1px solid #ccc;
+            background: #CB99D8;
+        }
+        ul{
+            margin: 0 auto;
+            max-width: 1980px;
+        }
+        li{
+            width: 480px;
+            height: 300px;
+            display: inline-block;
+            margin: 10px;
+            text-decoration: none;
+            overflow: hidden;
+            box-shadow:2px 2px 5px #333
+        }
+        .name{
+            font-weight: bold
+        }
+        a{
+            text-decoration: none;
+            color:brown;
+        }
+        .pic{
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+        .img{
+            width: 530px;
+            height: 300px;
+            vertical-align: middle;
+            border: 0;
+            border-radius: 3px;
+        }
+        .img img{
+            max-width: 500px;
+            height: 100%;
+        }
+        .join-car {
+            width: 100%;
+            padding: 0px 25px;
+            height: 50px;
+            line-height: 28px;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            background-color:rgba(0,0,0,0.5);
+            border-radius: 3px;
+            color:#EAE5D8;
+        }
+        .btn{
+            height: 32px;
+            border-radius: 5px;
+            width: 100px;
+            background: #7467B7;
+            color: #fff;
+            border: none;
+        }
+        .btn-area {
+            position: absolute;
+            right: 60px;
+            bottom: 8px;
+        }
+        .slide{
+            position: fixed;
+            width: 30px;
+            height: 100px;
+            right: 0;
+            top: calc(50% - 50px);
+            background: #CB99D8;
+            border-radius: 10px 0 0 10px;
+            transition: right 0.3s;
+        }
+        .slide:hover{
+            right: -30px;
+        }
+        .slide-car {
+            position: fixed;
+            height: 80%;
+            width: 400px;
+            right: 0;
+            top: 10%;
+            margin-left: 60px;
+            background: rgba(0,0,0,0.8);
+            color: #fff;
+            border-radius: 50px 0 0 50px;
+            overflow-Y:scroll;
+            overflow-X:hidden;
+            padding: 20px;
+        }
+        .slide-car tr tr:nth-child(0) {
+            width: 20px;
+        }
+        .button {
+            width:15px;
+        }
+        .car-buy {
+            height:50px;
+            overflow: hidden;
+        }
+        .no-shop {
+            margin-top: 40px;
+            text-align: center;
+        }
+        .shopping-car {
+            margin: 7px 3px;
+            font-size: 22px;
+        }
+        .blur{
+            background-color: rgba(0,0,0,0.7);
+            position: absolute;
+            width:100%;
+            height: 100%;
+            top:0;
+            left:0;
+            margin: auto;
+            z-index: 50;
+            backdrop-filter: blur(13px);
+        }
+		.con{
+			color:red;
+		}
+        .city{
+            height: 60px;
+            background: #CB99D8;
+            color: #fff;
+            font-size: 0;
+            line-height: 60px;
+            box-shadow: 2px 2px 2px  #ccc;
+            margin: 0 auto;
+            width: 80%;
+            max-width: 1980px;
+        }
+        .del{
+            font-size: 24px;
+            margin: 0
+        }
+        .join-car{
+            padding: 0 25px;
+        }
+
+        .back1{
+            width: 600px;
+            height: 472px;
+            background: #fff;
+            margin: auto;
+            padding: 15px;
+        }
+        .back1 span {
+            margin: 10px;
+        }
+        #btn1{
+            width: 200px;
+            height: 50px;
+            background: red;
+            color: white;
+            font-size: 20px;
+            margin-left:38%;
+            outline:0;
+            cursor: pointer;
+        }
+        .pro,.city1,.place{
+            margin: 10px;
+            line-height: 23px;
+        }
+        #qut{
+            float: right;
+            width: 30px;
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+            cursor: pointer;
+        }
+        .btn2{
+            height: 50px;
+            border-radius: 5px;
+            width: 160px;
+            background: #7467B7;
+            color: #fff;
+            border: none;
+            font-size: 24px;
+            margin: 15px 0 0 120px;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">  
+        <!-- 城市导航条 -->
+        <div class="city">
+            <span class="del">{{proVal}}</span>
+            <span class="del">{{cityVal}}</span>
+            <span class="del">{{place}}</span>
+            <span @click="clickMe" class="del">[更换城市]</span>
+        </div>
+         <!-- 城市列表 -->
+        <cele-city :area="area" class="blur" v-if="selectCity" @citychange="changeCity" @close="closeMb"></cele-city> 
+        
+        <!-- 商品列表 -->
+        <div class="list">
+            <!-- 商品列表 -->
+            <ul>
+                <li v-for="item in goodsList">
+                    <div class="pic">
+                        <div class="img">
+                            <a href="#"><img :src="item.imageUrl" alt=""></a>
+                        </div>
+                        <div class="join-car">
+                            <span class="name">{{item.title}}</span>
+                            <p class="price">{{item.priceStr}}</p>
+                            <div class="btn-area">
+                                <button href="javascript:;" class="btn btn--m" @click="addCart(item,item.Id)">加入购物车</button>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <!-- 侧边购物车 -->
+        <div class="slide" @mouseenter="enter()" @mouseleave="leave()">
+            <p class="shopping-car">购物车</p>
+            <div class="slide-car" v-show="mouseover">
+            <div class="slide-shopCar" v-if="shopList.length">
+                <table border="1" cellPadding="5" style="width: 400px;margin: 15px 0;height:57px;">
+                    <tr>
+                        <th>选择</th>
+                        <th>商品名称</th>
+                        <th>商品价格</th>
+                        <th>商品数量</th>
+                        <th>操作</th>
+                    </tr>
+                    <tr class="car-buy" v-for="(item,index) in shopList">
+                        <td>
+                            <input type="checkbox" :value="item" v-model="payList">
+                        </td>
+                        <td>{{item.title}}</td>
+                        <td>{{item.price}}</td>
+                        <td>
+                            <button @click="reduce(index)" class="button">-</button>
+                            <button class="button">{{item.count}}</button>
+                            <button @click="increase(index)" class="button">+</button>
+                        </td>
+                        <td>
+                            <button @click="del(index)">删除</button>
+                        </td>
+                    </tr>
+                </table>
+                <p>
+                    全选 <input type="checkbox" v-model="all" @change="change"> 总价: ￥{{total}}
+                </p> 
+                <button class="btn2" @click="gotoBuy">去结算</button>
+            </div>
+            <p v-else class="no-shop">购物车空空如也!快去选购吧</p>
+            </div>
+        </div>
+        
+    </div>
+</body>
+<script>
+Vue.component("celeCity",{
+    props:["area"],
+    template:`
+        <div>
+            <div class="back1">
+                <div id="qut" @click="popUpEmptyClick()">X</div>
+                <div id="pro">
+                    <h1>省</h1>
+                    <div class="pro">
+                        <span :class="{con:key==proVal}" v-for="(item,key) in area" @click="proVal=key">{{key}}</span>
+                    </div>
+                </div>
+                <h1>市</h1>
+                <div class="city1">                
+                    <span :class="{con:key==cityVal}" v-for="(item,key) in area[proVal][0]" @click="cityVal=key">{{key}}</span>
+                </div>
+                <h1>区</h1>
+                <div class="place">                
+                    <template v-for="item in area[proVal][0][cityVal]">
+                        <span :class="{con:place==key}" @click="place=key" v-for="(x,key) in item">{{key}}</span>
+                    </template>
+                </div>
+                <button id="btn1" @click="submit">切换</button>
+            </div>
+        </div>
+    `,
+    data(){
+        return{
+            proVal:"",
+            cityVal:"",
+            place:"",
+            flag2:false,
+        }	
+	},
+    methods: {
+        submit:function(){
+            this.flag2=false;
+            if(this.proVal&&this.cityVal&&this.place){
+                this.$emit("citychange", this.proVal,this.cityVal,this.place,this.flag2)
+            } else{
+                alert("请输入完整信息")
+            }
+        },
+        popUpEmptyClick(){
+            this.flag2 = false;
+            this.$emit("close", this.flag2)
+        }
+    },
+	created:function(){
+		// 获取对象键集合
+		this.proVal=Object.keys(this.area)[0];
+        
+		// 默认市
+		this.cityVal=Object.keys(this.area[this.proVal][0])[0];
+
+		// 默认区
+		this.place=Object.keys(this.area[this.proVal][0][this.cityVal][0])[0]
+	},
+	watch:{
+		proVal:function(){
+			// 默认市
+			this.cityVal=Object.keys(this.area[this.proVal][0])[0];
+
+			// 默认区
+			this.place=Object.keys(this.area[this.proVal][0][this.cityVal][0])[0]
+		},
+		cityVal:function(){
+			// 默认区
+			this.place=Object.keys(this.area[this.proVal][0][this.cityVal][0])[0]
+        },
+        
+    }
+})
+var app = new Vue({
+    el:"#app",
+    data: {
+        goodsList: data,
+        mouseover: false,
+        all:false, // 是否全选
+        shopList: [], // 购物车
+        payList: [], // 付款
+        selectCity: false,
+        area:area,
+        proVal:"河南省",
+        cityVal:"郑州市",
+        place:"中原区",
+    },
+    methods: {
+        enter() { // 鼠标移入
+            this.mouseover = true
+        },
+        leave() { // 鼠标移出
+            this.mouseover = false
+        },
+        addCart(item, Id) { // 加入购物车
+            let flag=true;
+            this.shopList.forEach((val) => {
+                if(val.Id==Id){ // 如果存在该商品
+                    val.count++;
+                    flag=false;
+                }
+            })
+            if(flag){
+                this.shopList.push({
+                    title:item.title,
+                    price:item.priceStr,
+                    Id: item.Id,
+                    count:1
+                })
+            }
+        },
+        reduce:function(index){ // 减
+            if(this.shopList[index].count>1){
+                this.shopList[index].count--;
+            }else{
+                alert("嘿,你想干啥")
+            }
+        },
+        increase:function(index){ // 加
+            this.shopList[index].count++
+        },
+        del:function(index){ // 删除商品
+            var res=confirm("您忍心删除吗?");
+            if(res){
+                // payList中是否存在该商品
+                this.payList.forEach(function(item,i){
+                    if(item.Id==this.shopList[index].Id){
+                        this.payList.splice(i,1);
+                    }
+                },this)
+                this.shopList.splice(index,1);
+            }
+        },
+        // 手动勾选
+        change:function(){
+            if(this.all){
+                this.shopList.forEach((item) => {
+                    this.payList.push(item);
+                })                
+            }else{
+                this.payList=[];
+            }
+        },
+        // 接收更改数据
+        changeCity(proVal, cityVal, place ,flag2){
+            this.proVal = proVal
+            this.cityVal = cityVal
+            this.place = place
+            this.selectCity = flag2
+        },
+        closeMb(flag2){
+            this.selectCity = flag2
+        },
+        clickMe(){
+            this.selectCity = true
+        },
+        // 去结算
+        gotoBuy(){
+            let name = []
+            let nId = []
+            this.all = false
+            this.payList.forEach(item=>{
+                name.push(item.title)
+                nId.push(item.Id)
+            })
+            alert(`你购买了${JSON.stringify(name)}商品,共计"${this.total}"元`)
+            this.payList = []
+            if(this.shopList.length>0){
+                for(let k=0; k<this.shopList.length; k++){
+                    for(let i=0;i<nId.length;i++){
+                        if(this.shopList[k].Id == nId[i]) {
+                            console.log(this.shopList[k].Id)
+                            this.shopList.splice(k,1)
+                            i = 0
+                            k = 0
+                        }
+                    }
+                }
+            }
+            // this.all = false
+        }
+    },
+    computed: {
+        total:function(){
+            // payList发生变化计算总价
+            var num=0;
+            this.payList.forEach((item) => {
+                num+=item.price*item.count;
+            })
+            return num;
+        }
+    }
+})
+</script>
+</html>
