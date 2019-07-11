@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="vue.js"></script>
+	<script src="vue-router.js"></script>
+	<style>
+		*{
+			margin:0;
+			padding:0;
+		}
+		body{
+			background: #dedede
+		}
+		.list{
+			width: 1100px;
+			overflow: hidden;
+			margin:0 auto;
+		}
+		.list li{
+			width: 530px;
+			margin:10px;
+			float:left;
+			padding:5px;
+			box-sizing: border-box;
+			background: white;
+			list-style: none;
+			position: relative;
+		}
+		.list img{
+			width: 100%;
+			height: 272px;
+		}
+		.list h3{
+			margin-top:5px;
+			color:#333;
+		}
+		.list p{
+			line-height: 40px;
+		}
+		.list .price{
+			color:red;
+		}
+		.list a{
+			position: absolute;
+			left:284px;
+			bottom:29px;
+		}
+        .btn{
+            height: 32px;
+            border-radius: 5px;
+            width: 100px;
+            background: #7467B7;
+            color: #fff;
+            border: none;
+        }
+        .btn-area {
+            position: absolute;
+            right: 18px;
+            bottom: 20px;
+        }
+        .deatil{
+            width: 700px;
+        }
+        .detail-img {
+            width: 100%;
+            height: 300px;
+        }
+        .blur{
+            background-color: rgba(0,0,0,0.7);
+            position: absolute;
+            width:100%;
+            height: 100%;
+            top:0;
+            left:0;
+            margin: auto;
+            z-index: 50;
+            backdrop-filter: blur(13px);
+        }
+	</style>
+</head>
+<body>
+	<div id="app">
+            <router-link to="/">首页</router-link>
+            <router-link to="/two">个人中心</router-link>
+            <router-link to="/address">好友列表</router-link> 
+        <router-view></router-view>
+
+	</div>
+</body> 
+<script src="ajax.js"></script>
+<script>
+
+var List={
+    
+	data:function(){
+		return{
+			goods:[], // 所有商品
+		}
+	},
+	created:function(){
+
+		ajax({
+			url:"http://192.168.4.201:9527/api/goodlist",
+			success:function(res){
+				this.goods=JSON.parse(res);
+			}.bind(this)
+		})
+
+	},
+	template:
+	`	
+		<ul class="list">
+			<li v-for="item in goods">
+				<img :src="item.imageUrl" alt="" />
+				<h3>{{item.title}}</h3>
+				<p> <span class="price">￥{{item.priceStr}}</span> 已有{{item.nice}}人点赞 </p>
+                <router-link :to="'/detail/'+item.Id">查看宝贝详情</router-link>
+			</li>
+		</ul>
+	`
+}
+
+
+var Detail={
+    props:["goodId"],
+    data:function(){
+        return{
+            del:[]
+        }
+    },
+    template:`
+        <div style="width:100%">
+            <div class="deatil">
+                <h1 class="title">详情页</h1>
+                <img :src="del.imageUrl" class="detail-img"></img>
+            </div>
+            <h1>{{del.title}}</h1>
+            <span>{{del.salePoint}}</span>
+        </div>
+	`,
+	created:function(){
+		ajax({
+			url:"http://192.168.4.201:9527/api/detail",
+			query:{
+				goodId:this.goodId
+			},
+			success:function(res){
+                this.del=JSON.parse(res)[0]
+                console.log(this.del)
+			}.bind(this)
+        })
+    },
+}
+
+
+var Two = {
+    template:`
+    <div>two</div>
+    `
+}
+
+var CeleCity = {
+    template:`
+    <div>three</div>
+    `
+}
+
+var app=new Vue({
+    el:"#app",
+	router:new VueRouter({
+        // mode: 'history',
+		routes:[{
+			path:"/",
+			component:List
+		},{
+            path:"/detail/:goodId",
+            component:Detail,
+            props:true
+		},{
+            path:'/two',
+            component:Two
+        },{
+            path:'/adress',
+            component:CeleCity
+        },]
+	})
+})
+</script>
+</html>
