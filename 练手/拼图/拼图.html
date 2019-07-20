@@ -1,163 +1,137 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-    <style>
-        #view{
-            width: 800px;
-            height: 800px;
-            position: relative;
-        }
-        .c{
-          color:aqua;
-        }
-        #view div{
-            width: 198px;
-            height: 198px;
-            background: url(bg.jpg);
-            border:1px solid black;
-            position:absolute;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>拼图</title>
+  <style>
+    #view{
+      width: 800px;
+      height: 800px;
+      position: relative;
+      overflow: hidden;
+    }
+    #view div{
+      width: 198px;
+      height: 198px;
+      background: url(bg.jpg);
+      border:1px solid black;
+      position:absolute;
+    }
+  </style>
 </head>
 <body>
-    <div id="view">
-
-    </div>
+  <div id="view">
+  </div>
 </body>
 <script>
-
-
-
-// 收集所有元素位置
-var arr=[];
-for(var i=0;i<4;i++){// 外层循环控制行
-    for(var j=0;j<4;j++){// 内层循环控制列
-        arr.push({
-            l:j*200,
-            t:i*200
-        })
+  // 思想: 将整个图剪切成4*4,创建一个数组,存放每个方块的position,
+  let view = document.getElementById("view")
+  let arr = []
+  // 存放所有方块位置
+  for(let i=0;i<4;i++){
+    for(let j=0;j<4;j++){
+      arr.push({
+         //0 0,0 200,0 400,0 600,200 0,200,200
+        l:j*200,
+        t:i*200,
+      })
     }
-}212
-function random(a,b) {
+  } 
+  function random(a,b) {
     return Math.floor(Math.random()*(b-a+1))+a;
-}
-
-for(var i=0;i<16;i++){
-    var node=document.createElement("div");
-    // 生成0-15的随机数
-    var ran=random(0,arr.length-1);
+  }
+  // 创建节点
+  for(let k=0;k<16;k++){
+    var node = document.createElement("div")
+    // 生成0-15的随机数(注意不可有相等的值),为了随机节点
+    let ran = random(0,arr.length-1)
     node.style.left=arr[ran].l+"px";
     node.style.top=arr[ran].t+"px";
-    // 对于最后一个元素不填充背景图;
-    if(i==15){
-        // 存储空的DOM对象
-        var empty=node;
-        node.style.background="green";
+    if(k==15){
+      node.style.background = "blue"
+      var empty = node
     }else{
-        // 0~600 0~600
-        node.style.backgroundPosition=-(i%4*200)+"px "+(-Math.floor(i/4)*200)+"px";
-        // 防止重复
-        arr.splice(ran,1);
+      node.style.backgroundPosition=-(k%4*200)+"px "+(-Math.floor(k/4)*200)+"px";
+      // 防止重复
+      arr.splice(ran,1);
     }
-    view.appendChild(node);
-}
-// 所有元素位置和背景图位置互为相反数的时候，证明拼图成功;
+    view.appendChild(node)
+  }
 
-// 空元素的left&top
-var empty_t=parseInt(empty.style.top)
-var empty_l=parseInt(empty.style.left)
-document.onkeyup=function(e){
 
-    if(e.which==37){//左
-        for(var i=0;i<15;i++){
+  // 获取空白快的位置
+  let empty_t = parseInt(empty.style.top)
+  let empty_l = parseInt(empty.style.left)
 
-            var t=parseInt(view.children[i].style.top);
-            var l=parseInt(view.children[i].style.left);
-
-            if(empty_l+200==l&&empty_t==t){
-
-                empty.style.left=l+"px";
-                view.children[i].style.left=empty_l+"px";
-
-                empty_l=l;
-
-                break;
-
-            }
-
-            
-
+  function sx(x){
+    for(var i=0;i<15;i++){
+      var t=parseInt(view.children[i].style.top);
+      var l=parseInt(view.children[i].style.left);
+      // 如果当前元素的上一个是空
+      if(x==0){
+        if(empty_l==l&&empty_t+200==t){
+          empty.style.top=t+"px";
+          view.children[i].style.top=empty_t+"px";
+          empty_t=t;
+          break;
         }
-    }
-    if(e.which==38){//上
-        for(var i=0;i<15;i++){
-
-            var t=parseInt(view.children[i].style.top);
-            var l=parseInt(view.children[i].style.left);
-
-            // 如果当前元素的上一个是空
-            if(empty_l==l&&empty_t+200==t){
-
-                empty.style.top=t+"px";
-                view.children[i].style.top=empty_t+"px";
-
-                empty_t=t;
-
-                break;
-
-            }
-            
-
+      }
+      if(x==1){
+        if(empty_l==l&&empty_t-200==t){
+          empty.style.top=t+"px";
+          view.children[i].style.top=empty_t+"px";
+          empty_t=t;
+          break;
         }
+      }  
     }
+  }
+
+  function zy(x){
+    for(var i=0;i<15;i++){
+      var t=parseInt(view.children[i].style.top);
+      var l=parseInt(view.children[i].style.left);
+      if(x==2){
+        if(empty_l-200==l&&empty_t==t){
+          empty.style.left=l+"px";
+          view.children[i].style.left=empty_l+"px";
+          empty_l=l;
+          break;
+        }
+      }
+      if(x==3){
+        if(empty_l+200==l&&empty_t==t){
+          empty.style.left=l+"px";
+          view.children[i].style.left=empty_l+"px";
+          empty_l=l;
+          break;
+        }
+      }
+    }
+  }
+  
+  document.onkeyup = function(e) {
+    // 如果存在空白快上面有东西,则交换上下位置
+    if(e.which==38){ // 上
+      // if (empty_t!=0) {
+      //   empty.style.top -= 200
+      //   // 突然发现需要知道空白快上一个dom是谁,所以换思路,寻找上一个dom
+      // }
+      sx(0)
+    }
+    if(e.which==40){ // 下
+      sx(1)
+    }   
     if(e.which==39){//右
-        for(var i=0;i<15;i++){
-
-            var t=parseInt(view.children[i].style.top);
-            var l=parseInt(view.children[i].style.left);
-
-            if(empty_l-200==l&&empty_t==t){
-
-                empty.style.left=l+"px";
-                view.children[i].style.left=empty_l+"px";
-
-                empty_l=l;
-
-                break;
-
-            }
-            
-
-        }
+      zy(2)
     }
-    if(e.which==40){//下
-
-        for(var i=0;i<15;i++){
-
-            var t=parseInt(view.children[i].style.top);
-            var l=parseInt(view.children[i].style.left);
-
-            if(empty_l==l&&empty_t-200==t){
-
-                empty.style.top=t+"px";
-                view.children[i].style.top=empty_t+"px";
-
-                empty_t=t;
-
-                break;
-
-            }
-            
-
-        }
-
+    if(e.which==37){//做
+      zy(3)
     }
-
-}
-
+  }
+  
+    
 </script>
 </html>
