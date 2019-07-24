@@ -680,3 +680,6 @@ $ = axios.create({
 })
 $.get("baseURL/api/detail?goodId=1").then((res)=>{})
 ```
+# devServer代理服务器
+>在build里面找到webpack的配置,添加devServer
+![]('./img/devServer.png')
