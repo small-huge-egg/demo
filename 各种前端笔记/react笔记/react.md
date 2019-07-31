@@ -76,6 +76,8 @@ componentWillUpdate(){ // 由于设置了false,代表不更新组建,所以不�
 }
 ```
 > 但是,以上均可忽略,采用class Index extends React.PureComponent,注意PureComponent直接将shouldComponentUpdate封装好了,表示父组件更新子组件不更新
+# 路由
+![]('./img/路由.png')
 # redux
 * 获取公共状态通过store.getState()
 ```jsx
@@ -87,3 +89,8 @@ var store = Redux.createStore((state,action=>{
 }))
 
 ```
+# nuxt
+> nuxt是用于服务端的构建工具,有利于搜索引擎搜索,利于抓取网页内容
+* 关于跨域与axios
+![]("./img/nuxt1.png")
+![]("./img/nuxt2.png")
