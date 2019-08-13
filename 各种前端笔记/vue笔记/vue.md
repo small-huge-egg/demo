@@ -13,6 +13,8 @@
 ![](./img/v-bindclass.png)
 # v-model实现数据双向绑定
 ![](./img/v-model.png)
+* v-model中的input text=radiobox
+![](./img/v-model2.png)
 ### 可运用在计算器
 > 原生js实现双向数据绑定一般是通过操作dom监听一个'keyup'事件，然后`dom.innerText=event.target.value`
 >而vue会有一个defineProperty方法，该方法接收三个参数，同时内置get,set方法，实时监听。机制如下：
@@ -90,6 +92,8 @@ Object.defineProperty(obj,"userName",{
 
 ![](./img/动画done.png)
 ### v-enter 和 v-leave-to 设置动画的起始状态；
+> v-enter和v-leave-to搞得花哨点,可以理解为进场预备状态和离场终点状态
+>[]("./img/动画5.png")
 ### v-enter-to 和 v-leave 设置动画的结束状态；
 ### v-enter-active 和 v-leave-active 设置动画的过渡时间和过渡效果。
 * 当把 v-enter设置为transform:translateX(100%),v-leave-to设置为transform:translateX(-100%)可以解决两个页面切换时原本显示的那个页面要完全移除后才能切换到另一个页面的问题，即实现出去的往左，进来的也往左的效果
@@ -662,3 +666,20 @@ function deepClone(data){
     return obj;
 }
 ```
+# axios
+> vue提供的用于发送请求的插件
+```javaScript
+axios.get("url",{params:{}}).then((res=>{
+  console.log(res)
+}).catch())
+```
+>基础路径axios.create
+```javaScript
+$ = axios.create({
+  baseURL: "http:~~~~~"
+})
+$.get("baseURL/api/detail?goodId=1").then((res)=>{})
+```
+# devServer代理服务器
+>在build里面找到webpack的配置,添加devServer
+![]('./img/devServer.png')
