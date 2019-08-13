@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Document</title>
+        
+        <style>
+            .box{
+                width: 100px;
+                height: 100px;
+                margin:0 auto;
+                border-radius: 50%;
+                background-color: green;
+                animation: time 8s infinite linear;
+                background-image: -webkit-linear-gradient(left, skyblue 50%, rgb(196, 65, 65) 50%)
+            }
+            .mask{
+                width: 50%;
+                height: 100%;
+                background-color: red;
+                border-radius:100% 0 0 100%/50% 0 0 50%;
+                animation: mask 8s infinite linear;
+                transform-origin: 100% 50%;
+            }
+            @keyframes time{
+                100%{
+                    transform:rotate(360deg);
+                }
+            }
+            @keyframes mask {
+                0%{
+                    background: #fafafa;
+                    transform: rotate(0deg);
+                }
+                50%{
+                    background: #fafafa;
+                    transform: rotate(-180deg)
+                }
+                50.01%{
+                    background:skyblue;
+                    transform: rotate(0deg)
+                }
+                100%{
+                    background: skyblue;
+                    transform:rotate(-180deg)
+                }
+
+            }
+        </style>
+    </head>
+    <body>
+        <div class="box">
+            <div class="mask">
+                
+            </div>
+        </div>
+    </body>
+</html>
